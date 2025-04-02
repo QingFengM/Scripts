@@ -4,7 +4,7 @@
 // @homepage                                                      https://greasyfork.org/zh-CN/scripts/503727
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2025.04.02
+// @version                                                       2.0
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com//favicon.ico
 // @run-at                                                        document-body
