@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name                                                          哔哩哔哩直播精简-TEST
+// @name                                                          哔哩哔哩直播精简
 // @description                                                   提供简洁的界面，只为安心看直播。
 // @homepage                                                      https://greasyfork.org/zh-CN/scripts/503727
 // @author                                                        清风醉梦
