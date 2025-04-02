@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name                                                          哔哩哔哩直播精简
+// @name                                                          哔哩哔哩直播精简-A
 // @description                                                   提供简洁的界面，只为安心看直播。
 // @homepage                                                      https://greasyfork.org/zh-CN/scripts/503727
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2025.04.02
+// @version                                                       1.0
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com//favicon.ico
 // @run-at                                                        document-body
-// @license                                                       MIT                                                 
+// @license                                                       MIT
 // ==/UserScript==
 
 (function() {
@@ -28,13 +28,8 @@
     css += '.down-arrow-icon-block {display:none !important;}';//顶栏更多中的符号
     css += '.w-100.over-hidden.p-relative.flip-view {display:none !important;}';//视频区下方广告栏
     css += '.room-info-ctnr {display:none !important;}';//视频区下方主播推荐
-    //css += '.trends.room-feed {display:none !important;}';//视频区下方动态
-    //css += '.room-detail-box {display:none !important;}';//视频区下方主播公告
-    //css += '#sections-vm {display:none !important;}';//视频区下方动态与主播公告
     css += '#link-footer-vm {display:none !important;}';//网页底部版权信息
     css += '.link-navbar-ctnr {box-shadow: inset 0 -1px #fff0 !important;}';//顶栏分割线
-    //css += '.link-navbar-ctnr {background-color: #fff0 !important;}';//顶栏背景
-    //css += '.link-navbar.p-relative.supportWebp.link-navbar-more { background-color: rgba(255, 255, 255, 0) !important; }';//顶栏背景
     css += '.none-select.list-none.dp-i-block.new-tabs {display:none !important;}';//视频区下方动态标题
     css += '.repost.post-content {background-color: #fcfcfc !important;}';//视频区下方动态转发区背景
     css += 'li.t-center.dp-i-block.pointer.tab-candidate:nth-of-type(2) {display:none !important;}';//视频区右下方主播荣誉
@@ -48,14 +43,7 @@
     css += '.empty-content {display:none !important;}';//视频区下方动态未刷新出来时的图片
     css += '.room-info-cntr {border-radius:4px !important;border: 1px solid #E3E5E700 !important;}';//视频区下方主播公告边框圆角
     css += '.p-fixed.webp.room-bg {display:none !important;}';//直播间背景
-    css += '.side-bar-cntr {border-radius: 24px !important;}';//视频区右边的侧边栏圆角
-    css += '.side-bar-cntr {background-color: #ffffff00 !important;box-shadow: 0px 0px 20px 0px #ff669929 !important;border: 1px solid #b7b9bc3d !important;}';//视频区右边的侧边栏背景颜色
-    css += '.side-bar-cntr {filter: grayscale(100%) sepia(100%) hue-rotate(290deg) saturate(300%) !important;}';//视频区右边的侧边栏图标颜色
-    css += '.lab-cntr {filter: grayscale(100%) sepia(100%) hue-rotate(290deg) saturate(300%) !important;}';//视频区右边的侧边栏实验室浮窗内文字颜色
-    css += '.my-follow {filter: grayscale(100%) sepia(100%) hue-rotate(290deg) saturate(300%) !important;}';//视频区右边的侧边栏关注文字颜色
-    css += '.follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name:hover p {color: #f69 !important;}';//视频区右边的侧边栏关注文字颜色
-    css += '.side-bar-popup-cntr {right: 48px !important;}';//视频区右边的侧边栏左右距离
-    css += '.bl-button--size {border-radius: 24px !important;}';//视频区右边的侧边栏实验室中反馈按钮圆角
+    css += '.side-bar-cntr {display: none !important;visibility: hidden !important;opacity: 0 !important;height: 0 !important;width: 0 !important;overflow: hidden !important;}';//直播间右边侧边栏
     css += '.live-player-ctnr.minimal {width: 300px !important;height: 168.75px !important;border-radius: 4px !important;padding-top: 0px !important;right: 120px !important;}';//小窗播放比例修改位16:9
     css += '.live-room-app .app-content .app-body {width: 87.6% !important;max-width: 1700px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
     //css += '.live-room-app .app-content .app-body {width: 80% !important;max-width: 1504px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
@@ -66,7 +54,6 @@
 //直播间标题栏
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {height: 96px !important;border-radius: 4px 4px 0 0 !important;border: 0px solid #e3e5e7 !important;}';//标题栏圆角
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {background-position: center !important;background-size: cover !important;}';//标题栏背景图片位置
-    //css += '.supportWebp #head-info-vm {background-image:none !important;}';//去掉直播间标题栏
     css += '.p-relative.follow-ctnr {display:none !important;}';//标题栏助力与上舰
     css += '.lower-row > .right-ctnr {display:none !important;}';//标题栏第二行广告
     css += '.play-bill .p-relative {display:none !important;}';//标题栏节目单
@@ -99,7 +86,6 @@
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
 //直播间弹幕区
     css += '.chat-history-panel {border-radius:4px 4px 0 0 !important;}';//弹幕区圆角
-    //css += '.chat-history-panel {background-color: #ffffff !important;}';//弹幕区背景颜色
     css += '#rank-list-vm {display:none !important;}';//弹幕区礼物榜背景
     css += '#rank-list-ctnr-box {display:none !important;}';//弹幕区顶部礼物榜
     css += '.chat-history-panel {height: calc(100% - 0px - 110px) !important;}';//弹幕区高度调整
@@ -121,7 +107,6 @@
     css += '.rank-icon {display:none !important;}';//弹幕区ID前榜单徽章
     css += '.title-label {display:none !important;}';//弹幕区ID前活动头衔徽章
     css += '.fans-medal-item-ctnr,.fans-medal-item-target {display:none !important;}';//弹幕区ID前粉丝徽章
-    //css += '.danmaku-item-left {display: block !important;}';//弹幕区ID与弹幕分两行显示
     css += '.common-nickname-wrapper {font-size: 14px !important;}';//弹幕@用户ID字体大小
     css += '.chat-history-list {font-size: 14px !important;}';//弹幕字体大小
     css += '.danmaku-item {color: #61666d !important;}';//弹幕字体颜色
@@ -156,33 +141,22 @@
     css += '#gift-screen-animation-vm {display:none !important;}';//弹幕区礼物动画
 //直播间弹幕输入区
     css += '.chat-control-panel {border-radius: 0 0 4px 4px !important;}';//弹幕输入框圆角
-    //css += '.chat-control-panel {background-color: #ffffff !important;}';//弹幕输入框背景颜色
-    //css += '#combo-card {display:none !important;}';//弹幕框上+1引导发弹幕
-    //css += '.bg-bright-filter.chat-control-panel {display:none !important;}';//弹幕输入框
     css += '.super-chat {display:none !important;}';//弹幕输入框醒目留言
     css += '.like-btn {display:none !important;}';//弹幕输入框点赞
     css += '.p-relative.play-together-panel {display:none !important;}';//弹幕输入框一起玩
-    //css += '.emoticons-panel {left: -170px !important;}';//弹幕输入框表情位置
-    //css += '.mask-pane-free {display:none !important;}';//弹幕输入框表情内获得免费表情提示
     css += '.medal-section {display:none !important;}';//弹幕输入框粉丝徽章
     css += '.chat-input {font-size: 14px !important;}';//弹幕输入框字体大小
-    //css += '.chat-input {padding: 8px 5px !important;}';//弹幕输入框位置调整
     css += '.chat-control-panel {height: 114px !important;}';//弹幕输入框高度
     css += '.live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {min-height: 100px !important;}';//弹幕输入框底部高度
-    //css += '.input-limit-hint {top: 40px !important;right: 50px !important;}';//弹幕输入框字数限制位置
-    css += '.bl-button--small {min-width: 60px !important;}';//弹幕输入框发送按钮宽度
-    //css += '.bl-button--small {height: 57px !important;}';//弹幕输入框发送按钮高度
-    //css += '.bl-button--small {top: -65px !important;right: 0px !important;}';//弹幕输入框发送按钮位置
-    css += '.right-action {top: -100px !important;}';//弹幕输入框发送按钮位置高度
+    css += '.bl-button--small {min-width: 60px !important;height: 22.9px !important;}';//弹幕输入框发送按钮样式宽度和高度
+    css += '.right-action {top: -102px !important;}';//弹幕输入框发送按钮位置高度
     css += '.emoticons-panel {margin-right: 70px !important;}';//弹幕输入框表情距离输入框右边的距离
-    css += '.control-panel-icon-row .icon-right-part {margin-top: 5px !important;}';//弹幕输入框表情位置高度
+    css += '.control-panel-icon-row .icon-right-part {margin-top: 2px !important;}';//弹幕输入框表情位置距离顶部高度
     css += '.bl-button--primary {border-radius: 24px !important;}';//弹幕输入框发送按钮圆角
     css += '.bl-button--primary {background-color: #f69 !important;}';//弹幕输入框发送按钮颜色
     css += '.gift-block-toast {display:none !important;}';//弹幕输入框关闭礼物特效提醒
-    css += '.chat-input-ctnr.chat-input-focus {border: 1px solid  #757575 !important;}';//弹幕输入框内框边框颜色
-    //css += '.chat-input-ctnr {background-color: #fbfbfb !important;}';//弹幕输入框文字输入区颜色
-    //css += '.chat-input {background-color: #fbfbfb !important;}';//弹幕输入框文字输入区颜色
-    css += '#chat-control-panel-vm {background-position: bottom left !important;}';//弹幕输入框背景图片位置
+    css += '.chat-input-ctnr.chat-input-focus {border: 1px solid #E3E5E7 !important;}';//弹幕输入框内框边框颜色
+    css += '#chat-control-panel-vm {background-position: center !important;background-size: cover !important;}';//弹幕输入框背景图片位置
     css += '.voice-rtc {display:none !important;}';//弹幕输入框语音上麦
 
 loadStyle(css)
