@@ -1,16 +1,13 @@
 // ==UserScript==
-// @name          哔哩哔哩直播精简样式切换版
-// @description   提供简洁的界面，只为安心看直播。支持两种样式切换
-// @author        清风醉梦 (基于G-uang的脚本修改)
-// @namespace     https://greasyfork.org/zh-CN/scripts/503727
-// @version       1.0
-// @match         *://live.bilibili.com/*
-// @icon          https://www.bilibili.com/favicon.ico
-// @run-at        document-body
-// @license       MIT
-// @grant         GM_registerMenuCommand
-// @grant         GM_setValue
-// @grant         GM_getValue
+// @name                                                          哔哩哔哩直播精简样式切换版
+// @description                                                   提供简洁的界面，只为安心看直播。支持两种样式切换。
+// @author                                                        清风醉梦 (基于G-uang的脚本修改)
+// @namespace                                                     https://greasyfork.org/zh-CN/scripts/503727
+// @version                                                       1.0
+// @match                                                         *://live.bilibili.com/*
+// @icon                                                          https://www.bilibili.com/favicon.ico
+// @run-at                                                        document-body
+// @license                                                       MIT
 // ==/UserScript==
 
 (function() {
