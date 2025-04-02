@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name                                                          哔哩哔哩直播精简
+// @name                                                          哔哩哔哩直播精简-B
 // @description                                                   提供简洁的界面，只为安心看直播。
 // @homepage                                                      https://greasyfork.org/zh-CN/scripts/503727
 // @author                                                        清风醉梦
@@ -157,7 +157,6 @@
     css += '.chat-input {font-size: 14px !important;}';//弹幕输入框字体大小
     css += '.chat-input {height: 36px !important;}';//弹幕输入框内部高度
     css += '.chat-input-ctnr {margin-top: 5px !important;}';//弹幕输入框上部距离输入框功能位置间隔
-    //css += '.chat-control-panel {height: 114px !important;}';//弹幕输入框高度
     css += '.bottom-actions {margin-top: -10px !important;}';//弹幕输入框底部距离输入框下部间隔
     css += '.live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {min-height: 86px !important;}';//弹幕输入框底部高度
     css += '.bl-button--small {min-width: 60px !important;height: 22px !important;}';//弹幕输入框发送按钮样式宽度和高度
