@@ -8,6 +8,7 @@
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com//favicon.ico
 // @run-at                                                        document-body
+// @license                                                       MIT
 // ==/UserScript==
 
 (function() {
