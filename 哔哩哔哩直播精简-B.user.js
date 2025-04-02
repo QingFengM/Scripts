@@ -8,7 +8,6 @@
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com//favicon.ico
 // @run-at                                                        document-body
-// @license                                                       MIT
 // ==/UserScript==
 
 (function() {
@@ -43,14 +42,7 @@
     css += '.empty-content {display:none !important;}';//视频区下方动态未刷新出来时的图片
     css += '.room-info-cntr {border-radius:4px !important;border: 1px solid #E3E5E700 !important;}';//视频区下方主播公告边框圆角
     css += '.p-fixed.webp.room-bg {display:none !important;}';//直播间背景
-    css += '.side-bar-cntr {border-radius: 24px !important;}';//视频区右边的侧边栏圆角
-    css += '.side-bar-cntr {background-color: #ffffff00 !important;box-shadow: 0px 0px 20px 0px #ff669929 !important;border: 1px solid #b7b9bc3d !important;}';//视频区右边的侧边栏背景颜色
-    css += '.side-bar-cntr {filter: grayscale(100%) sepia(100%) hue-rotate(290deg) saturate(300%) !important;}';//视频区右边的侧边栏图标颜色
-    css += '.lab-cntr {filter: grayscale(100%) sepia(100%) hue-rotate(290deg) saturate(300%) !important;}';//视频区右边的侧边栏实验室浮窗内文字颜色
-    css += '.my-follow {filter: grayscale(100%) sepia(100%) hue-rotate(290deg) saturate(300%) !important;}';//视频区右边的侧边栏关注文字颜色
-    css += '.follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name:hover p {color: #f69 !important;}';//视频区右边的侧边栏关注文字颜色
-    css += '.side-bar-popup-cntr {right: 48px !important;}';//视频区右边的侧边栏左右距离
-    css += '.bl-button--size {border-radius: 24px !important;}';//视频区右边的侧边栏实验室中反馈按钮圆角
+    css += '.side-bar-cntr {display: none !important;visibility: hidden !important;opacity: 0 !important;height: 0 !important;width: 0 !important;overflow: hidden !important;}';//直播间右边侧边栏
     css += '.live-player-ctnr.minimal {width: 300px !important;height: 168.75px !important;border-radius: 4px !important;padding-top: 0px !important;right: 120px !important;}';//小窗播放比例修改位16:9
     css += '.live-room-app .app-content .app-body {width: 91.5% !important;max-width: 2000px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
     //css += '.live-room-app .app-content .app-body {width: 80% !important;max-width: 1504px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
