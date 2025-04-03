@@ -171,6 +171,7 @@
     css += '#chat-control-panel-vm {background-position: center !important;background-size: cover !important;}';//弹幕输入框背景图片位置
     css += '.voice-rtc {display:none !important;}';//弹幕输入框语音上麦
     css += '.input-limit-hint {display:none !important;}';//移除字数显示
+    css += '.chat-input.border-box.block-panel .block-hint {display: inline !important; white-space: nowrap !important;}';//移除换行
 
 loadStyle(css)
    function loadStyle(css) {
