@@ -81,6 +81,7 @@
     css += '#switch-login-guide-vm {display:none !important;}';//视频区未登录账号时显示登陆提示
     css += '.bilibili-combo-danmaku-container {display:none !important;}';//视频区弹幕连击
     css += '#fullscreen-danmaku-vm {display:none !important;}';//视频区全屏弹幕发送框
+    css += '.web-player-controller-bg.web-player-controller-wrap {display:none !important;}';//视频区控制器阴影
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
