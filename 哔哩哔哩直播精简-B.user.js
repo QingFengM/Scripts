@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name                                                          哔哩哔哩直播精简-B
 // @description                                                   提供简洁的界面，只为安心看直播。
-// @homepage                                                      https://greasyfork.org/zh-CN/scripts/503727
+// @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
 // @version                                                       2.1
 // @match                                                         *://live.bilibili.com/*
-// @icon                                                          https://www.bilibili.com//favicon.ico
+// @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
 // @license                                                       MIT
 // ==/UserScript==
@@ -90,7 +90,7 @@
     css += '#switch-login-guide-vm {display:none !important;}';//视频区未登录账号时显示登陆提示
     css += '.bilibili-combo-danmaku-container {display:none !important;}';//视频区弹幕连击
     css += '#fullscreen-danmaku-vm {display:none !important;}';//视频区全屏弹幕发送框
-    css += '.web-player-controller-bg.web-player-controller-wrap {display:none !important;}';//视频区控制器阴影
+    css += '.web-player-controller-bg.web-player-controller-wrap {height: 40px !important;background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25)) !important;}';//视频区控制器阴影
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
