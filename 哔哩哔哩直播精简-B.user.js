@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name                                                          哔哩哔哩直播精简-B
+// @name                                                          哔哩哔哩直播精简
 // @description                                                   提供简洁的界面，只为安心看直播。
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2.1
+// @version                                                       2.2
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -43,7 +43,8 @@
     css += '.empty-content {display:none !important;}';//视频区下方动态未刷新出来时的图片
     css += '.room-info-cntr {border-radius:4px !important;border: 1px solid #E3E5E700 !important;}';//视频区下方主播公告边框圆角
     css += '.p-fixed.webp.room-bg {display:none !important;}';//直播间背景
-    css += '.side-bar-cntr {display: none !important;visibility: hidden !important;opacity: 0 !important;height: 0 !important;width: 0 !important;overflow: hidden !important;}';//直播间右边侧边栏
+    css += '.side-bar-cntr {display: none !important;visibility: hidden !important;opacity: 0 !important;height: 0 !important;width: 0 !important;overflow: hidden !important;}';//侧边栏
+    css += '#sidebar-vm {display: none !important;}';//侧边栏
     css += '.live-player-ctnr.minimal {width: 300px !important;height: 168.75px !important;border-radius: 4px !important;padding-top: 0px !important;right: 120px !important;}';//小窗播放比例修改位16:9
     css += '.live-room-app .app-content .app-body {width: 91.5% !important;max-width: 2000px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
     //css += '.live-room-app .app-content .app-body {width: 80% !important;max-width: 1504px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
