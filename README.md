@@ -7,7 +7,7 @@
 
 ![pAWZkeH](https://github.com/user-attachments/assets/7cb4caba-2f46-446f-8d28-5fcb5d221727)
 
-### [哔哩哔哩直播精简-B](https://github.com/QingFengM/Scripts/raw/refs/heads/main/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E7%B2%BE%E7%AE%80.user.js)
+### [哔哩哔哩直播精简](https://github.com/QingFengM/Scripts/raw/refs/heads/main/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E7%B2%BE%E7%AE%80.user.js)
 
 ![Pix-Pin-2025-04-02-22-37-39](https://github.com/user-attachments/assets/23f5b83e-431e-4784-bb6a-84e7ab539a38)
 
