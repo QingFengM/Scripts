@@ -3,7 +3,7 @@
 #### 拦截弹幕区礼物特效请使用自带的过虑开关
 ![pAWZiOe](https://github.com/user-attachments/assets/907a692f-6046-41b8-965c-0920c4b3aaa1)
 
-### [哔哩哔哩直播精简-A](https://github.com/QingFengM/Scripts/raw/refs/heads/main/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E7%B2%BE%E7%AE%80-A.user.js)
+### [哔哩哔哩直播精简-1.0](https://github.com/QingFengM/Scripts/raw/refs/heads/main/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E7%B2%BE%E7%AE%80-1.0.user.js)
 
 ![pAWZkeH](https://github.com/user-attachments/assets/7cb4caba-2f46-446f-8d28-5fcb5d221727)
 
