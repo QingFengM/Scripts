@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name                                                          哔哩哔哩直播精简-A
+// @name                                                          哔哩哔哩直播精简-1.0
 // @description                                                   提供简洁的界面，只为安心看直播。
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       1.1
+// @version                                                       1.0
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
