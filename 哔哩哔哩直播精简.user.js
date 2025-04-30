@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2.2
+// @version                                                       2.3
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -94,6 +94,7 @@
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
+    css += '.m-nobar__popup-container {display:none !important;}';//天选时刻
 //直播间弹幕区
     css += '.chat-history-panel {border-radius:4px 4px 0 0 !important;}';//弹幕区圆角
     css += '#rank-list-vm {display:none !important;}';//弹幕区礼物榜背景
