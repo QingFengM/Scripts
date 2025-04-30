@@ -140,6 +140,7 @@
     css += '.ps.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail {background-color: #eeeeee00 !important;opacity: 0.5 !important;}';//弹幕区滚动条滚动条滑动时颜色和背景色
     css += '.common-nickname-wrapper {display: contents !important;}';//弹幕区XXX为主播点赞
     css += '#gift-screen-animation-vm {display:none !important;}';//弹幕区礼物动画
+    css += '#chat-gift-bubble-vm {display:none !important;}';//弹幕区礼物动画
     css += '#welcome-area-bottom-vm {display:none !important;}';//弹幕区入场动画
     css += '#activity-welcome-area-vm {display:none !important;}';//弹幕区入场动画
 //直播间弹幕输入区
