@@ -8,4 +8,4 @@
 | **[哔哩哔哩直播精简-1.0](https://github.com/QingFengM/Scripts/blob/main/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E7%B2%BE%E7%AE%80-1.0.user.js)** | 提供简洁的界面，只为安心看直播。旧版界面 | **[安装](https://github.com/QingFengM/Scripts/raw/refs/heads/main/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E7%B2%BE%E7%AE%80-1.0.user.js)** |
 ****
 ### License
-**[MIT License](https://github.com/XIU2/UserScript/edit/master/README.md)**
+**[MIT License](https://github.com/QingFengM/Scripts/blob/main/LICENSE)**
