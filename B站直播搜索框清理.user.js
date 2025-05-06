@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         B站直播搜索框清理
 // @namespace    http://tampermonkey.net/
+// @homepage     https://github.com/QingFengM/Scripts/
 // @version      0.1
 // @description  删除B站直播搜索框中的默认搜索词
 // @author       none
