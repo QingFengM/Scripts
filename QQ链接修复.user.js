@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         QQ链接修复
 // @namespace    http://tampermonkey.net/
+// @homepage     https://github.com/QingFengM/Scripts/
 // @version      1.0
 // @description  极致优化的QQ拦截链接修复
 // @author       Code Optimizer
