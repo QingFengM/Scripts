@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       1.1
+// @version                                                       1.2
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -121,6 +121,10 @@
     css += '.chat-colorful-bubble {background: #00000000 !important;}';//弹幕区特权弹幕背景颜色
     css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item.has-bubble {border-image-source:none!important;}';//弹幕区特权弹幕背景
     css += '.chat-colorful-bubble {border-image-source: none !important;}';//弹幕区特权弹幕背景图片
+    css += '.chat-item.danmaku-item > div[style*="border-radius: 5px; overflow: hidden; width: 100%; height: 62px; position: absolute;"] {display: none !important;}';//弹幕区特权弹幕特效
+    css += '.chat-item.danmaku-item {border-image-source: none !important;border-image-slice: initial !important;border-image-width: initial !important;position: static !important;}';//弹幕区特权弹幕特效
+    css += '.pilot-icon {display: none !important;}';//弹幕区特权弹幕特效
+    css += '.admin-icon ~ br {display: none !important;}';//弹幕区特权弹幕特效
     css += '.new-video-pk-item-dm {display:none !important;}';//弹幕区PK弹幕广告
     css += '.play-together-service-card-container {display:none !important;}';//弹幕区找他玩消费引导横条
     css += '.chat-history-panel.new {padding-bottom: 0px !important;}';//弹幕区连击互动高度
