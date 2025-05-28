@@ -156,6 +156,7 @@
     css += '.chat-item.danmaku-item {border-image-source: none !important;border-image-slice: initial !important;border-image-width: initial !important;position: static !important;}';//弹幕区特权弹幕特效
     css += '.pilot-icon {display: none !important;}';//弹幕区特权弹幕特效
     css += '.admin-icon ~ br {display: none !important;}';//弹幕区特权弹幕特效
+    css += '.card-item-top-right {display: none !important;}';//弹幕区特权弹幕特效
 
 //直播间弹幕输入区
     css += '.chat-control-panel {border-radius: 0 0 4px 4px !important;}';//弹幕输入框圆角
