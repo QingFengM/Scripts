@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2.3
+// @version                                                       2.4
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -114,10 +114,6 @@
     css += '.common-danmuku-msg {display:none !important;}';//弹幕区绝杀时刻系统提示弹幕
     css += '.hot-rank-msg {display:none !important;}';//弹幕区榜单系统提示弹幕
     css += '.convention-msg {display:none !important;}';//弹幕区系统提示
-    css += '.vip-icon {display:none !important;}';//弹幕区ID前爷徽章
-    css += '.rank-icon {display:none !important;}';//弹幕区ID前榜单徽章
-    css += '.title-label {display:none !important;}';//弹幕区ID前活动头衔徽章
-    css += '.fans-medal-item-ctnr,.fans-medal-item-target {display:none !important;}';//弹幕区ID前粉丝徽章
     css += '.common-nickname-wrapper {font-size: 14px !important;}';//弹幕@用户ID字体大小
     css += '.chat-history-list {font-size: 14px !important;}';//弹幕字体大小
     css += '.danmaku-item {color: #61666d !important;}';//弹幕字体颜色
@@ -127,10 +123,9 @@
     css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .danmaku-item-right:hover {color: #f69 !important;}';//弹幕鼠标悬停字体颜色
     css += '.danmaku-item {line-height: 25px !important;}';//弹幕换行行距
     css += 'body:not(.pure_room_root) .chat-history-panel .chat-history-list .chat-item {padding: 3px !important;}';//弹幕之间行距
-    css += '.chat-colorful-bubble {margin: 0px 0 !important;}';//弹幕区特权弹幕行距
-    css += '.chat-colorful-bubble {background: #00000000 !important;}';//弹幕区特权弹幕背景颜色
-    css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item.has-bubble {border-image-source:none!important;}';//弹幕区特权弹幕背景
-    css += '.chat-colorful-bubble {border-image-source: none !important;}';//弹幕区特权弹幕背景图片
+    css += '.title-label {display:none !important;}';//弹幕区ID前活动头衔徽章
+    css += '.rank-icon {display:none !important;}';//弹幕区ID前榜X
+    css += '.fans-medal-item-ctnr,.fans-medal-item-target {display:none !important;}';//弹幕区ID前粉丝徽章消费等级
     css += '.new-video-pk-item-dm {display:none !important;}';//弹幕区PK弹幕广告
     css += '.play-together-service-card-container {display:none !important;}';//弹幕区找他玩消费引导横条
     css += '.chat-history-panel.new {padding-bottom: 0px !important;}';//弹幕区连击互动高度
@@ -153,6 +148,15 @@
     css += '#chat-gift-bubble-vm {display:none !important;}';//弹幕区礼物动画
     css += '#welcome-area-bottom-vm {display:none !important;}';//弹幕区入场动画
     css += '#activity-welcome-area-vm {display:none !important;}';//弹幕区入场动画
+    css += '.chat-colorful-bubble {margin: 0px 0 !important;}';//弹幕区特权弹幕行距
+    css += '.chat-colorful-bubble {background: #00000000 !important;}';//弹幕区特权弹幕背景颜色
+    css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item.has-bubble {border-image-source:none !important;}';//弹幕区特权弹幕背景
+    css += '.chat-colorful-bubble {border-image-source: none !important;}';//弹幕区特权弹幕背景图片
+    css += '.chat-item.danmaku-item > div[style*="border-radius: 5px; overflow: hidden; width: 100%; height: 62px; position: absolute;"] {display: none !important;}';//弹幕区特权弹幕特效
+    css += '.chat-item.danmaku-item {border-image-source: none !important;border-image-slice: initial !important;border-image-width: initial !important;position: static !important;}';//弹幕区特权弹幕特效
+    css += '.pilot-icon {display: none !important;}';//弹幕区特权弹幕特效
+    css += '.admin-icon ~ br {display: none !important;}';//弹幕区特权弹幕特效
+
 //直播间弹幕输入区
     css += '.chat-control-panel {border-radius: 0 0 4px 4px !important;}';//弹幕输入框圆角
     css += '.super-chat {display:none !important;}';//弹幕输入框醒目留言
