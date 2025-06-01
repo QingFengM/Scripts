@@ -81,6 +81,7 @@
     css += '#switch-login-guide-vm {display:none !important;}';//视频区未登录账号时显示登陆提示
     css += '.bilibili-combo-danmaku-container {display:none !important;}';//视频区弹幕连击
     css += '#fullscreen-danmaku-vm {display:none !important;}';//视频区全屏弹幕发送框
+    css += '#live-charge-vm {display: none !important;}';//视频区付费观看直播
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
@@ -147,6 +148,11 @@
     css += '.common-nickname-wrapper {display: contents !important;}';//弹幕区XXX为主播点赞
     css += '#gift-screen-animation-vm {display:none !important;}';//弹幕区礼物动画
     css += '#chat-gift-bubble-vm {display:none !important;}';//弹幕区礼物动画
+    css += '#fans-medal-popover-vm {display:none !important;}';//弹幕区礼物动画
+    css += '#all-guide-cards {display:none !important;}';//弹幕区礼物动画
+    css += '.lottery-gift-toast {display:none !important;}';//弹幕区礼物动画
+    css += '#chat-msg-bubble-vm {display: none !important;}';//弹幕区SC礼物动画
+    css += '.vote-card {display: none !important;}';//弹幕区弹幕投票横幅
     css += '#welcome-area-bottom-vm {display:none !important;}';//弹幕区入场动画
     css += '#activity-welcome-area-vm {display:none !important;}';//弹幕区入场动画
 //直播间弹幕输入区
