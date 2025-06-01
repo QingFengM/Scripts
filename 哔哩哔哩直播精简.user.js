@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2.4
+// @version                                                       2.5
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -157,6 +157,7 @@
     css += '.pilot-icon {display: none !important;}';//弹幕区特权弹幕特效
     css += '.admin-icon ~ br {display: none !important;}';//弹幕区特权弹幕特效
     css += '.card-item-top-right {display: none !important;}';//弹幕区特权弹幕特效
+    css += '.fans-medal-item-ctnr ~ br {display: none !important;}';//弹幕区特权弹幕特效
 
 //直播间弹幕输入区
     css += '.chat-control-panel {border-radius: 0 0 4px 4px !important;}';//弹幕输入框圆角
