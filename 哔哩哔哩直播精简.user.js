@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2.5
+// @version                                                       2.6
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -91,6 +91,7 @@
     css += '#switch-login-guide-vm {display:none !important;}';//视频区未登录账号时显示登陆提示
     css += '.bilibili-combo-danmaku-container {display:none !important;}';//视频区弹幕连击
     css += '#fullscreen-danmaku-vm {display:none !important;}';//视频区全屏弹幕发送框
+    css += '#live-charge-vm {display: none !important;}';//视频区付费观看直播
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
@@ -145,7 +146,11 @@
     css += '.ps.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail {background-color: #eeeeee00 !important;opacity: 0.5 !important;}';//弹幕区滚动条滚动条滑动时颜色和背景色
     css += '.common-nickname-wrapper {display: contents !important;}';//弹幕区XXX为主播点赞
     css += '#gift-screen-animation-vm {display:none !important;}';//弹幕区礼物动画
+    css += '#fans-medal-popover-vm {display:none !important;}';//弹幕区礼物动画
     css += '#chat-gift-bubble-vm {display:none !important;}';//弹幕区礼物动画
+    css += '#all-guide-cards {display:none !important;}';//弹幕区礼物动画
+    css += '.lottery-gift-toast {display:none !important;}';//弹幕区礼物动画
+    css += '#chat-msg-bubble-vm {display: none !important;}';//弹幕区SC礼物动画
     css += '#welcome-area-bottom-vm {display:none !important;}';//弹幕区入场动画
     css += '#activity-welcome-area-vm {display:none !important;}';//弹幕区入场动画
     css += '.chat-colorful-bubble {margin: 0px 0 !important;}';//弹幕区特权弹幕行距
@@ -158,6 +163,8 @@
     css += '.admin-icon ~ br {display: none !important;}';//弹幕区特权弹幕特效
     css += '.card-item-top-right {display: none !important;}';//弹幕区特权弹幕特效
     css += '.fans-medal-item-ctnr ~ br {display: none !important;}';//弹幕区特权弹幕特效
+    css += '.vote-card {display: none !important;}';//弹幕区弹幕投票横幅
+
 
 //直播间弹幕输入区
     css += '.chat-control-panel {border-radius: 0 0 4px 4px !important;}';//弹幕输入框圆角
