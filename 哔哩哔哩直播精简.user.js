@@ -124,7 +124,7 @@
     css += '.chat-history-list {font-size: 14px !important;}';//弹幕字体大小
     css += '.danmaku-item {color: #61666d !important;}';//弹幕字体颜色
     css += '.user-name {font-size: 14px !important;}';//弹幕ID字体大小
-    //css += '.user-name {color: #484c53  !important;}';//弹幕ID字体颜色
+    css += '.user-name {color: #484c53  !important;}';//弹幕ID字体颜色
     //css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {color: #f69 !important;}';//弹幕ID鼠标悬停字体颜色
     css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .danmaku-item-right:hover {color: #f69 !important;}';//弹幕鼠标悬停字体颜色
     css += '.danmaku-item {line-height: 25px !important;}';//弹幕换行行距
@@ -194,42 +194,6 @@
     css += '.voice-rtc {display:none !important;}';//弹幕输入框语音上麦
     css += '.input-limit-hint {display:none !important;}';//移除字数显示
     css += '.chat-input.border-box.block-panel .block-hint {display: inline !important; white-space: nowrap !important;}';//移除换行
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//弹幕区用户名颜色
-    // 定义10种明显不同的颜色
-    const colors = [
-    '#D6418F',
-    '#0078B9',
-    '#00A000',
-    '#FF3333',
-    '#0088FF',
-    '#B452B5',
-    '#8A2BE2',
-    '#FF4500',
-    '#0000CD',
-    '#FF69B4'
-    ];
-
-    // 为每个.user-name元素分配颜色
-    function colorizeUsernames() {
-        const usernames = document.querySelectorAll('.user-name');
-
-        usernames.forEach((username, index) => {
-            // 使用用户索引对颜色数量取模来循环使用颜色
-            const colorIndex = index % colors.length;
-            username.style.color = colors[colorIndex];
-
-        });
-    }
-
-    colorizeUsernames();
-    const observer = new MutationObserver(colorizeUsernames);
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //加载CSS脚本
 loadStyle(css)
