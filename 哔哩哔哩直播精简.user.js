@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2.6
+// @version                                                       2.7
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -52,6 +52,7 @@
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container {width: calc(100% - 300px - 10px) !important;}';//播放区与弹幕区间隔距离
     css += '.live-room-app .app-content .app-body .section-block .left-container {width: calc(100% - 300px - 10px) !important;}';//动态区与公告间隔距离
     css += '.live-room-app .app-content .app-body .player-and-aside-area {margin-bottom: 8px !important;}';//播放区与动态区间隔距离
+
 //直播间标题栏
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {height: 56px !important;border-radius: 4px 4px 0 0 !important;border: 0px solid #e3e5e7 !important;}';//标题栏圆角
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {background-position: center !important;background-size: cover !important;}';//标题栏背景图片位置
@@ -67,6 +68,7 @@
     css += '.anchor-location.default {display: none !important;}';//标题栏主播所在城市
     css += '.anchor-location.with-skin {display: none !important;}';//标题栏主播所在城市
     css += '.header-info-ctnr .blur-edges-ctnr {display:none !important;}';//标题栏与视频区分割线
+
 //直播间标题栏修改样式
     css += '.header-info-ctnr .rows-ctnr .upper-row .room-owner-username,.header-info-ctnr .nowrap {font-size: 14px !important;}';//标题栏字体大小
     css += '.rows-content {display: flex !important; flex-direction: row !important; align-items: center !important;}'; //设置标题栏主播ID与直播间标题内容为水平弹性布局，子元素居中
@@ -78,6 +80,7 @@
     css += '.header-info-ctnr .avatar {width: 36px !important; height: 36px !important;}'; //头像信息内的头像固定36x36
     css += '.header-info-ctnr {padding: 10px !important;padding-top: 10px !important;}'; //头像信息容器内边距10px
     css += '.upper-row {width: fit-content !important;max-width: 100% !important;}';//动态调整主播ID容器宽度
+
 //直播间视频区
     css += '.web-player-inject-wrap {display:none !important;}';//PK
     css += '.link-toast.info.center-animation {display:none !important;}';//PK
@@ -92,10 +95,12 @@
     css += '.bilibili-combo-danmaku-container {display:none !important;}';//视频区弹幕连击
     css += '#fullscreen-danmaku-vm {display:none !important;}';//视频区全屏弹幕发送框
     css += '#live-charge-vm {display: none !important;}';//视频区付费观看直播
+
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
     css += '.m-nobar__popup-container {display:none !important;}';//天选时刻
+
 //直播间弹幕区
     css += '.chat-history-panel {border-radius:4px 4px 0 0 !important;}';//弹幕区圆角
     css += '#rank-list-vm {display:none !important;}';//弹幕区礼物榜背景
@@ -119,7 +124,7 @@
     css += '.chat-history-list {font-size: 14px !important;}';//弹幕字体大小
     css += '.danmaku-item {color: #61666d !important;}';//弹幕字体颜色
     css += '.user-name {font-size: 14px !important;}';//弹幕ID字体大小
-    css += '.user-name {color: #484c53  !important;}';//弹幕ID字体颜色
+    //css += '.user-name {color: #484c53  !important;}';//弹幕ID字体颜色
     css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {color: #f69 !important;}';//弹幕ID鼠标悬停字体颜色
     css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .danmaku-item-right:hover {color: #f69 !important;}';//弹幕鼠标悬停字体颜色
     css += '.danmaku-item {line-height: 25px !important;}';//弹幕换行行距
@@ -165,7 +170,6 @@
     css += '.fans-medal-item-ctnr ~ br {display: none !important;}';//弹幕区特权弹幕特效
     css += '.vote-card {display: none !important;}';//弹幕区弹幕投票横幅
 
-
 //直播间弹幕输入区
     css += '.chat-control-panel {border-radius: 0 0 4px 4px !important;}';//弹幕输入框圆角
     css += '.super-chat {display:none !important;}';//弹幕输入框醒目留言
@@ -191,6 +195,43 @@
     css += '.input-limit-hint {display:none !important;}';//移除字数显示
     css += '.chat-input.border-box.block-panel .block-hint {display: inline !important; white-space: nowrap !important;}';//移除换行
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//弹幕区用户名颜色
+    // 定义10种明显不同的颜色
+    const colors = [
+      '#c93485',
+      '#0078b9',
+      '#008000',
+      '#c93485',
+      '#0068d0',
+      '#9d48a0',
+      '#800080',
+      '#da1c00',
+      '#000080',
+      '#FF1493'
+    ];
+
+    // 为每个.user-name元素分配颜色
+    function colorizeUsernames() {
+        const usernames = document.querySelectorAll('.user-name');
+
+        usernames.forEach((username, index) => {
+            // 使用用户索引对颜色数量取模来循环使用颜色
+            const colorIndex = index % colors.length;
+            username.style.color = colors[colorIndex];
+
+        });
+    }
+
+    colorizeUsernames();
+    const observer = new MutationObserver(colorizeUsernames);
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//加载CSS脚本
 loadStyle(css)
    function loadStyle(css) {
       var style = document.createElement('style')
