@@ -125,7 +125,7 @@
     css += '.danmaku-item {color: #61666d !important;}';//弹幕字体颜色
     css += '.user-name {font-size: 14px !important;}';//弹幕ID字体大小
     css += '.user-name {color: #484c53  !important;}';//弹幕ID字体颜色
-    //css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {color: #f69 !important;}';//弹幕ID鼠标悬停字体颜色
+    css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {color: #f69 !important;}';//弹幕ID鼠标悬停字体颜色
     css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .danmaku-item-right:hover {color: #f69 !important;}';//弹幕鼠标悬停字体颜色
     css += '.danmaku-item {line-height: 25px !important;}';//弹幕换行行距
     css += 'body:not(.pure_room_root) .chat-history-panel .chat-history-list .chat-item {padding: 3px !important;}';//弹幕之间行距
@@ -194,6 +194,31 @@
     css += '.voice-rtc {display:none !important;}';//弹幕输入框语音上麦
     css += '.input-limit-hint {display:none !important;}';//移除字数显示
     css += '.chat-input.border-box.block-panel .block-hint {display: inline !important; white-space: nowrap !important;}';//移除换行
+
+//直播搜索框清理
+    function cleanSearchBox() {
+        // 查找搜索框元素
+        const searchInput = document.querySelector('input[name="keyword"]');
+        if (searchInput) {
+            // 删除title和placeholder属性
+            searchInput.removeAttribute('title');
+            searchInput.removeAttribute('placeholder');
+        }
+    }
+
+    // 页面加载完成后执行
+    window.addEventListener('load', cleanSearchBox);
+
+    // 使用MutationObserver监听DOM变化，以防搜索框是动态加载的
+    const observer = new MutationObserver(function(mutations) {
+        cleanSearchBox();
+    });
+
+    // 开始观察整个body及其子元素的变化
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
 //加载CSS脚本
 loadStyle(css)
