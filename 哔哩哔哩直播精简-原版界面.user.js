@@ -114,7 +114,7 @@
     css += '.danmaku-item {color: #61666d !important;}';//弹幕字体颜色
     css += '.user-name {font-size: 14px !important;}';//弹幕ID字体大小
     css += '.user-name {color: #484c53  !important;}';//弹幕ID字体颜色
-    //css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {color: #f69 !important;}';//弹幕ID鼠标悬停字体颜色
+    css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {color: #f69 !important;}';//弹幕ID鼠标悬停字体颜色
     css += '.chat-history-panel .chat-history-list .chat-item.danmaku-item .danmaku-item-right:hover {color: #f69 !important;}';//弹幕鼠标悬停字体颜色
     css += '.danmaku-item {line-height: 25px !important;}';//弹幕换行行距
     css += 'body:not(.pure_room_root) .chat-history-panel .chat-history-list .chat-item {padding: 3px !important;}';//弹幕之间行距
