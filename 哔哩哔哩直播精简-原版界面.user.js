@@ -42,7 +42,7 @@
     css += '.live-room-app .app-content .app-body .section-block .right-container {margin-top:1px !important;}';//视频区下方主播公告位置高度
     css += '.empty-content {display:none !important;}';//视频区下方动态未刷新出来时的图片
     css += '.room-info-cntr {border-radius:4px !important;border: 1px solid #E3E5E700 !important;}';//视频区下方主播公告边框圆角
-    css += '.p-fixed.webp.room-bg {display:none !important;}';//直播间背景
+    //css += '.p-fixed.webp.room-bg {display:none !important;}';//直播间背景
     css += '.side-bar-cntr {display: none !important;visibility: hidden !important;opacity: 0 !important;height: 0 !important;width: 0 !important;overflow: hidden !important;}';//直播间右边侧边栏
     css += '.live-player-ctnr.minimal {width: 300px !important;height: 168.75px !important;border-radius: 4px !important;padding-top: 0px !important;right: 120px !important;}';//小窗播放比例修改位16:9
     //css += '.live-room-app .app-content .app-body {width: 87.6% !important;max-width: 1700px !important;}';//播放区域宽度播放器大小
