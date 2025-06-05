@@ -201,14 +201,14 @@
     });
 
 //加载CSS脚本
-loadStyle(css)
-   function loadStyle(css) {
-      var style = document.createElement('style')
-      style.type = 'text/css'
-      style.rel = 'stylesheet'
-      style.appendChild(document.createTextNode(css))
-      var head = document.getElementsByTagName('head')[0]
-      head.appendChild(style);
-   }
+    loadStyle(css)
+       function loadStyle(css) {
+          var style = document.createElement('style')
+          style.type = 'text/css'
+          style.rel = 'stylesheet'
+          style.appendChild(document.createTextNode(css))
+          var head = document.getElementsByTagName('head')[0]
+          head.appendChild(style);
+       }
 
 })();
