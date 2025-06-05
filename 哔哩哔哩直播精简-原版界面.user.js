@@ -45,8 +45,8 @@
     css += '.p-fixed.webp.room-bg {display:none !important;}';//直播间背景
     css += '.side-bar-cntr {display: none !important;visibility: hidden !important;opacity: 0 !important;height: 0 !important;width: 0 !important;overflow: hidden !important;}';//直播间右边侧边栏
     css += '.live-player-ctnr.minimal {width: 300px !important;height: 168.75px !important;border-radius: 4px !important;padding-top: 0px !important;right: 120px !important;}';//小窗播放比例修改位16:9
-    css += '.live-room-app .app-content .app-body {width: 87.6% !important;max-width: 1700px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
-    //css += '.live-room-app .app-content .app-body {width: 80% !important;max-width: 1504px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
+    //css += '.live-room-app .app-content .app-body {width: 87.6% !important;max-width: 1700px !important;}';//播放区域宽度播放器大小
+    css += '.live-room-app .app-content .app-body {width: 80% !important;max-width: 1504px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
     css += '.live-room-app .app-content {padding-top: 70px !important;}';//播放区顶部距离
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container {width: calc(100% - 300px - 10px) !important;}';//播放区与弹幕区间隔距离
     css += '.live-room-app .app-content .app-body .section-block .left-container {width: calc(100% - 300px - 10px) !important;}';//动态区与公告间隔距离
@@ -174,6 +174,31 @@
     css += '.chat-input-ctnr.chat-input-focus {border: 1px solid #E3E5E7 !important;}';//弹幕输入框内框边框颜色
     css += '#chat-control-panel-vm {background-position: center !important;background-size: cover !important;}';//弹幕输入框背景图片位置
     css += '.voice-rtc {display:none !important;}';//弹幕输入框语音上麦
+
+//直播搜索框清理
+    function cleanSearchBox() {
+        // 查找搜索框元素
+        const searchInput = document.querySelector('input[name="keyword"]');
+        if (searchInput) {
+            // 删除title和placeholder属性
+            searchInput.removeAttribute('title');
+            searchInput.removeAttribute('placeholder');
+        }
+    }
+
+    // 页面加载完成后执行
+    window.addEventListener('load', cleanSearchBox);
+
+    // 使用MutationObserver监听DOM变化，以防搜索框是动态加载的
+    const observer = new MutationObserver(function(mutations) {
+        cleanSearchBox();
+    });
+
+    // 开始观察整个body及其子元素的变化
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
 //加载CSS脚本
 loadStyle(css)
