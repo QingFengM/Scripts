@@ -2,7 +2,7 @@
 // @name         B站直播-用户名随机颜色
 // @homepage     https://github.com/QingFengM/Scripts/
 // @version      1.1
-// @description  为聊天列表中的用户ID分配不同颜色，且颜色固定不变
+// @description  为聊天列表中的用户ID分配不同颜色
 // @author       none
 // @match        https://live.bilibili.com/*
 // @icon         https://www.bilibili.com/favicon.ico
