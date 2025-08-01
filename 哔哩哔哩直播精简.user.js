@@ -78,7 +78,7 @@
     css += '.blive-avatar {width: 36px !important; height: 36px !important;}'; //头像容器固定36x36
     css += '.blive-avatar-face {width: 36px !important; height: 36px !important; background-size: cover !important;}'; //头像图片大小36x36
     css += '.header-info-ctnr .avatar {width: 36px !important; height: 36px !important;}'; //头像信息内的头像固定36x36
-    css += '.header-info-ctnr {padding: 10px !important;padding-top: 10px !important;}'; //头像信息容器内边距10px
+    css += '#head-info-vm {padding: 10px !important;padding-top: 10px !important;}'; //头像信息容器内边距10px
     css += '.upper-row {width: fit-content !important;max-width: 100% !important;}';//动态调整主播ID容器宽度
 
 //直播间视频区
