@@ -1,15 +1,21 @@
 // ==UserScript==
 // @name         Bilibili直播间禁止轮播
-// @namespace    https://github.com/
+// @homepageURL  https://github.com/c-basalt/bilibili-live-seeker-script/
+// @supportURL   https://space.bilibili.com/521676
+// @namespace    https://space.bilibili.com/521676
 // @version      1.0
 // @description  自动阻止Bilibili直播间轮播，还原未开播界面，无多余界面
-// @author       直播间禁止轮播
+// @author       c_b
 // @match        https://live.bilibili.com/*
 // @icon         https://www.bilibili.com/favicon.ico
 // @license      GPLv3 License
 // @run-at       document-start
 // @grant        unsafeWindow
 // ==/UserScript==
+// 声明
+// 基于c_b的脚本 [https://greasyfork.org/zh-CN/scripts/453967] 修改
+// 修改内容：移除了原脚本的追帧功能，仅保留轮播拦截功能
+// 严格遵循 GPLv3 许可
 
 (function () {
     'use strict';
