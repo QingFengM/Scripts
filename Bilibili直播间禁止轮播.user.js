@@ -15,7 +15,7 @@
 // 声明
 // 基于c_b的脚本 [https://greasyfork.org/zh-CN/scripts/453967] 修改
 // 修改内容：移除了原脚本的追帧功能，仅保留轮播拦截功能
-// 严格遵循 GPLv3 许可
+// 遵循 GPLv3 许可
 
 (function () {
     'use strict';
