@@ -52,6 +52,7 @@
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container {width: calc(100% - 300px - 10px) !important;}';//播放区与弹幕区间隔距离
     css += '.live-room-app .app-content .app-body .section-block .left-container {width: calc(100% - 300px - 10px) !important;}';//动态区与公告间隔距离
     css += '.live-room-app .app-content .app-body .player-and-aside-area {margin-bottom: 8px !important;}';//播放区与动态区间隔距离
+    css += '.link-footer {display:none !important;}';//底栏
 
 //直播间标题栏
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {height: 56px !important;border-radius: 4px 4px 0 0 !important;border: 0px solid #e3e5e7 !important;}';//标题栏圆角
@@ -232,3 +233,4 @@
        }
 
 })();
+
