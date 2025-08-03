@@ -51,6 +51,8 @@
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container {width: calc(100% - 300px - 10px) !important;}';//播放区与弹幕区间隔距离
     css += '.live-room-app .app-content .app-body .section-block .left-container {width: calc(100% - 300px - 10px) !important;}';//动态区与公告间隔距离
     css += '.live-room-app .app-content .app-body .player-and-aside-area {margin-bottom: 8px !important;}';//播放区与动态区间隔距离
+    css += '.link-footer {display:none !important;}';//底栏
+    
 //直播间标题栏
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {height: 96px !important;border-radius: 4px 4px 0 0 !important;border: 0px solid #e3e5e7 !important;}';//标题栏圆角
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {background-position: center !important;background-size: cover !important;}';//标题栏背景图片位置
@@ -68,6 +70,7 @@
     css += '.anchor-location.default {display: none !important;}';//标题栏主播所在城市
     css += '.anchor-location.with-skin {display: none !important;}';//标题栏主播所在城市
     css += '.header-info-ctnr .blur-edges-ctnr {display:none !important;}';//标题栏与视频区分割线
+    
 //直播间视频区
     css += '.web-player-inject-wrap {display:none !important;}';//PK
     css += '.link-toast.info.center-animation {display:none !important;}';//PK
@@ -82,10 +85,12 @@
     css += '.bilibili-combo-danmaku-container {display:none !important;}';//视频区弹幕连击
     css += '#fullscreen-danmaku-vm {display:none !important;}';//视频区全屏弹幕发送框
     css += '#live-charge-vm {display: none !important;}';//视频区付费观看直播
+    
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
     css += '.m-nobar__popup-container {display:none !important;}';//天选时刻
+    
 //直播间弹幕区
     css += '.chat-history-panel {border-radius:4px 4px 0 0 !important;}';//弹幕区圆角
     css += '#rank-list-vm {display:none !important;}';//弹幕区礼物榜背景
@@ -155,6 +160,7 @@
     css += '.vote-card {display: none !important;}';//弹幕区弹幕投票横幅
     css += '#welcome-area-bottom-vm {display:none !important;}';//弹幕区入场动画
     css += '#activity-welcome-area-vm {display:none !important;}';//弹幕区入场动画
+    
 //直播间弹幕输入区
     css += '.chat-control-panel {border-radius: 0 0 4px 4px !important;}';//弹幕输入框圆角
     css += '.super-chat {display:none !important;}';//弹幕输入框醒目留言
@@ -212,3 +218,4 @@
        }
 
 })();
+
