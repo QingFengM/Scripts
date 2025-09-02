@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Nyaa.si 一键复制当前页磁力链接
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  在 Nyaa.si 导航栏添加一键复制当前页磁力链接的功能
 // @author       doubao & deepseek
-// @match        https://nyaa.si/*
+// @match        https://*.nyaa.si/*
 // @icon         https://nyaa.si/static/favicon.png
 // @grant        GM_setClipboard
 // @grant        GM_notification
