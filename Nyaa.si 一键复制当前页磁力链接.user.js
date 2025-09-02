@@ -115,7 +115,7 @@
         const notification = document.createElement('div');
         notification.textContent = message;
         notification.style.position = 'fixed';
-        notification.style.top = '20px';
+        notification.style.top = '40px';
         notification.style.left = '50%';
         notification.style.transform = 'translateX(-50%)';
         notification.style.padding = '10px 20px';
