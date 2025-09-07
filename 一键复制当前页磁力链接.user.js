@@ -2,7 +2,7 @@
 // @name         一键复制当前页磁力链
 // @namespace    http://tampermonkey.net/
 // @version      0.4
-// @description  在 Nyaa.si 导航栏添加一键复制当前页磁力链的功能
+// @description  导航栏添加一键复制当前页磁力链的功能
 // @author       doubao & deepseek
 // @match        https://*.nyaa.si/*
 // @match        https://share.dmhy.org/*
