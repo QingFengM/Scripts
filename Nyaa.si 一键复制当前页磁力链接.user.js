@@ -1,11 +1,12 @@
 // ==UserScript==
-// @name         Nyaa.si 一键复制当前页磁力链接
+// @name         一键复制当前页磁力链
 // @namespace    http://tampermonkey.net/
-// @version      0.3
-// @description  在 Nyaa.si 导航栏添加一键复制当前页磁力链接的功能
+// @version      0.4
+// @description  在 Nyaa.si 导航栏添加一键复制当前页磁力链的功能
 // @author       doubao & deepseek
 // @match        https://*.nyaa.si/*
-// @icon         https://nyaa.si/static/favicon.png
+// @match        https://share.dmhy.org/*
+// @icon         https://img.icons8.com/?size=200&id=GcEcPJ_xNrrA&format=png
 // @grant        GM_setClipboard
 // @grant        GM_notification
 // ==/UserScript==
@@ -32,7 +33,7 @@
         const listItem = document.createElement('li');
         const button = document.createElement('a');
         button.id = 'copy-all-magnet';
-        button.textContent = '复制当前页磁力链接';
+        button.textContent = '复制磁力链';
         button.href = '#';
 
 
@@ -55,7 +56,7 @@
 
         const button = document.createElement('button');
         button.id = 'copy-all-magnet-fallback';
-        button.innerHTML = '复制当前页磁力链接';
+        button.innerHTML = '复制磁力链';
         button.style.position = 'fixed';
         button.style.top = '70px';
         button.style.right = '20px';
@@ -78,7 +79,7 @@
         const links = document.querySelectorAll('a[href^="magnet:?xt=urn:btih:"]');
 
         if (links.length === 0) {
-            showNotification('未找到磁力链接！', 'error');
+            showNotification('未找到磁力链！', 'error');
             return;
         }
 
@@ -92,7 +93,7 @@
         GM_setClipboard(textToCopy);
 
         // 显示成功消息
-        showNotification(`已复制 ${magnetLinks.length} 个磁力链接到剪贴板！`, 'success');
+        showNotification(`已复制 ${magnetLinks.length} 个磁力链到剪贴板！`, 'success');
 
         // 添加视觉反馈
         provideVisualFeedback();
@@ -104,8 +105,8 @@
         if (typeof GM_notification !== 'undefined') {
             GM_notification({
                 text: message,
-                title: 'Nyaa.si 磁力链接复制',
-                image: 'https://nyaa.si/static/favicon.png'
+                title: '磁力链复制',
+                image: 'https://img.icons8.com/?size=200&id=GcEcPJ_xNrrA&format=png'
             });
         } else {
             alert(message);
@@ -128,20 +129,20 @@
         notification.style.backgroundColor = type === 'success'
             ? 'rgba(76, 175, 80, 0.7)'
             : 'rgba(244, 67, 54, 0.7)';
-        notification.style.transition = 'all .2s ease-in-out';
-        notification.style.border = 'none';
+        notification。style。transition = 'all .2s ease-in-out';
+        notification。style。border = 'none';
         notification.style.backdropFilter = 'blur(8px)';
         notification.style.webkitBackdropFilter = 'blur(8px)';
         notification.style.boxShadow = 'rgba(0, 0, 0, 0.16) 0px 1px 4px';
 
-        document.body.appendChild(notification);
+        document。body。appendChild(notification);
 
         // X秒后移除通知
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.parentNode.removeChild(notification);
             }
-        }, 1500);
+        }， 1500);
     }
 
     // 初始化函数
@@ -162,7 +163,7 @@
             });
         });
 
-        observer.observe(document.body, {
+        observer。observe(document.body, {
             childList: true,
             subtree: true
         });
