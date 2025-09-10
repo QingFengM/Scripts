@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2.8
+// @version                                                       2.9
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -69,6 +69,7 @@
     css += '.anchor-location.default {display: none !important;}';//标题栏主播所在城市
     css += '.anchor-location.with-skin {display: none !important;}';//标题栏主播所在城市
     css += '.header-info-ctnr .blur-edges-ctnr {display:none !important;}';//标题栏与视频区分割线
+    css += '.uni-live-entry {display:none !important;}';//标题栏直播小队
 
 //直播间标题栏修改样式
     css += '.header-info-ctnr .rows-ctnr .upper-row .room-owner-username,.header-info-ctnr .nowrap {font-size: 14px !important;}';//标题栏字体大小
@@ -233,4 +234,5 @@
        }
 
 })();
+
 
