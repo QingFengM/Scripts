@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  导航栏添加一键复制当前页磁力链的功能
-// @author       doubao & deepseek
+// @author       deepseek
 // @match        https://*.nyaa.si/*
 // @match        https://share.dmhy.org/*
 // @icon         https://img.icons8.com/?size=200&id=GcEcPJ_xNrrA&format=png
