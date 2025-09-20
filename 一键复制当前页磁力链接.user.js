@@ -6,7 +6,7 @@
 // @author       deepseek
 // @match        https://*.nyaa.si/*
 // @match        https://share.dmhy.org/*
-// @icon         https://img.icons8.com/?size=200&id=GcEcPJ_xNrrA&format=png
+// @icon         https://img.icons8.com/color/48/000000/magnet.png
 // @grant        GM_setClipboard
 // @grant        GM_notification
 // ==/UserScript==
