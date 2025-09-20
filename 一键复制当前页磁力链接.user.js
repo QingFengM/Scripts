@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         一键复制当前页磁力链
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      1.0
 // @description  导航栏添加一键复制当前页磁力链的功能
 // @author       doubao & deepseek
 // @match        https://*.nyaa.si/*
@@ -14,161 +14,110 @@
 (function() {
     'use strict';
 
-    // 创建复制按钮并插入到导航栏
-    function createCopyButton() {
-        // 检查是否已存在按钮
-        if (document.getElementById('copy-all-magnet')) {
-            return;
+    // 创建复制磁力链按钮
+    const copyButton = document.createElement('li');
+    copyButton.innerHTML = '<a class="copy-magnet" href="#" title="复制磁力链"><span>复制磁力链</span></a>';
+    document.querySelector('.nav').appendChild(copyButton);
+
+    // 添加样式
+    const style = document.createElement('style');
+    style.textContent = `
+        .copy-magnet {
+            background: #ff6b6b;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: white !important;
+        }
+        .copy-magnet:hover {
+            background: #ff5252;
+        }
+        .copy-magnet.copied {
+            background: #4caf50;
+        }
+        .message {
+            position: fixed;
+            top: 40px;
+            right: 0px;
+            padding: 18px 25px;
+            color: white;
+            border-radius: 500px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%);
+            transition: transform 0.4s ease-out;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            /* 模糊效果 */
+            background: rgba(76, 175, 80, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        // 找到导航栏
-        const navBar = document.querySelector('ul.nav');
-        if (!navBar) {
-            // 如果找不到导航栏，使用备用位置
-            createFallbackButton();
-            return;
+        .message.show {
+            right: 20px;
+            transform: translateX(0);
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 显示消息函数
+    function showMessage(text) {
+        let message = document.querySelector('.message');
+        if (!message) {
+            message = document.createElement('div');
+            message.className = 'message';
+            document.body.appendChild(message);
         }
 
-        // 创建按钮元素
-        const listItem = document.createElement('li');
-        const button = document.createElement('a');
-        button.id = 'copy-all-magnet';
-        button.textContent = '复制磁力链';
-        button.href = '#';
+        message.textContent = text;
+        message.classList.add('show');
 
-
-        // 阻止默认链接行为并添加点击事件
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            copyAllMagnetLinks();
-        });
-
-        // 将按钮添加到导航栏
-        listItem.appendChild(button);
-        navBar.appendChild(listItem);
+        setTimeout(() => {
+            message.classList.remove('show');
+        }, 3000);
     }
 
-    // 备用按钮位置（当找不到导航栏时使用）
-    function createFallbackButton() {
-        if (document.getElementById('copy-all-magnet-fallback')) {
-            return;
-        }
-
-        const button = document.createElement('button');
-        button.id = 'copy-all-magnet-fallback';
-        button.innerHTML = '复制磁力链';
-        button.style.position = 'fixed';
-        button.style.top = '70px';
-        button.style.right = '20px';
-        button.style.zIndex = '1000';
-        button.style.padding = '10px 15px';
-        button.style.color = 'white';
-        button.style.fontWeight = 'bold';
-        button.style.cursor = 'pointer';
-
-        // 添加点击事件
-        button.addEventListener('click', copyAllMagnetLinks);
-
-        document.body.appendChild(button);
-    }
-
-    // 复制所有磁力链接
-    function copyAllMagnetLinks() {
+    // 复制磁力链函数
+    function copyMagnetLinks() {
         const magnetLinks = [];
-        // 查找所有磁力链接
-        const links = document.querySelectorAll('a[href^="magnet:?xt=urn:btih:"]');
+        // 查找页面中的所有磁力链接
+        const links = document.querySelectorAll('a[href^="magnet:?"]');
 
-        if (links.length === 0) {
-            showNotification('未找到磁力链！', 'error');
-            return;
-        }
-
-        // 收集所有磁力链接
         links.forEach(link => {
             magnetLinks.push(link.href);
         });
+
+        if (magnetLinks.length === 0) {
+            showMessage('未找到磁力链接！');
+            return;
+        }
 
         // 复制到剪贴板
         const textToCopy = magnetLinks.join('\n');
         GM_setClipboard(textToCopy);
 
-        // 显示成功消息
-        showNotification(`已复制 ${magnetLinks.length} 个磁力链到剪贴板！`, 'success');
+        // 更新按钮状态
+        const button = document.querySelector('.copy-magnet');
+        button.classList.add('copied');
+        const originalText = button.querySelector('span').textContent;
+        button.querySelector('span').textContent = '已复制!';
 
-        // 添加视觉反馈
-        provideVisualFeedback();
-    }
+        showMessage(`已复制 ${magnetLinks.length} 个磁力链接到剪贴板`);
 
-    // 显示通知
-    function showNotification(message, type) {
-        // 使用GM_notification如果可用，否则使用alert
-        if (typeof GM_notification !== 'undefined') {
-            GM_notification({
-                text: message,
-                title: '磁力链复制',
-                image: 'https://img.icons8.com/?size=200&id=GcEcPJ_xNrrA&format=png'
-            });
-        } else {
-            alert(message);
-        }
-
-        // 也在页面上显示一个临时消息，应用模糊效果
-        const notification = document.createElement('div');
-        notification.textContent = message;
-        notification.style.position = 'fixed';
-        notification.style.top = '40px';
-        notification.style.left = '50%';
-        notification.style.transform = 'translateX(-50%)';
-        notification.style.padding = '10px 20px';
-        notification.style.color = 'white';
-        notification.style.borderRadius = '4px';
-        notification.style.zIndex = '1001';
-        notification.style.fontWeight = 'bold';
-
-        // 应用模糊效果样式
-        notification.style.backgroundColor = type === 'success'
-            ? 'rgba(76, 175, 80, 0.7)'
-            : 'rgba(244, 67, 54, 0.7)';
-        notification。style。transition = 'all .2s ease-in-out';
-        notification。style。border = 'none';
-        notification.style.backdropFilter = 'blur(8px)';
-        notification.style.webkitBackdropFilter = 'blur(8px)';
-        notification.style.boxShadow = 'rgba(0, 0, 0, 0.16) 0px 1px 4px';
-
-        document。body。appendChild(notification);
-
-        // X秒后移除通知
+        // 3秒后恢复按钮状态
         setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }， 1500);
+            button.classList.remove('copied');
+            button.querySelector('span').textContent = originalText;
+        }, 3000);
     }
 
-    // 初始化函数
-    function init() {
-        // 等待页面加载完成
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', createCopyButton);
-        } else {
-            createCopyButton();
-        }
-
-        // 监听页面变化（对于单页应用或AJAX加载的内容）
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.addedNodes.length) {
-                    createCopyButton();
-                }
-            });
-        });
-
-        observer。observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    }
-
-    // 启动脚本
-    init();
+    // 绑定点击事件
+    document.querySelector('.copy-magnet').addEventListener('click', function(e) {
+        e.preventDefault();
+        copyMagnetLinks();
+    });
 })();
