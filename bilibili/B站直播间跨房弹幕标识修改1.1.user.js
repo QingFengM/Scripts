@@ -2,7 +2,7 @@
 // @name         B站直播间跨房弹幕标识修改
 // @namespace    http://tampermonkey.net/
 // @version      1.1
-// @description  修改跨房弹幕标识为文本并调整用户名显示样式，跨房标识垂直高度降低0.15px
+// @description  修改跨房弹幕标识并添加用户名显示
 // @author       deepseek
 // @match        https://live.bilibili.com/*
 // @grant        none
