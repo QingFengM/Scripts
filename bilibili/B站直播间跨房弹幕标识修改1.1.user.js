@@ -40,7 +40,7 @@
             // 修改文本内容（可选）
             mirrorTag.textContent = '跨房';
 
-            // 修改样式为文本，新增垂直高度降低0.15px的样式
+            // 修改样式为文本
             mirrorTag.style.cssText = `
                 color: #9499a0 !important;
                 background: transparent !important;
