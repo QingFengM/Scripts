@@ -2,7 +2,7 @@
 // @name         B站直播间跨房弹幕标识修改
 // @namespace    http://tampermonkey.net/
 // @version      1.1
-// @description  修改跨房弹幕标识为蓝色文本并调整用户名显示样式
+// @description  修改跨房弹幕标识为文本并调整用户名显示样式
 // @author       deepseek
 // @match        https://live.bilibili.com/*
 // @grant        none
@@ -34,7 +34,7 @@
 
     // 处理单个弹幕元素
     function processDanmaku(danmakuItem) {
-        // 修改跨房弹幕标识为蓝色文本
+        // 修改跨房弹幕标识为文本
         const mirrorTag = danmakuItem.querySelector('.uni-live-prefix-tag.uni-live-mirror-tag');
         if (mirrorTag) {
             // 修改文本内容（可选）
