@@ -2,7 +2,7 @@
 // @name         B站直播间跨房弹幕标识修改
 // @namespace    http://tampermonkey.net/
 // @version      1.1
-// @description  修改跨房弹幕标识为文本并调整用户名显示样式
+// @description  修改跨房弹幕标识为文本并调整用户名显示样式，跨房标识垂直高度降低0.15px
 // @author       deepseek
 // @match        https://live.bilibili.com/*
 // @grant        none
@@ -40,7 +40,7 @@
             // 修改文本内容（可选）
             mirrorTag.textContent = '跨房';
 
-            // 修改样式为文本
+            // 修改样式为文本，新增垂直高度降低0.15px的样式
             mirrorTag.style.cssText = `
                 color: #9499a0 !important;
                 background: transparent !important;
@@ -52,6 +52,7 @@
                 display: inline-block !important;
                 vertical-align: baseline !important;
                 line-height: normal !important;
+                transform: translateY(1px) !important;
             `;
 
             // 移除所有类名，只保留必要的基本样式
