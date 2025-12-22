@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         B站直播间跨房弹幕标识修改
+// @name         B站直播间跨房弹幕添加用户名显示
 // @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  修改跨房弹幕标识并添加用户名显示
+// @version      1.2
+// @description  跨房弹幕标识添加用户名显示
 // @author       deepseek
 // @match        https://live.bilibili.com/*
 // @grant        none
@@ -34,31 +34,6 @@
 
     // 处理单个弹幕元素
     function processDanmaku(danmakuItem) {
-        // 修改跨房弹幕标识为文本
-        const mirrorTag = danmakuItem.querySelector('.uni-live-prefix-tag.uni-live-mirror-tag');
-        if (mirrorTag) {
-            // 修改文本内容（可选）
-            mirrorTag.textContent = '跨房';
-
-            // 修改样式为文本
-            mirrorTag.style.cssText = `
-                color: #9499a0 !important;
-                background: transparent !important;
-                border: none !important;
-                padding: 0 !important;
-                margin-right: 4px !important;
-                font-weight: normal !important;
-                font-size: inherit !important;
-                display: inline-block !important;
-                vertical-align: baseline !important;
-                line-height: normal !important;
-                transform: translateY(1px) !important;
-            `;
-
-            // 移除所有类名，只保留必要的基本样式
-            mirrorTag.className = 'uni-live-prefix-tag';
-        }
-
         // 获取用户名
         const username = danmakuItem.getAttribute('data-uname');
 
