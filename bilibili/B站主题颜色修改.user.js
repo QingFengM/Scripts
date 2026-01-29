@@ -4,6 +4,7 @@
 // @version      0.1
 // @description  修改B站主题色为粉色
 // @author       You
+// @icon         https://www.bilibili.com/favicon.ico
 // @match        *://*.bilibili.com/*
 // @grant        GM_addStyle
 // @run-at       document-start
@@ -30,6 +31,17 @@
         }
         .send-msg:hover {
             color: #FB7299 !important;
+        }
+        .user-card-m-exp .user-info-wrapper .info .btn-box .message:hover {
+            border: 1px solid #FB7299 !important;
+            color: #FB7299 !important;
+        }
+        .user-card-m-exp .user-info-wrapper .info .btn-box .like {
+            border-color: #FB7299 !important;
+            background-color: #FB7299 !important;
+        }
+        .user-card-m-exp .user-info-wrapper .info .btn-box .liked {
+            color: var(--bg3) !important;
         }
         /* 进度条 */
         .bpx-player-progress-schedule-current {
@@ -70,6 +82,14 @@
             color: #FB7299 !important;
             border: 1px solid #FB7299 !important;
         }
+        .bpx-player-ctrl-subtitle-setting:hover {
+            color: #FB7299 !important;
+            fill: #FB7299 !important;
+        }
+        .bui-checkbox:hover .bui-checkbox-name {
+            color: #FB7299 !important;
+        }
+
         /* 弹幕开关 */
         .bui-danmaku-switch .bui-danmaku-switch-label .bui-danmaku-switch-on svg path:last-child{
             fill: #FB7299 !important;
@@ -91,9 +111,32 @@
         .bpx-player-dm-setting-left-block-content .bpx-player-block-filter-type.bpx-player-active .bpx-player-block-filter-label:not(._) {
             color: #FB7299 !important;
         }
-        /* 高级弹幕旁小图标 */
         .bpx-player-block-advanced-more svg path {
             fill: #FB7299 !important;
+        }
+        .bui-progress-bar {
+            background-color: #FB7299 !important;
+        }
+        .bpx-player-dm-setting-left-more:hover {
+            fill: #FB7299 !important;
+            color: #FB7299 !important;
+        }
+        .bpx-player-dm-setting-right-more:hover {
+            fill: #FB7299 !important;
+            color: #FB7299 !important;
+        }
+        /* 播放设置 */
+        .bpx-player-ctrl-setting-more:hover .bpx-common-svg-icon {
+            fill: #FB7299 !important;
+        }
+        .bpx-player-ctrl-setting-more:hover {
+            color: #FB7299 !important;
+        }
+        .bui-switch:hover .bui-switch-name {
+            color: #FB7299 !important;
+        }
+        .bui-radio.bui-dark .bui-radio-button .bui-radio-input:checked + .bui-radio-label {
+            background: #FB7299 !important;
         }
         .bui-checkbox .bui-checkbox-input:checked + .bui-checkbox-label .bui-checkbox-icon svg {
             fill: #FB7299 !important;
@@ -104,36 +147,10 @@
         .bui-checkbox:hover .bui-checkbox-name {
             fill: #FB7299 !important;
         }
-        .bui-progress-bar {
-            background-color: #FB7299 !important;
+        .bui-switch .bui-switch-input:checked + .bui-switch-label .bui-switch-body {
+          background: #FB7299 !important;
         }
-        .bpx-player-sending-bar .bpx-player-video-btn-dm:hover {
-            fill: #FB7299 !important;
-        }
-        /* 修改镜像画面开关文字悬停颜色 */
-        .bpx-player-ctrl-setting-mirror:hover .bui-switch-name,
-        /* 修改单集循环开关文字悬停颜色 */
-        .bpx-player-ctrl-setting-loop:hover .bui-switch-name,
-        /* 修改自动开播开关文字悬停颜色 */
-        .bpx-player-ctrl-setting-autoplay:hover .bui-switch-name,
-        /* 修改更多播放设置文字和图标悬停颜色 */
-        .bpx-player-ctrl-setting-more:hover .bpx-player-ctrl-setting-more-text,
-        .bpx-player-ctrl-setting-more:hover .bpx-common-svg-icon svg path,
-        /* 修改倍速设置文字悬停颜色 */
-        .bui-switch[style*="倍速设置"]:hover {
-            color: #FB7299 !important;
-        }
-        /* 单独设置SVG图标路径的填充色 */
-        .bpx-player-ctrl-setting-more:hover .bpx-common-svg-icon svg path {
-            fill: #FB7299 !important;
-        }
-        .bui-radio.bui-dark .bui-radio-button .bui-radio-input:checked + .bui-radio-label {
-            background: #FB7299 !important;
-        }
-        .bpx-player-ctrl-setting-others-content .bui-checkbox-label:hover .bui-checkbox-name {
-            color: #FB7299 !important;
-        }
-        /* 发送按钮/登录按钮 */
+        /* 弹幕发送 */
         .bui-button-blue {
             background: #FB7299 !important;
             color: #FFFFFF !important;
@@ -141,6 +158,26 @@
         .bpx-player-sending-bar .bpx-player-video-inputbar .bpx-player-dm-hint a:hover {
             color: #FB7299 !important;
             fill: #FB7299 !important;
+        }
+        .bpx-player-sending-bar .bpx-player-video-btn-dm:hover {
+            fill: #FB7299 !important;
+        }
+        .bpx-player-ctrl-setting-others-content .bui-checkbox-label:hover .bui-checkbox-name {
+            color: #FB7299 !important;
+        }
+        .bpx-player-mode-selection-container .bpx-player-mode-selection-panel .bpx-player-mode-selection-row .row-selection .selection-span.active[data-type="fontsize"] {
+            background: #FB7299;
+        }
+        .bpx-player-mode-selection-container .bpx-player-mode-selection-panel .bpx-player-mode-selection-row .row-selection .selection-span.active[data-type="fontsize"]:hover {
+            background: #FB7299;
+        }
+        .bpx-player-mode-selection-container .bpx-player-mode-selection-panel .bpx-player-mode-selection-row .row-selection .selection-span.active[data-type="mode"] {
+            background: #0000 !important;
+        }
+        .bpx-player-mode-selection-container .bpx-player-mode-selection-panel .bpx-player-mode-selection-row.mode .selection-span.active, .bpx-player-mode-selection-container .bpx-player-mode-selection-panel .bpx-player-mode-selection-row.mode .selection-span.active:hover {
+          fill: #FB7299 !important;
+          background: transparent;
+          color: #FB7299 !important;
         }
         /* 简介 */
         .video-desc-container .basic-desc-info a[data-v-4c8ea99d] {
@@ -168,6 +205,12 @@
         .video-toolbar-left-item.on {
             color: #FB7299 !important;
         }
+        .video-share-popover .video-share-dropdown .dropdown-top .dropdown-top-left .capture-bar .bar-right .copy-link {
+            background-color: #FB7299 !important;
+        }
+        .video-share-popover .video-share-dropdown .dropdown-top .dropdown-top-left .capture-bar .bar-left > label #check-timestamp:checked::after {
+            background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiByeD0iMiIgZmlsbD0iI2ZiNzI5OSIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTUuMDAwMDEgMTAuOTk4OUM0LjcwODYzIDExLjAxMTggNC40MTIxMyAxMC45MTIxIDQuMiAxMC43TDIuMyA4LjhDMS45IDguMyAxLjkgNy43IDIuMyA3LjNDMi43IDYuOSAzLjQgNi45IDMuOCA3LjNMNSA4LjVMMTAuMiAzLjNDMTAuNiAyLjkgMTEuMyAyLjkgMTEuNyAzLjNDMTIuMSAzLjcgMTIuMSA0LjQgMTEuNyA0LjhMNS44IDEwLjdDNS41ODc4OCAxMC45MTIxIDUuMjkxMzkgMTEuMDExOCA1LjAwMDAxIDEwLjk5ODlaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4=);
+        }
         /* 合集 */
         .video-pod .video-pod__header .header-top .left .title[data-v-dac4fbd2]:hover {
             color: #FB7299 !important;
@@ -181,11 +224,10 @@
             color: #FB7299 !important;
             border: 1px solid #FB7299 !important;
         }
-        /* 弹幕列表 */
-/* 修改三个点图标悬停时的颜色 */
-.bui-dropdown-icon:hover svg path {
-    fill: #FB7299 !important;
-}
+        /* 弹幕列表 修改三个点图标悬停时的颜色 */
+        .bui-dropdown-icon:hover svg path {
+            fill: #FB7299 !important;
+        }
         /* 自动连播 */
         .switch-btn.on{
             background: #FB7299 !important;
@@ -195,13 +237,8 @@
         }
         /* 当前播放标识 */
         .simple-base-item .title .playing-gif {
-            background-image: url('https://i0.hdslb.com/bfs/static/jinkela/playlist-video/asserts/playing.gif') !important;
-            filter:
-              sepia(1)              /* 先转为棕色基调 */
-              hue-rotate(320deg)    /* 调整到粉色区域 */
-              saturate(2.5)         /* 增加饱和度让粉色更鲜艳 */
-              brightness(1.2)       /* 提亮颜色 */
-              !important;
+            background-image: url('https://i0.hdslb.com/bfs/static/jinkela/playlist-video/asserts/playing.gif');
+            filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28) !important;
         }
         /* 当前播放 */
         .simple-base-item.normal.active .title {
