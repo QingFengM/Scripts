@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       2.9
+// @version                                                       3.0
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -37,25 +37,30 @@
     css += '.room-info-cntr .content-wrapper {height: 210px !important;}';//视频区右下方主播公告高度
     css += '.room-introduction-tags {display:none !important;}';//视频区下方主播简介里的tag标签
     css += '.room-announce-empty {display:none !important;}';//视频区下方主播公告未填写内容时出现的图片
-    css += '.trends-content {margin-top:1px !important;}';//视频区下方动态位置高度
+    css += '.trends-content {margin-top:1px !important;}';//动态位置高度
     css += '.room-feed .room-feed-content .card {border: 1px solid #F1F2F300 !important;}';//视频区下方动态边框
+    css += '.bili-dyn-item {border-radius: 12px !important;}';//动态圆角
     css += '.live-room-app .app-content .app-body .section-block .right-container {margin-top:1px !important;}';//视频区下方主播公告位置高度
     css += '.empty-content {display:none !important;}';//视频区下方动态未刷新出来时的图片
-    css += '.room-info-cntr {border-radius:4px !important;border: 1px solid #E3E5E700 !important;}';//视频区下方主播公告边框圆角
+    css += '.room-info-cntr {border-radius:12px !important;border: 1px solid #E3E5E700 !important;}';//视频区下方主播公告边框圆角
     css += '.p-fixed.webp.room-bg {display:none !important;}';//直播间背景
+    css += '#player-ctnr {box-shadow:0 0 12px #0003 !important;}';//直播间背景阴影
+    css += '#aside-area-vm {box-shadow:0 0 12px #0003 !important;}';//直播间背景阴影
     css += '.side-bar-cntr {display: none !important;visibility: hidden !important;opacity: 0 !important;height: 0 !important;width: 0 !important;overflow: hidden !important;}';//侧边栏
     css += '#sidebar-vm {display: none !important;}';//侧边栏
     css += '.live-player-ctnr.minimal {width: 300px !important;height: 168.75px !important;border-radius: 4px !important;padding-top: 0px !important;right: 120px !important;}';//小窗播放比例修改位16:9
     css += '.live-room-app .app-content .app-body {width: 91.5% !important;max-width: 2000px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
-    //css += '.live-room-app .app-content .app-body {width: 80% !important;max-width: 1504px !important;}';//播放区域宽度.如果想使用原来的播放器大小,请修改"width"默认为 "80%","max-width"默认为"1504px"
     css += '.live-room-app .app-content {padding-top: 70px !important;}';//播放区顶部距离
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container {width: calc(100% - 300px - 10px) !important;}';//播放区与弹幕区间隔距离
     css += '.live-room-app .app-content .app-body .section-block .left-container {width: calc(100% - 300px - 10px) !important;}';//动态区与公告间隔距离
     css += '.live-room-app .app-content .app-body .player-and-aside-area {margin-bottom: 8px !important;}';//播放区与动态区间隔距离
+    css += '.follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name p:hover {color: #FB7299 !important;}';//关注
+    css += '.follow-cntr .my-follow .follow-text {color: #FB7299 !important;}';//关注
+    css += '.bili-dyn-tag {color: #FB7299 !important;}';//动态
     css += '.link-footer {display:none !important;}';//底栏
 
 //直播间标题栏
-    css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {height: 56px !important;border-radius: 4px 4px 0 0 !important;border: 0px solid #e3e5e7 !important;}';//标题栏圆角
+    css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {height: 56px !important;border-radius: 12px 12px 0 0 !important;border: 0px solid #e3e5e7 !important;}';//标题栏圆角
     css += '.live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {background-position: center !important;background-size: cover !important;}';//标题栏背景图片位置
     css += '.p-relative.follow-ctnr {display:none !important;}';//标题栏助力与上舰
     css += '.lower-row > .right-ctnr {display:none !important;}';//标题栏第二行广告
@@ -97,6 +102,7 @@
     css += '.bilibili-combo-danmaku-container {display:none !important;}';//视频区弹幕连击
     css += '#fullscreen-danmaku-vm {display:none !important;}';//视频区全屏弹幕发送框
     css += '#live-charge-vm {display: none !important;}';//视频区付费观看直播
+    css += '#player-ctnr{border-radius: 12px !important;overflow:hidden !important;}';//播放器底部圆角
 
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
@@ -104,7 +110,7 @@
     css += '.m-nobar__popup-container {display:none !important;}';//天选时刻
 
 //直播间弹幕区
-    css += '.chat-history-panel {border-radius:4px 4px 0 0 !important;}';//弹幕区圆角
+    css += '#aside-area-vm {border-radius:12px !important;}';//弹幕区圆角
     css += '#rank-list-vm {display:none !important;}';//弹幕区礼物榜背景
     css += '#rank-list-ctnr-box {display:none !important;}';//弹幕区顶部礼物榜
     css += '.chat-history-panel {height: calc(100% - 0px - 110px) !important;}';//弹幕区高度调整
@@ -173,7 +179,6 @@
     css += '.vote-card {display: none !important;}';//弹幕区弹幕投票横幅
 
 //直播间弹幕输入区
-    css += '.chat-control-panel {border-radius: 0 0 4px 4px !important;}';//弹幕输入框圆角
     css += '.super-chat {display:none !important;}';//弹幕输入框醒目留言
     css += '.like-btn {display:none !important;}';//弹幕输入框点赞
     css += '.p-relative.play-together-panel {display:none !important;}';//弹幕输入框一起玩
@@ -181,6 +186,8 @@
     css += '.chat-input {font-size: 14px !important;}';//弹幕输入框字体大小
     css += '.chat-input {height: 36px !important;}';//弹幕输入框内部高度
     css += '.chat-input-ctnr {margin-top: 5px !important;}';//弹幕输入框上部距离输入框功能位置间隔
+    css += '.chat-input-ctnr[data-v-cbea97b8] {border-radius: 12px !important;}';//弹幕输入框内部圆角
+    css += '.chat-input[data-v-cbea97b8] {border-radius: 12px !important;}';//弹幕输入框内部圆角
     css += '.bottom-actions {margin-top: -10px !important;}';//弹幕输入框底部距离输入框下部间隔
     css += '.live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {min-height: 86px !important;}';//弹幕输入框底部高度
     css += '.bl-button--small {min-width: 60px !important;height: 22px !important;}';//弹幕输入框发送按钮样式宽度和高度
