@@ -103,7 +103,7 @@
         'is following the conversation.': ' 正在关注对话',
         'Connecting...': '连接中...',
         'Connection Lost!': '连接失败！',
-        'Connection Lost!Reconnecting...': '连接失败！正在重新连接...',
+        'Connection Lost! Reconnecting...': '连接失败！正在重新连接...',
         'Connecting to server': '正在连接服务器',
         'ConnectionLost': '连接断开！',
         'HeatingUp': '正在加载',
