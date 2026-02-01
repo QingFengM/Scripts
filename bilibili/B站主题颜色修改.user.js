@@ -260,6 +260,22 @@
         .font-medium[data-v-d3a529ce]:hover {
             color: #FB7299 !important;
         }
+        /* 播放器大小 */
+        .left-container {
+            width: 1200px !important;
+        }
+        #bilibili-player {
+            width: 1201px !important;
+            height: 732px !important;
+        }
+        /* 播放器与三连上下间距 */
+        .video-toolbar-container {
+            padding-top: 68px !important;
+        }
+        /* 三连与评论区之间的间隔线 */
+        .video-toolbar-container,.video-tag-container {
+            border-bottom:none !important;
+        }
     `);
 
     // 等待DOM加载完成的逻辑移到CSS样式外面
