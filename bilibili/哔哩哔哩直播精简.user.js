@@ -19,6 +19,10 @@
     css += '.tv-logo {display:none !important;}';//顶栏log
     css += 'div.pointer.f-left.p-relative.h-100.shortcut-item:nth-of-type(2) {display:none !important;}';//顶栏购买电池
     css += 'div.pointer.f-left.p-relative.h-100.shortcut-item:nth-of-type(3) {display:none !important;}';//顶栏下载客户端
+    css += 'div.pointer.f-left.p-relative.h-100.shortcut-item:nth-of-type(4) {display:none !important;}';//顶栏我要开播
+    css += '.shortcuts-ctnr .shortcut-item {margin-right: 120px !important;}';//顶栏右边距
+    css += '.link-navbar .flex-block {padding-left: 30px !important;}';//顶栏左边距
+    css += '.search-bar-ctnr {max-width: 400px !important;}';//顶栏搜索框宽度
     css += '.trending {display:none !important;}';//顶栏热搜
     css += '#nav-searchform {background-color: #ffffff !important;}';//顶栏搜索背景颜色
     css += 'div.pointer.f-left.p-relative.h-100.shortcut-item:nth-of-type(1) {min-width:60px;}';//顶栏关注宽度
