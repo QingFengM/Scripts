@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         B站主题颜色修改
+// @name         哔哩哔哩播放页修改
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  修改B站主题色为粉色
+// @description  修改主题色为粉色 修改播放器大小
 // @author       You
 // @icon         https://www.bilibili.com/favicon.ico
 // @match        *://*.bilibili.com/*
@@ -260,21 +260,43 @@
         .font-medium[data-v-d3a529ce]:hover {
             color: #FB7299 !important;
         }
-        /* 播放器大小 */
-        .left-container {
-            width: 1200px !important;
+        /* 播放器默认模式 */
+        /* 播放器容器宽度 */
+        body:not(.player-mode-wide) .left-container {
+            width: 1250px !important;
         }
-        #bilibili-player {
-            width: 1201px !important;
-            height: 732px !important;
+        /* 播放器本体尺寸 */
+        body:not(.player-mode-wide) #bilibili-player {
+            width: 1250px !important;
+            height: 760px !important;
         }
-        /* 播放器与三连上下间距 */
-        .video-toolbar-container {
-            padding-top: 68px !important;
+        /* 播放器与三连的间距*/
+        body:not(.player-mode-wide) .video-toolbar-container {
+            padding-top: 90px !important;
         }
-        /* 三连与评论区之间的间隔线 */
-        .video-toolbar-container,.video-tag-container {
-            border-bottom:none !important;
+        body:not(.player-mode-wide) .video-toolbar-container,
+        body:not(.player-mode-wide) .video-tag-container {
+            border-bottom: none !important;
+        }
+
+        /* 播放器宽屏模式 */
+        body.player-mode-wide .left-container {
+            width: 1436px !important;
+            float: none !important;
+            margin: 0 auto !important;
+            display: block !important;
+        }
+        body.player-mode-wide #bilibili-player {
+            width: 1436px !important;
+            height: 864px !important;
+        }
+        body.player-mode-wide .video-toolbar-container {
+            padding-top: 20px !important;
+            margin: 0 auto !important;
+            max-width: 100% !important;
+        }
+        body.player-mode-wide .right-container {
+            display: none !important;
         }
     `);
 
