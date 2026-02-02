@@ -89,7 +89,10 @@
         .bui-checkbox:hover .bui-checkbox-name {
             color: #FB7299 !important;
         }
-
+        /* 播放器阴影 */
+        .bpx-player-container {
+            box-shadow: 0 0 8px #0003 !important;
+        }
         /* 弹幕开关 */
         .bui-danmaku-switch .bui-danmaku-switch-label .bui-danmaku-switch-on svg path:last-child{
             fill: #FB7299 !important;
@@ -263,22 +266,25 @@
         /* 播放器默认模式 */
         /* 播放器容器宽度 */
         body:not(.player-mode-wide) .left-container {
-            width: 1250px !important;
+            width: 1350px !important;
         }
         /* 播放器本体尺寸 */
         body:not(.player-mode-wide) #bilibili-player {
-            width: 1250px !important;
-            height: 760px !important;
+            width: 1350px !important;
+            height: 816px !important;
         }
-        /* 播放器与三连的间距*/
+        /* 播放器与三连的间距 */
         body:not(.player-mode-wide) .video-toolbar-container {
-            padding-top: 90px !important;
+            padding-top: 150px !important;
         }
         body:not(.player-mode-wide) .video-toolbar-container,
         body:not(.player-mode-wide) .video-tag-container {
             border-bottom: none !important;
         }
-
+        /* 播放器与列表的间距 */
+        body:not(.player-mode-wide) .video-container-v1 .right-container {
+            margin-left: 20px;
+        }
         /* 播放器宽屏模式 */
         body.player-mode-wide .left-container {
             width: 1436px !important;
@@ -297,6 +303,22 @@
         }
         body.player-mode-wide .right-container {
             display: none !important;
+        }
+        /* 播放界面向上移动的距离 */
+        .video-container-v1 {
+            margin-top: -30px !important;
+        }
+        .video-info-container .video-info-meta {
+            margin-top: 0px !important;
+        }
+        .video-info-container {
+            height: 90px !important;
+        }
+        .up-info__btn-panel {
+            display:none !important;
+        }
+        #danmukuBox {
+            margin-top: -20px !important;
         }
     `);
 
