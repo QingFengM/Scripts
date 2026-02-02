@@ -320,18 +320,20 @@
         #danmukuBox {
             margin-top: -20px !important;
         }
+        /* 顶栏阴影 */
+        .bili-header .mini-header {
+            box-shadow: none !important;
+        }
+        /* 顶栏左右边距 */
+        .bili-header .left-entry {
+            padding-left: 46px !important;
+        }
+        .bili-header .right-entry {
+            margin-right: 50px !important;
+        }
+        /* 视频列表广告 */
+        .video-card-ad-small, .ad-report.ad-floor-exp.right-bottom-banner {
+            display: none !important;
+        }
     `);
-
-    // 等待DOM加载完成的逻辑移到CSS样式外面
-    function initScript() {
-        // 这里可以添加需要DOM加载完成后执行的逻辑
-    }
-
-    // 等待DOM加载完成
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initScript);
-    } else {
-        // 延迟执行，避免与暴力猴初始化冲突
-        setTimeout(initScript, 1000);
-    }
 })();
