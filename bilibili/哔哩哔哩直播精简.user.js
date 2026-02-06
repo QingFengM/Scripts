@@ -28,6 +28,9 @@
     css += 'div.pointer.f-left.p-relative.h-100.shortcut-item:nth-of-type(1) {min-width:60px;}';//顶栏关注宽度
     css += '.v-middle.dp-i-block.p-relative.user-panel-ctnr {width:60px;}';//顶栏头像宽度
     css += '.user-panel-ctnr .user-panel .header-node .progress {display:none !important;}';//顶栏头像下方的消费等级
+    css += '.user-panel-ctnr .user-panel .header-node {height: 85px !important;}';//顶栏头像下方距离菜单的距离
+    css += '.user-panel-ctnr .user-panel {height: 375px !important;}';//顶栏头像菜单内容器高度
+    css += '.section-block.battery-block {display:none !important;}';//电池
     css += '.follow-cntr .anchor-list .live-status {display:none !important;}';//顶栏关注中xxx暂未开播
     css += '.down-arrow-icon-block {display:none !important;}';//顶栏更多中的符号
     css += '.w-100.over-hidden.p-relative.flip-view {display:none !important;}';//视频区下方广告栏
