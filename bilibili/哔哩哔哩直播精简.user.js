@@ -85,7 +85,13 @@
 
 //直播间标题栏修改样式
     css += '.header-info-ctnr .rows-ctnr .upper-row .room-owner-username,.header-info-ctnr .nowrap {font-size: 14px !important;}';//标题栏字体大小
+    css += '.header-info-ctnr .closedown-left .initiator-ctnr .initiator-name {font-size: 14px !important;margin-left: 8px !important;margin-right: 8px !important;}';//标题栏字体大小
+    css += '.live-title {font-weight: 400 !important;}';//直播间标题字体粗细默认
     css += '.rows-content {display: flex !important; flex-direction: row !important; align-items: center !important;}'; //设置标题栏主播ID与直播间标题内容为水平弹性布局，子元素居中
+    css += '.closedown-left {display: flex !important; flex-direction: row-reverse !important; align-items: center !important;}'; //设置标题栏主播ID与直播间标题内容为水平弹性布局并互换显示位置
+    css += '.initiator-label.live-skin-normal-a-text[data-v-084ff7f5] {display: none !important;}';//删除发起者:文本标签
+    css += '.left-lower-row {margin-top: 0px !important;}';//调整直播间标题内容左下侧行元素上边距
+    css += '.left-upper-row {margin-left: 17px !important;}';//调整直播间标题内容左下侧行元素左边距
     css += '.lower-row {margin-top: 0px !important;}'; //标题栏主播ID与直播间标题水平设置
     css += '.lower-row {margin-left: 16px !important;}'; //标题栏主播ID与直播间标题间距
     css += '.blive-avatar-icons, .blive-avatar-pendant {display: none !important;}'; //隐藏头像右下认证图标和头像挂件
