@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       3.0
+// @version                                                       3.1
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -121,6 +121,8 @@
 
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
+    css += '#fullscreen-container {grid-template-rows: minmax(0,1fr) 0px !important;}';//礼物栏布局的底部高度从 114px 改为 0
+    css += '.fullscreen-container-paddingbox {height: 0px !important;}';//礼物栏布局的底部高度从 114px 改为 0
     css += '#web-player__bottom-bar__container {display:none !important;}';//全屏礼物道具栏
     css += '.m-nobar__popup-container {display:none !important;}';//天选时刻
 
