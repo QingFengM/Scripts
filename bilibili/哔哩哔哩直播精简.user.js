@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       3.1
+// @version                                                       3.1.1
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -196,6 +196,7 @@
     css += '.vote-card {display: none !important;}';//弹幕区弹幕投票横幅
 
 //直播间弹幕输入区
+    css += '.control-panel-ctnr {padding: 8px 8px 8px 8px !important;}';//弹幕输入框布局边距
     css += '.super-chat {display:none !important;}';//弹幕输入框醒目留言
     css += '.like-btn {display:none !important;}';//弹幕输入框点赞
     css += '.p-relative.play-together-panel {display:none !important;}';//弹幕输入框一起玩
@@ -203,8 +204,7 @@
     css += '.chat-input {font-size: 14px !important;}';//弹幕输入框字体大小
     css += '.chat-input {height: 36px !important;}';//弹幕输入框内部高度
     css += '.chat-input-ctnr {margin-top: 5px !important;}';//弹幕输入框上部距离输入框功能位置间隔
-    css += '.chat-input-ctnr[data-v-cbea97b8] {border-radius: 12px !important;}';//弹幕输入框内部圆角
-    css += '.chat-input[data-v-cbea97b8] {border-radius: 12px !important;}';//弹幕输入框内部圆角
+    css += '.chat-input-ctnr {border-radius: 12px !important;overflow: hidden !important;box-sizing: border-box !important;}';//弹幕输入框内部圆角
     css += '.bottom-actions {margin-top: -10px !important;}';//弹幕输入框底部距离输入框下部间隔
     css += '.live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {min-height: 86px !important;}';//弹幕输入框底部高度
     css += '.bl-button--small {min-width: 60px !important;height: 22px !important;}';//弹幕输入框发送按钮样式宽度和高度
