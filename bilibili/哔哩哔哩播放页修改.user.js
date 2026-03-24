@@ -3,9 +3,9 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  修改主题色为粉色 修改播放器大小
-// @author       You
+// @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
-// @match        *://*.bilibili.com/*
+// @match        *://www.bilibili.com/video/*
 // @grant        GM_addStyle
 // @run-at       document-start
 // ==/UserScript==
