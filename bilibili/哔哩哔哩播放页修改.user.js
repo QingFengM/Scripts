@@ -340,6 +340,10 @@
         .bili-header .right-entry {
             margin-right: 50px !important;
         }
+        /* 顶部导航栏高度调整 */
+        .bili-header .bili-header__bar {
+          height: 54px !important;
+        }
         /* 右侧弹幕列表 底部外边距 */
         .video-container-v1 .right-container .danmaku-box {
             margin-bottom: 16px !important;
