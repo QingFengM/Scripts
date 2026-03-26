@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  修改主题色为粉色 修改播放器大小
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -42,6 +42,13 @@
         }
         .user-card-m-exp .user-info-wrapper .info .btn-box .liked {
             color: var(--bg3) !important;
+        }
+        /* 移除B站投票弹幕 */
+        .bili-danmaku-x-vote.bili-danmaku-x-show {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
         }
         /* 进度条 */
         .bpx-player-progress-schedule-current {
@@ -100,7 +107,6 @@
         .bui-danmaku-switch:not(.bui-disabled):hover {
             fill: #FB7299 !important;
         }
-
         /* 弹幕设置 */
         .bpx-player-sending-bar .bpx-player-dm-root .bpx-player-dm-setting:hover {
             fill: #FB7299 !important;
@@ -219,6 +225,8 @@
             color: #FB7299 !important;
         }
         .simple-base-item:hover .title-txt,
+        .simple-base-item.head.active .title,
+        .simple-base-item.sub.active .title,
         .simple-base-item:hover .stat-item.duration {
             color: #FB7299 !important;
         }
@@ -283,7 +291,7 @@
         }
         /* 播放器与列表的间距 */
         body:not(.player-mode-wide) .video-container-v1 .right-container {
-            margin-left: 20px;
+            margin-left: 16px !important;
         }
         /* 播放器宽屏模式 */
         body.player-mode-wide .left-container {
@@ -309,7 +317,8 @@
             margin-top: -30px !important;
         }
         .video-info-container .video-info-meta {
-            margin-top: 0px !important;
+            margin-top: -2px !important;
+            height: 34px !important;
         }
         .video-info-container {
             height: 90px !important;
@@ -331,9 +340,24 @@
         .bili-header .right-entry {
             margin-right: 50px !important;
         }
-        /* 视频列表广告 */
+        /* 右侧弹幕列表 底部外边距 */
+        .video-container-v1 .right-container .danmaku-box {
+            margin-bottom: 16px !important;
+        }
+        /* 右侧视频列表 顶部外边距微调 */
+        .recommend-list-v1 {
+            margin-top: -4px !important;
+        }
+        /* 右侧视频列表广告 */
         .video-card-ad-small, .ad-report.ad-floor-exp.right-bottom-banner {
             display: none !important;
+        }
+        /* 移除广告横幅 */
+        .activity-m-v1.act-end,
+        .strip-ad.left-banner.ad-report,
+        #slide_ad.slide-ad-exp{
+            display: none !important;
+            visibility: hidden !important;
         }
     `);
 })();
