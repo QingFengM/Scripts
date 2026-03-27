@@ -81,6 +81,24 @@
           fill: #FB7299 !important;
         }
 
+        /* 顶栏阴影 */
+        .bili-header .mini-header {
+            box-shadow: none !important;
+        }
+
+        /* 顶栏左右边距 */
+        .bili-header .left-entry {
+            padding-left: 46px !important;
+        }
+        .bili-header .right-entry {
+            margin-right: 50px !important;
+        }
+
+        /* 顶部导航栏高度调整 */
+        .bili-header .bili-header__bar {
+          height: 54px !important;
+        }
+
         /* upname */
         .up-detail .up-detail-top .up-name:hover {
             color: #FB7299 !important;
@@ -433,24 +451,6 @@
             margin-top: -20px !important;
         }
 
-        /* 顶栏阴影 */
-        .bili-header .mini-header {
-            box-shadow: none !important;
-        }
-
-        /* 顶栏左右边距 */
-        .bili-header .left-entry {
-            padding-left: 46px !important;
-        }
-        .bili-header .right-entry {
-            margin-right: 50px !important;
-        }
-
-        /* 顶部导航栏高度调整 */
-        .bili-header .bili-header__bar {
-          height: 54px !important;
-        }
-
         /* 右侧弹幕列表 底部外边距 */
         .video-container-v1 .right-container .danmaku-box {
             margin-bottom: 16px !important;
@@ -464,6 +464,17 @@
         /* 右侧视频列表广告 */
         .video-card-ad-small, .ad-report.ad-floor-exp.right-bottom-banner {
             display: none !important;
+        }
+
+        /* 右侧视频小窗 */
+        .fixed-sidenav-storage .fixed-sidenav-storage-item.mini-player-window.on {
+          color: #FB7299 !important;
+        }
+        .bpx-player-container {
+          border-radius: 12px !important;
+        }
+        .bpx-player-mini-progress {
+          display: none !important;
         }
 
         /* 移除广告横幅 */
