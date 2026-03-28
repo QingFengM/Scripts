@@ -392,6 +392,7 @@
         }
         .pod-slide .slide-inner .slide-item,.pod-slide .slide-inner .slide-item {
             font-weight: 500 !important;
+            border-radius: 8px !important;
         }
         .pod-slide .slide-inner .slide-item.active::before {
             background-color: #555 !important;
