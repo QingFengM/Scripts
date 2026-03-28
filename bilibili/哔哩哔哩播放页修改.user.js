@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改
 // @namespace    http://tampermonkey.net/
-// @version      0.3
-// @description  修改主题色为粉色 修改播放器大小
+// @version      0.3.1
+// @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
 // @match        *://www.bilibili.com/video/*
@@ -15,9 +15,10 @@
 
     // ==================== 播放页修改 ====================
     GM_addStyle(`
-        /* logo颜色 */
+        /* logo */
         .mini-header__logo {
           filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28) !important;
+          width: 54px !important;
         }
 
         /* 隐藏顶部导航栏 - 首页下拉箭头 */
@@ -62,6 +63,9 @@
         .bili-header .center-search-container .center-search__bar {
           max-width: 400px !important;
         }
+        .bili-header .center-search-container .center-search__bar #nav-searchform {
+          height: 37.5px !important;
+        }
         .bili-header .center-search-container .center-search__bar #nav-searchform,
         .bili-header .search-panel{
           border: none !important;
@@ -96,7 +100,20 @@
 
         /* 顶部导航栏高度调整 */
         .bili-header .bili-header__bar {
-          height: 54px !important;
+          height: 50px !important;
+        }
+        #biliMainHeader,
+        .bili-header {
+          min-height: 50px !important;
+        }
+
+        /* 禁止顶部导航栏固定显示 */
+        .bili-header.fixed-header .bili-header__bar {
+          position: static !important;
+        }
+        #biliMainHeader {
+          position: relative !important;
+          z-index: 1000 !important;
         }
 
         /* upname */
@@ -301,6 +318,19 @@
         .topic-tag .tag-link.topic-link .topic-tag-icon[data-v-76473342] {
             color: #FB7299 !important;
         }
+        .video-desc-container .toggle-btn[data-v-632962f9] {
+          margin-top: 4px !important;
+        }
+        .video-desc-container {
+            margin: 0 !important;
+        }
+        .video-tag-container {
+            margin: 10px 0 10px 0 !important;
+            padding-bottom: 0px !important;
+        }
+        .video-desc-container .basic-desc-info[style*="height: 91px"] {
+          height: 80px !important;
+        }
 
         /* 三连 */
         .video-toolbar-left-item:hover {
@@ -317,6 +347,9 @@
         }
         .video-share-popover .video-share-dropdown .dropdown-top .dropdown-top-left .capture-bar .bar-left > label #check-timestamp:checked::after {
           filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28);
+        }
+        #v_desc .toggle-btn .toggle-btn-text:hover {
+          color: #FB7299;
         }
 
         /* 记笔记 */
@@ -391,51 +424,52 @@
             color: #FB7299 !important;
         }
 
-        /* 播放器默认模式 */
-        /* 播放器容器宽度 */
-        body:not(.player-mode-wide) .left-container {
+        /* 默认模式 (data-screen="normal") */
+        .left-container {
             width: 1350px !important;
         }
-        /* 播放器本体尺寸 */
-        body:not(.player-mode-wide) #bilibili-player {
+        #bilibili-player {
             width: 1350px !important;
             height: 816px !important;
         }
-        /* 播放器与三连的间距 */
-        body:not(.player-mode-wide) .video-toolbar-container {
+        .video-toolbar-container {
             padding-top: 150px !important;
         }
-        body:not(.player-mode-wide) .video-toolbar-container,
-        body:not(.player-mode-wide) .video-tag-container {
+        .video-toolbar-container,
+        .video-tag-container {
             border-bottom: none !important;
         }
-        /* 播放器与列表的间距 */
-        body:not(.player-mode-wide) .video-container-v1 .right-container {
+        .video-container-v1 .right-container {
             margin-left: 16px !important;
         }
-        /* 播放器宽屏模式 */
-        body.player-mode-wide .left-container {
-            width: 1436px !important;
+
+        /* 宽屏模式 (data-screen="wide") */
+        body:has(.bpx-player-container[data-screen="wide"]) .left-container {
+            width: 1350px !important;
             float: none !important;
             margin: 0 auto !important;
             display: block !important;
         }
-        body.player-mode-wide #bilibili-player {
-            width: 1436px !important;
-            height: 864px !important;
+        body:has(.bpx-player-container[data-screen="wide"]) #bilibili-player {
+            width: 1350px !important;
+            height: 816px !important;
         }
-        body.player-mode-wide .video-toolbar-container {
+        body:has(.bpx-player-container[data-screen="wide"]) .video-toolbar-container {
             padding-top: 20px !important;
             margin: 0 auto !important;
             max-width: 100% !important;
+            border-bottom: none !important;
         }
-        body.player-mode-wide .right-container {
+        body:has(.bpx-player-container[data-screen="wide"]) .video-tag-container {
+            border-bottom: none !important;
+        }
+        body:has(.bpx-player-container[data-screen="wide"]) .right-container {
             display: none !important;
         }
 
         /* 播放界面向上移动的距离 */
         .video-container-v1 {
-            margin-top: -30px !important;
+            margin-top: -16px !important;
         }
         .video-info-container .video-info-meta {
             margin-top: -2px !important;
@@ -443,12 +477,14 @@
         }
         .video-info-container {
             height: 90px !important;
+            padding-top: 20px !important;
+        }
+        .up-info-container {
+            height: 90px !important;
+            padding-top: 20px !important;
         }
         .up-info__btn-panel {
             display:none !important;
-        }
-        #danmukuBox {
-            margin-top: -20px !important;
         }
 
         /* 右侧弹幕列表 底部外边距 */
@@ -479,6 +515,7 @@
 
         /* 移除广告横幅 */
         .activity-m-v1.act-end,
+        .activity-m-v1.act-now,
         .strip-ad.left-banner.ad-report,
         #slide_ad.slide-ad-exp{
             display: none !important;
