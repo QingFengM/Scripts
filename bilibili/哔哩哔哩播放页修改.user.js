@@ -432,9 +432,6 @@
             width: 1350px !important;
             height: 816px !important;
         }
-        .video-toolbar-container {
-            padding-top: 150px !important;
-        }
         .video-toolbar-container,
         .video-tag-container {
             border-bottom: none !important;
@@ -465,6 +462,9 @@
         }
         body:has(.bpx-player-container[data-screen="wide"]) .right-container {
             display: none !important;
+        }
+        #playerWrap {
+          height: 816px !important;
         }
 
         /* 播放界面向上移动的距离 */
