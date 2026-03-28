@@ -209,6 +209,14 @@
             box-shadow: 0 0 8px #0003 !important;
         }
 
+/* 弹幕栏 */
+ .bpx-player-container[data-revision="1"] .bpx-player-sending-bar, .bpx-player-container[data-revision="2"] .bpx-player-sending-bar {
+    height: 48px !important;
+  }
+.bpx-player-container[data-revision="1"] .bpx-player-sending-bar .bpx-player-video-inputbar, .bpx-player-container[data-revision="2"] .bpx-player-sending-bar .bpx-player-video-inputbar {
+    height: 32px !important;
+  }
+
         /* 弹幕开关 */
         .bui-danmaku-switch .bui-danmaku-switch-label .bui-danmaku-switch-on svg path:last-child{
             fill: #FB7299 !important;
@@ -430,7 +438,7 @@
         }
         #bilibili-player {
             width: 1350px !important;
-            height: 816px !important;
+            height: 808px !important;
         }
         .video-toolbar-container,
         .video-tag-container {
@@ -449,7 +457,7 @@
         }
         body:has(.bpx-player-container[data-screen="wide"]) #bilibili-player {
             width: 1350px !important;
-            height: 816px !important;
+            height: 808px !important;
         }
         body:has(.bpx-player-container[data-screen="wide"]) .video-toolbar-container {
             padding-top: 20px !important;
@@ -464,7 +472,7 @@
             display: none !important;
         }
         #playerWrap {
-          height: 816px !important;
+          height: 808px !important;
         }
 
         /* 播放界面向上移动的距离 */
