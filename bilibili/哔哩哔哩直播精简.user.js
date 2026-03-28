@@ -220,7 +220,7 @@
     css += '.bl-button--primary {border-radius: 24px !important;}';//弹幕输入框发送按钮圆角
     css += '.bl-button--primary {background-color: #f69 !important;}';//弹幕输入框发送按钮颜色
     css += '.gift-block-toast {display:none !important;}';//弹幕输入框关闭礼物特效提醒
-    css += '.chat-input-ctnr.chat-input-focus {border: 1px solid #E3E5E7 !important}';//弹幕输入框内框边框颜色
+    css += '.chat-input-ctnr.chat-input-focus {border: 1px solid #E3E5E7 !important;}';//弹幕输入框内框边框颜色
     css += '#chat-control-panel-vm {background-position: center !important;background-size: cover !important;}';//弹幕输入框背景图片位置
     css += '.voice-rtc {display:none !important;}';//弹幕输入框语音上麦
     css += '.input-limit-hint {display:none !important;}';//移除字数显示
