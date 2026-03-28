@@ -4,7 +4,7 @@
 // @homepage                                                      https://github.com/QingFengM/Scripts/
 // @author                                                        清风醉梦
 // @namespace                                                     原作者：G-uang
-// @version                                                       3.1.1
+// @version                                                       3.1.2
 // @match                                                         *://live.bilibili.com/*
 // @icon                                                          https://www.bilibili.com/favicon.ico
 // @run-at                                                        document-body
@@ -24,7 +24,10 @@
     css += '.link-navbar .flex-block {padding-left: 30px !important;}';//顶栏左边距
     css += '.search-bar-ctnr {max-width: 400px !important;}';//顶栏搜索框宽度
     css += '.trending {display:none !important;}';//顶栏热搜
-    css += '#nav-searchform {background-color: #ffffff !important;}';//顶栏搜索背景颜色
+    css += '.history-item:hover, .clear:hover,.history-fold-wrap:hover .fold-text {color: #FB7299 !important;}';//顶栏搜索悬浮变色
+    css += '.history-fold-wrap:hover .fold-icon path {fill: #FB7299 !important;}';//顶栏搜索悬浮变色
+    css += '.more-follows:hover span {color: #FB7299 !important;}';//顶栏更多关注变色
+    css += '.more-follows:hover .blue-right-arrow {filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28) !important;}';//顶栏更多关注变色
     css += 'div.pointer.f-left.p-relative.h-100.shortcut-item:nth-of-type(1) {min-width:60px;}';//顶栏关注宽度
     css += '.v-middle.dp-i-block.p-relative.user-panel-ctnr {width:60px;}';//顶栏头像宽度
     css += '.user-panel-ctnr .user-panel .header-node .progress {display:none !important;}';//顶栏头像下方的消费等级
@@ -62,6 +65,7 @@
     css += '.live-room-app .app-content .app-body .section-block .left-container {width: calc(100% - 300px - 10px) !important;}';//动态区与公告间隔距离
     css += '.live-room-app .app-content .app-body .player-and-aside-area {margin-bottom: 8px !important;}';//播放区与动态区间隔距离
     css += '.follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name p:hover {color: #FB7299 !important;}';//关注
+    css += '.follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name {height: 0px !important;}';//关注
     css += '.follow-cntr .my-follow .follow-text {color: #FB7299 !important;}';//关注
     css += '.bili-dyn-tag {color: #FB7299 !important;}';//动态
     css += '.link-footer {display:none !important;}';//底栏
@@ -117,7 +121,8 @@
     css += '.bilibili-combo-danmaku-container {display:none !important;}';//视频区弹幕连击
     css += '#fullscreen-danmaku-vm {display:none !important;}';//视频区全屏弹幕发送框
     css += '#live-charge-vm {display: none !important;}';//视频区付费观看直播
-    css += '#player-ctnr{border-radius: 12px !important;overflow:hidden !important;}';//播放器底部圆角
+    css += '#player-ctnr {border-radius: 12px !important;overflow:hidden !important;}';//播放器底部圆角
+    css += '.PyF4K7mjqm4rpICeBFJA .wzMWH0YAfabG6H8wvpQO .XhJAZxh51Lj7dEy0AcpQ .TzW8pOv1omXIeb5MHnoh {background: #FB7299 !important;}';//播放器底部进度条
 
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
@@ -215,7 +220,7 @@
     css += '.bl-button--primary {border-radius: 24px !important;}';//弹幕输入框发送按钮圆角
     css += '.bl-button--primary {background-color: #f69 !important;}';//弹幕输入框发送按钮颜色
     css += '.gift-block-toast {display:none !important;}';//弹幕输入框关闭礼物特效提醒
-    css += '.chat-input-ctnr.chat-input-focus {border: 1px solid #E3E5E7 !important;}';//弹幕输入框内框边框颜色
+    css += '.chat-input-ctnr.chat-input-focus {border: 1px solid #E3E5E7 !important}';//弹幕输入框内框边框颜色
     css += '#chat-control-panel-vm {background-position: center !important;background-size: cover !important;}';//弹幕输入框背景图片位置
     css += '.voice-rtc {display:none !important;}';//弹幕输入框语音上麦
     css += '.input-limit-hint {display:none !important;}';//移除字数显示
