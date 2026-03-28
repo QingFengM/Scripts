@@ -396,11 +396,15 @@
         .pod-slide .slide-inner .slide-item.active::before {
             background-color: #555 !important;
         }
+        .simple-base-item {
+            border-radius: 8px !important;
+        }
 
         /* 订阅合集 */
-        .video-pod .video-pod__header .header-bottom .right .subscribe-btn[data-v-dac4fbd2] {
+        .video-pod .video-pod__header .header-bottom .right .subscribe-btn {
             color: #FB7299 !important;
             border: 1px solid #FB7299 !important;
+            border-radius: 8px !important;
         }
 
         /* 弹幕列表 菜单图标悬停时的颜色 */
