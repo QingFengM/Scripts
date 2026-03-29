@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改
 // @namespace    http://tampermonkey.net/
-// @version      0.3.1
+// @version      0.3.2
 // @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -125,6 +125,21 @@
         .up-detail .up-detail-top .up-name:hover {
             color: #FB7299 !important;
         }
+        .up-avatar-wrap.has-pendant[data-v-363b3f2e] {
+            --avatar-wrap-size: 48px !important;
+            --avatar-size: 48px !important;
+            --avatar-live-size: 48px !important;
+        }
+        .membersinfo-upcard .avatar .add-follow-btn[data-v-3dff54c4],
+        .membersinfo-upcard .staff-info .info-tag[data-v-3dff54c4] {
+            display: none !important;
+        }
+        .membersinfo-normal .container[data-v-193554ad] {
+            padding-top: 10px !important;
+        }
+        .membersinfo-normal .container .membersinfo-upcard-wrap[data-v-193554ad] {
+            padding-bottom: 10px !important;
+        }
 
         /* 关注按钮 */
         .upinfo-btn-panel .follow-btn.not-follow {
@@ -217,10 +232,10 @@
 
         /* 弹幕栏 */
         .bpx-player-container .bpx-player-sending-bar, .bpx-player-container .bpx-player-sending-bar {
-            height: 48px !important;
+            height: 40px !important;
           }
         .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar, .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar {
-            height: 32px !important;
+            height: 30px !important;
           }
 
         /* 弹幕开关 */
@@ -466,6 +481,7 @@
             margin-top: 8px !important;
         }
         .video-page-card-small .card-box .pic-box .framepreview-box .video-awesome-img,
+        .video-page-card-small .card-box .pic-box .bpx-docker-major,
         .video-page-card-small .card-box .pic-box {
             width: 168px !important;
             height: 94.5px !important;
@@ -487,6 +503,18 @@
         .recommend-list-v1 .rec-title {
             margin-bottom: 4px !important;
         }
+        .video-page-card-small .card-box .pic-box .pic .duration {
+            font-size: 12px !important;
+            color: #fff !important;
+            background: rgba(0,0,0,0.6) !important;
+            border-radius: 4px !important;
+        }
+        .video-page-card-small .card-box .info {
+            margin-left: 8px !important;
+        }
+        .continuous-btn {
+            margin-left: auto !important;
+        }
 
         /* 默认模式 (data-screen="normal") */
         .left-container {
@@ -494,7 +522,7 @@
         }
         #bilibili-player {
             width: 1350px !important;
-            height: 808px !important;
+            height: 800px !important;
         }
         .video-toolbar-container,
         .video-tag-container {
@@ -510,7 +538,7 @@
         }
         body:has(.bpx-player-container[data-screen="wide"]) #bilibili-player {
             width: 1350px !important;
-            height: 808px !important;
+            height: 800px !important;
         }
         body:has(.bpx-player-container[data-screen="wide"]) .video-toolbar-container {
             padding-top: 20px !important;
@@ -525,7 +553,7 @@
             display: none !important;
         }
         #playerWrap {
-            height: 808px !important;
+            height: 800px !important;
         }
 
         /* 播放界面向上移动的距离 */
