@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改
 // @namespace    http://tampermonkey.net/
-// @version      0.3.2
+// @version      0.3.3
 // @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -72,7 +72,7 @@
             height: 37.5px !important;
         }
         .bili-header .center-search-container .center-search__bar #nav-searchform,
-        .bili-header .search-panel{
+        .bili-header .search-panel {
             border: none !important;
         }
         .bili-header .mini-header .center-search-container .center-search__bar #nav-searchform:hover {
@@ -90,6 +90,35 @@
             fill: #FB7299 !important;
         }
 
+        /* 顶栏右侧菜单 */
+        .right-entry-icon {
+            display: none !important;
+        }
+        .bili-header .right-entry .right-entry-item .right-entry-text {
+            margin-left: 8px !important;
+        }
+        .bili-header .header-upload-entry__icon {
+            color: var(--text1) !important;
+        }
+        .bili-header .header-upload-entry {
+            margin-left: 0px !important;
+            background: none !important;
+            color: var(--text1) !important;
+            font-size: 16px !important;
+        }
+        .bili-header .right-entry__outside {
+            font-size: 14px !important;
+            justify-content: center !important;
+            height: 30px !important;
+        }
+        .bili-header .mini-header .right-entry .right-entry__outside .right-entry-text {
+            color: var(--text1) !important;
+        }
+        .bili-header .red-num--message {
+            left: 30px !important;
+            top: -4px !important;
+        }
+
         /* 顶栏阴影 */
         .bili-header .mini-header {
             box-shadow: none !important;
@@ -100,7 +129,7 @@
             padding-left: 46px !important;
         }
         .bili-header .right-entry {
-            margin-right: 50px !important;
+            margin-right: 36px !important;
         }
 
         /* 顶部导航栏高度调整 */
@@ -139,6 +168,9 @@
         }
         .membersinfo-normal .container .membersinfo-upcard-wrap[data-v-193554ad] {
             padding-bottom: 10px !important;
+        }
+        .bili-avatar-pendent-dom {
+            display: none !important;
         }
 
         /* 关注按钮 */
@@ -232,14 +264,14 @@
 
         /* 弹幕栏 */
         .bpx-player-container .bpx-player-sending-bar, .bpx-player-container .bpx-player-sending-bar {
-            height: 40px !important;
+            height: 44px !important;
           }
-        .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar, .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar {
+        .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar {
             height: 30px !important;
           }
 
         /* 弹幕开关 */
-        .bui-danmaku-switch .bui-danmaku-switch-label .bui-danmaku-switch-on svg path:last-child{
+        .bui-danmaku-switch .bui-danmaku-switch-label .bui-danmaku-switch-on svg path:last-child {
             fill: #FB7299 !important;
         }
         .bui-danmaku-switch:not(.bui-disabled):hover {
@@ -436,7 +468,7 @@
         }
 
         /* 自动连播 */
-        .switch-btn.on{
+        .switch-btn.on {
             background: #FB7299 !important;
         }
         .simple-base-item .title:hover {
@@ -522,7 +554,7 @@
         }
         #bilibili-player {
             width: 1350px !important;
-            height: 800px !important;
+            height: 804px !important;
         }
         .video-toolbar-container,
         .video-tag-container {
@@ -538,7 +570,7 @@
         }
         body:has(.bpx-player-container[data-screen="wide"]) #bilibili-player {
             width: 1350px !important;
-            height: 800px !important;
+            height: 804px !important;
         }
         body:has(.bpx-player-container[data-screen="wide"]) .video-toolbar-container {
             padding-top: 20px !important;
@@ -553,7 +585,7 @@
             display: none !important;
         }
         #playerWrap {
-            height: 800px !important;
+            height: 804px !important;
         }
 
         /* 播放界面向上移动的距离 */
@@ -595,7 +627,10 @@
         }
 
         /* 右侧视频列表广告 */
-        .video-card-ad-small, .video-page-game-card-small, .ad-report.ad-floor-exp.right-bottom-banner {
+        .video-card-ad-small,
+        .video-page-game-card-small,
+        .video-page-special-card-small,
+        .ad-report.ad-floor-exp.right-bottom-banner {
             display: none !important;
         }
 
@@ -619,7 +654,7 @@
         .activity-m-v1.act-end,
         .activity-m-v1.act-now,
         .strip-ad.left-banner.ad-report,
-        #slide_ad.slide-ad-exp{
+        #slide_ad.slide-ad-exp {
             display: none !important;
             visibility: hidden !important;
         }
