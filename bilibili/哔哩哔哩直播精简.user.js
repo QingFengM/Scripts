@@ -225,6 +225,7 @@
     css += '.voice-rtc {display:none !important;}';//弹幕输入框语音上麦
     css += '.input-limit-hint {display:none !important;}';//移除字数显示
     css += '.chat-input.border-box.block-panel .block-hint {display: inline !important; white-space: nowrap !important;}';//移除换行
+    css += 'body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {background-color: #19485D !important;}';//弹幕输入区背景颜色
 
 //直播搜索框清理
     function cleanSearchBox() {
