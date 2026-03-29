@@ -454,7 +454,9 @@
         .font-medium[data-v-d3a529ce]:hover {
             color: #FB7299 !important;
         }
-        .video-page-card-small .card-box .pic-box .pic img {
+        .video-page-card-small .card-box .pic-box .framepreview-box .video-awesome-img,
+        .video-page-card-small .card-box .pic-box,
+        .video-page-card-small .card-box .pic-box .pic {
             border-radius: 8px !important;
         }
         .video-page-card-small {
@@ -573,8 +575,13 @@
         .fixed-sidenav-storage .fixed-sidenav-storage-item.mini-player-window.on {
             color: #FB7299 !important;
         }
-        .bpx-player-container {
+        .bpx-player-container[data-screen="mini"] {
+            right: 100px !important;
+            bottom: 30px !important;
             border-radius: 12px !important;
+        }
+        .bpx-player-video-area {
+            background-color: #fff0 !important;
         }
         .bpx-player-mini-progress {
             display: none !important;
