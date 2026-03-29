@@ -123,6 +123,7 @@
     css += '#live-charge-vm {display: none !important;}';//视频区付费观看直播
     css += '#player-ctnr {border-radius: 12px !important;overflow:hidden !important;}';//播放器底部圆角
     css += '.PyF4K7mjqm4rpICeBFJA .wzMWH0YAfabG6H8wvpQO .XhJAZxh51Lj7dEy0AcpQ .TzW8pOv1omXIeb5MHnoh {background: #FB7299 !important;}';//播放器底部进度条
+    css += 'body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .left-container #fullscreen-container {background: #0000 !important;}';//播放器容器背景颜色
 
 //直播间礼物栏
     css += '#gift-control-vm {display:none !important;}';//礼物道具栏
