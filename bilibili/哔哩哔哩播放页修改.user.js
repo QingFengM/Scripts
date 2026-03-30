@@ -380,7 +380,10 @@
         .video-desc-container .toggle-btn-text[data-v-4c8ea99d]:hover {
             color: #FB7299 !important;
         }
-        .video-tag-container .tag-panel .tag-link:hover {
+        .video-tag-container .tag-panel .tag-link:hover,
+        .bgm-tag .tag-link.bgm-link .bgm-tag-icon[data-v-2166de22],
+        .video-desc-container .basic-desc-info a[data-v-632962f9],
+        .video-desc-container .basic-desc-info a[data-v-632962f9]:hover {
             color: #FB7299 !important;
         }
         .topic-tag .tag-link.topic-link .topic-tag-icon[data-v-76473342] {
