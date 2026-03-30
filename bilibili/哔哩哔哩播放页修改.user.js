@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改
 // @namespace    http://tampermonkey.net/
-// @version      0.3.3
+// @version      0.3.4
 // @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -114,7 +114,8 @@
         .bili-header .mini-header .right-entry .right-entry__outside .right-entry-text {
             color: var(--text1) !important;
         }
-        .bili-header .red-num--message {
+        .bili-header .red-num--message,
+        .bili-header .red-num--dynamic {
             left: 30px !important;
             top: -4px !important;
         }
@@ -171,6 +172,11 @@
         }
         .bili-avatar-pendent-dom {
             display: none !important;
+        }
+        .bili-avatar {
+            width: 48px !important;
+            height: 48px !important;
+            transform: translate(0px, 0px) !important;
         }
 
         /* 关注按钮 */
@@ -263,12 +269,13 @@
         }
 
         /* 弹幕栏 */
-        .bpx-player-container .bpx-player-sending-bar, .bpx-player-container .bpx-player-sending-bar {
+        .bpx-player-container .bpx-player-sending-bar,
+        #bilibili-player-placeholder #bilibili-player-placeholder-bottom {
             height: 44px !important;
-          }
+        }
         .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar {
             height: 30px !important;
-          }
+        }
 
         /* 弹幕开关 */
         .bui-danmaku-switch .bui-danmaku-switch-label .bui-danmaku-switch-on svg path:last-child {
@@ -483,6 +490,11 @@
         /* 当前播放 */
         .simple-base-item.normal.active .title {
             color: #FB7299 !important;
+        }
+
+        /* 章节 */
+        .bpx-player-viewpoint {
+            display: none !important;
         }
 
         /* 视频卡片 */
