@@ -54,6 +54,11 @@
             display: none !important;
         }
 
+        /* 隐藏顶部导航 - 活动推广 */
+        .v-popover-wrap a.loc-moveclip {
+            display: none !important;
+        }
+
         /* 隐藏顶部导航 -搜索框热搜 */
         .trending {
             display: none !important;
