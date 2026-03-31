@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改
 // @namespace    http://tampermonkey.net/
-// @version      0.3.4.2
+// @version      0.3.4.3
 // @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -67,9 +67,10 @@
         /* 顶部导航 -搜索框 */
         .bili-header .center-search-container .center-search__bar {
             max-width: 400px !important;
+            top: 6px !important;
         }
         .bili-header .center-search-container .center-search__bar #nav-searchform {
-            height: 37.5px !important;
+            height: 38px !important;
         }
         .bili-header .center-search-container .center-search__bar #nav-searchform,
         .bili-header .search-panel {
@@ -116,8 +117,12 @@
         }
         .bili-header .red-num--message,
         .bili-header .red-num--dynamic {
-            left: 30px !important;
-            top: -4px !important;
+            padding: 0 8px !important;
+            top: -8px !important;
+            transform: translateX(-50%) !important;
+            line-height: 14px !important;
+            background-color: #FB7299 !important;
+            border-radius: 8px !important;
         }
 
         /* 顶栏阴影 */
@@ -134,7 +139,9 @@
         }
 
         /* 顶部导航栏高度调整 */
-        .bili-header .bili-header__bar {
+        .bili-header .bili-header__bar,
+        .bili-header .left-entry,
+        .bili-header .mini-header .center-search-container {
             height: 50px !important;
         }
         #biliMainHeader,
@@ -181,6 +188,16 @@
             width: 48px !important;
             height: 48px !important;
             transform: translate(0px, 0px) !important;
+        }
+        .up-info--right,
+        .up-info-container .up-info--right .up-info__detail[data-v-e6ef2836],
+        .up-info-container .up-info--right .up-info__detail[data-v-e6ef2836] .up-detail {
+            height: 48px !important;
+            margin-bottom: 0px !important;
+        }
+        .up-detail .up-description[data-v-5f1f09f0] {
+            height: 22px !important;
+            line-height: 22px !important;
         }
 
         /* 关注按钮 */
@@ -340,7 +357,7 @@
             fill: #FB7299 !important;
         }
         .bui-switch .bui-switch-input:checked + .bui-switch-label .bui-switch-body {
-          background: #FB7299 !important;
+            background: #FB7299 !important;
         }
 
         /* 弹幕发送 */
@@ -611,9 +628,14 @@
         .video-container-v1 {
             margin-top: -10px !important;
         }
+        .video-info-container .video-info-title[data-v-fe6ec38e],
+        .video-info-detail-list[data-v-0c3641b4],
         .video-info-container .video-info-meta {
             margin-top: -2px !important;
-            height: 34px !important;
+            height: 36px !important;
+        }
+        .video-info-container .video-info-title-inner .video-title[data-v-fe6ec38e] {
+            line-height: 36px !important;
         }
         .video-info-container {
             height: 90px !important;
@@ -621,10 +643,14 @@
         }
         .up-info-container {
             height: 90px !important;
-            padding-top: 20px !important;
+            padding-top: 10px !important;
         }
         .up-info__btn-panel {
             display:none !important;
+        }
+        .up-info--left,
+        .up-info--right {
+            margin-top: -2px !important;
         }
 
         /* 左侧播放器与右边列表的间距 */
