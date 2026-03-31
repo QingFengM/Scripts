@@ -304,7 +304,6 @@
         }
         .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar {
             height: 30px !important;
-            border-radius: 8px 0 0 8px !important;
         }
 
         /* 弹幕开关 */
@@ -341,17 +340,6 @@
         .bpx-player-dm-setting-right-more:hover {
             fill: #FB7299 !important;
             color: #FB7299 !important;
-        }
-        .bpx-player-sending-bar .bpx-player-video-inputbar-wrap {
-            width: 500px !important;
-            flex: none !important;
-        }
-        .bpx-player-sending-bar .bpx-player-video-inputbar {
-            width: 500px !important;
-            flex-grow: 0 !important;
-        }
-        .bpx-player-dm-switch {
-            margin-left: 450px !important;
         }
 
         /* 播放设置 */
