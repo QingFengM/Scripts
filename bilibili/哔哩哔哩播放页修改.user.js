@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改
 // @namespace    http://tampermonkey.net/
-// @version      0.3.4
+// @version      0.3.4.1
 // @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -173,7 +173,7 @@
         .bili-avatar-pendent-dom {
             display: none !important;
         }
-        .bili-avatar {
+        .up-avatar .bili-avatar {
             width: 48px !important;
             height: 48px !important;
             transform: translate(0px, 0px) !important;
@@ -244,7 +244,7 @@
             background: #FB7299 !important;
         }
 
-        /*字幕 */
+        /* 字幕 */
         .bpx-player-ctrl-subtitle-title-area .bpx-player-ctrl-subtitle-close-switch.bpx-state-active {
             color: #FB7299 !important;
         }
