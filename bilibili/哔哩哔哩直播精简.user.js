@@ -868,7 +868,7 @@
     }
     `);
 
-    // 直播搜索框清理
+    //直播搜索框清理
     function cleanSearchBox() {
         const searchInput = document.querySelector('input[name="keyword"]');
         if (searchInput) {
@@ -878,6 +878,7 @@
     }
 
     window.addEventListener('load', cleanSearchBox);
+
     const observer = new MutationObserver(function(mutations) {
         cleanSearchBox();
     });
