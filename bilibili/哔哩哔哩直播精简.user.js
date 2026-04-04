@@ -868,23 +868,18 @@
     }
     `);
 
-    //直播搜索框清理
-    function cleanSearchBox() {
-        const searchInput = document.querySelector('input[name="keyword"]');
-        if (searchInput) {
-            searchInput.removeAttribute('title');
-            searchInput.removeAttribute('placeholder');
+    // 搜索框热词清理
+    const clean = () => {
+        const el = document.querySelector('input[name="keyword"]');
+        if (el) {
+            el.removeAttribute('title');
+            el.removeAttribute('placeholder');
         }
-    }
+    };
 
-    window.addEventListener('load', cleanSearchBox);
-
-    const observer = new MutationObserver(function(mutations) {
-        cleanSearchBox();
-    });
-
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+    (function init() {
+        if (!document.body) return setTimeout(init, 50);
+        clean();
+        new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
+    })();
 })();
