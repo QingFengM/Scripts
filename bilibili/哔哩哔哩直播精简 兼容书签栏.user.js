@@ -1,15 +1,17 @@
 // ==UserScript==
-// @name                                                          哔哩哔哩直播精简 兼容书签栏
-// @description                                                   提供简洁的界面，只为安心看直播。
-// @homepage                                                      https://github.com/QingFengM/Scripts/
-// @author                                                        清风醉梦
-// @namespace                                                     原作者：G-uang
-// @version                                                       3.1.3
-// @match                                                         *://live.bilibili.com/*
-// @icon                                                          https://www.bilibili.com/favicon.ico
-// @grant                                                         GM_addStyle
-// @run-at                                                        document-start
-// @license                                                       MIT
+// @name            哔哩哔哩直播精简 兼容书签栏
+// @description     提供简洁的界面，只为安心看直播。
+// @homepage        https://github.com/QingFengM/Scripts/
+// @author          清风醉梦
+// @namespace       原作者：G-uang
+// @version         3.1.3
+// @match           *://live.bilibili.com/*
+// @icon            https://www.bilibili.com/favicon.ico
+// @grant           GM_addStyle
+// @run-at          document-start
+// @license         MIT
+// @updateURL       https://raw.githubusercontent.com/QingFengM/Scripts/main/bilibili/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E7%B2%BE%E7%AE%80%20%E5%85%BC%E5%AE%B9%E4%B9%A6%E7%AD%BE%E6%A0%8F.user.js
+// @downloadURL     https://raw.githubusercontent.com/QingFengM/Scripts/main/bilibili/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E7%9B%B4%E6%92%AD%E7%B2%BE%E7%AE%80%20%E5%85%BC%E5%AE%B9%E4%B9%A6%E7%AD%BE%E6%A0%8F.user.js
 // ==/UserScript==
 
 (function() {
