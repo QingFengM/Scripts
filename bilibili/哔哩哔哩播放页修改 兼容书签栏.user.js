@@ -8,6 +8,8 @@
 // @match        *://www.bilibili.com/video/*
 // @grant        GM_addStyle
 // @run-at       document-start
+// @updateURL    https://raw.githubusercontent.com/QingFengM/Scripts/main/bilibili/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E6%92%AD%E6%94%BE%E9%A1%B5%E4%BF%AE%E6%94%B9%20%E5%85%BC%E5%AE%B9%E4%B9%A6%E7%AD%BE%E6%A0%8F.user.js
+// @downloadURL  https://raw.githubusercontent.com/QingFengM/Scripts/main/bilibili/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E6%92%AD%E6%94%BE%E9%A1%B5%E4%BF%AE%E6%94%B9%20%E5%85%BC%E5%AE%B9%E4%B9%A6%E7%AD%BE%E6%A0%8F.user.js
 // ==/UserScript==
 
 (function() {
