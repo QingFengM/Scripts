@@ -858,6 +858,11 @@
     .voice-rtc {
         display: none !important;
     }
+    /* 移除弹幕输入框换行 */
+    .chat-input.border-box.block-panel .block-hint {
+        display: inline !important;
+        white-space: nowrap !important;
+    }
     /* 弹幕输入区背景颜色 */
     body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {
         background-color: #19485D !important;
