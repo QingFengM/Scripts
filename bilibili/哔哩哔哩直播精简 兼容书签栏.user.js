@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.3
+// @version         3.1.4
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -44,7 +44,7 @@
     }
     /* 调整顶栏左边距 */
     .link-navbar .flex-block {
-        padding-left: 42px !important;
+        padding-left: 30px !important;
     }
     /* 调整顶栏搜索框宽度 */
     .search-bar-ctnr {
@@ -797,10 +797,6 @@
     .chat-input {
         height: 36px !important;
     }
-    /* 弹幕输入框上部距离 */
-    .chat-input-ctnr {
-        margin-top: 5px !important;
-    }
     /* 弹幕输入框内部圆角 */
     .chat-input-ctnr {
         border-radius: 12px !important;
@@ -809,7 +805,7 @@
     }
     /* 弹幕输入框底部间隔 */
     .bottom-actions {
-        margin-top: -10px !important;
+        margin-top: -2px !important;
     }
     /* 弹幕输入框底部高度 */
     .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {
@@ -822,7 +818,7 @@
     }
     /* 弹幕发送按钮位置高度 */
     .right-action {
-        top: -60px !important
+        top: -68px !important
     }
     /* 弹幕表情选择面板右边距 */
     .emoticons-panel {
@@ -835,7 +831,7 @@
     /* 弹幕输入框功能按钮位置高度 */
     .control-panel-icon-row  {
         margin-top: -5px !important;
-        margin-bottom: 5px !important;
+        margin-bottom: -3px !important;
     }
     /* 弹幕发送按钮圆角 */
     .bl-button--primary {
@@ -861,15 +857,6 @@
     /* 隐藏语音上麦按钮 */
     .voice-rtc {
         display: none !important;
-    }
-    /* 移除输入字数显示 */
-    .input-limit-hint {
-        display: none !important;
-    }
-    /* 移除弹幕输入框换行 */
-    .chat-input.border-box.block-panel .block-hint {
-        display: inline !important;
-        white-space: nowrap !important;
     }
     /* 弹幕输入区背景颜色 */
     body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {
