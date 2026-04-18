@@ -171,18 +171,6 @@
     .empty-content {
         display: none !important;
     }
-    /* 动态双列 */
-    .bili-dyn-list__items {
-        column-count: 2 !important;
-        column-gap: 10px !important;
-        width: 100% !important;
-    }
-    .bili-dyn-list__item {
-        break-inside: avoid !important;
-        margin-bottom: 10px !important;
-        width: 100% !important;
-        height: auto !important;
-    }
     /* 隐藏直播间背景图 */
     .p-fixed.webp.room-bg {
         display: none !important;
@@ -895,4 +883,36 @@
         clean();
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
+
+    //动态双列
+    const GAP = 10;
+    const style = document.createElement('style');
+    style.textContent = `.bili-dyn-list__items{position:relative!important;display:block!important}.bili-dyn-list__item{position:absolute!important;box-sizing:border-box!important;width:calc(50% - ${GAP/2}px)!important}`;
+    document.head.appendChild(style);
+
+    function layout() {
+        const container = document.querySelector('.bili-dyn-list__items');
+        if (!container) return;
+        const items = [...container.querySelectorAll(':scope > .bili-dyn-list__item')];
+        if (!items.length) return;
+
+        const colWidth = (container.clientWidth - GAP) / 2;
+        let leftH = 0, rightH = 0;
+
+        items.forEach(item => {
+            const isLeft = leftH <= rightH;
+            item.style.width = colWidth + 'px';
+            item.style.left = (isLeft ? 0 : colWidth + GAP) + 'px';
+            item.style.top = (isLeft ? leftH : rightH) + 'px';
+            const h = item.offsetHeight + GAP;
+            isLeft ? (leftH += h) : (rightH += h);
+        });
+        container.style.height = Math.max(leftH, rightH) + 'px';
+    }
+
+    // 执行时机
+    const schedule = () => requestAnimationFrame(layout);
+    window.addEventListener('resize', schedule);
+    new MutationObserver(schedule).observe(document.querySelector('.bili-dyn-list__items') || document.body, { childList: true, subtree: true });
+    window.addEventListener('load', () => { layout(); setTimeout(layout, 200); });
 })();
