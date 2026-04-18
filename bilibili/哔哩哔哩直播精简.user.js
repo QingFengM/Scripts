@@ -144,6 +144,15 @@
     .room-announce-empty {
         display: none !important;
     }
+    /* 调整主播公告区域位置高度 */
+    .live-room-app .app-content .app-body .section-block .right-container {
+        margin-top: 1px !important;
+    }
+    /* 设置主播公告区域边框圆角及透明边框 */
+    .room-info-cntr {
+        border-radius: 12px !important;
+        border: 1px solid #E3E5E700 !important;
+    }
     /* 调整动态区域位置高度 */
     .trends-content {
         margin-top: 1px !important;
@@ -156,18 +165,21 @@
     .bili-dyn-item {
         border-radius: 12px !important;
     }
-    /* 调整主播公告区域位置高度 */
-    .live-room-app .app-content .app-body .section-block .right-container {
-        margin-top: 1px !important;
-    }
     /* 隐藏动态未刷新时的占位图片 */
     .empty-content {
         display: none !important;
     }
-    /* 设置主播公告区域边框圆角及透明边框 */
-    .room-info-cntr {
-        border-radius: 12px !important;
-        border: 1px solid #E3E5E700 !important;
+    /* 动态双列 */
+    .bili-dyn-list__items {
+        column-count: 2 !important;
+        column-gap: 10px !important;
+        width: 100% !important;
+    }
+    .bili-dyn-list__item {
+        break-inside: avoid !important;
+        margin-bottom: 10px !important;
+        width: 100% !important;
+        height: auto !important;
     }
     /* 隐藏直播间背景图 */
     .p-fixed.webp.room-bg {
