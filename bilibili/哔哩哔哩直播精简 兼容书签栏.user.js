@@ -44,7 +44,7 @@
     }
     /* 调整顶栏左边距 */
     .link-navbar .flex-block {
-        padding-left: 30px !important;
+        padding-left: 40px !important;
     }
     /* 调整顶栏搜索框宽度 */
     .search-bar-ctnr {
