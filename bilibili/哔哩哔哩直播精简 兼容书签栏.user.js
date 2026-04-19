@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.4
+// @version         3.1.5
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -883,36 +883,4 @@
         clean();
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
-
-    //动态双列
-    const GAP = 10;
-    const style = document.createElement('style');
-    style.textContent = `.bili-dyn-list__items{position:relative!important;display:block!important}.bili-dyn-list__item{position:absolute!important;box-sizing:border-box!important;width:calc(50% - ${GAP/2}px)!important}`;
-    document.head.appendChild(style);
-
-    function layout() {
-        const container = document.querySelector('.bili-dyn-list__items');
-        if (!container) return;
-        const items = [...container.querySelectorAll(':scope > .bili-dyn-list__item')];
-        if (!items.length) return;
-
-        const colWidth = (container.clientWidth - GAP) / 2;
-        let leftH = 0, rightH = 0;
-
-        items.forEach(item => {
-            const isLeft = leftH <= rightH;
-            item.style.width = colWidth + 'px';
-            item.style.left = (isLeft ? 0 : colWidth + GAP) + 'px';
-            item.style.top = (isLeft ? leftH : rightH) + 'px';
-            const h = item.offsetHeight + GAP;
-            isLeft ? (leftH += h) : (rightH += h);
-        });
-        container.style.height = Math.max(leftH, rightH) + 'px';
-    }
-
-    // 执行时机
-    const schedule = () => requestAnimationFrame(layout);
-    window.addEventListener('resize', schedule);
-    new MutationObserver(schedule).observe(document.querySelector('.bili-dyn-list__items') || document.body, { childList: true, subtree: true });
-    window.addEventListener('load', () => { layout(); setTimeout(layout, 200); });
 })();
