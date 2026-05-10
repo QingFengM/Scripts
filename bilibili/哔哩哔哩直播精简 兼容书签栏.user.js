@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.1
+// @version         3.1.7.2
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -207,6 +207,10 @@
     .live-room-app .app-content .app-body {
         width: 89% !important;
         max-width: 2000px !important;
+    }
+    /* 设置播放区域网页模式宽度 */
+    body.player-full-win #fullscreen-container {
+        right: 320px !important;
     }
     /* 调整播放区顶部距离 */
     .live-room-app .app-content {
