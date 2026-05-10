@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7
+// @version         3.1.7.1
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -366,7 +366,7 @@
     .left-anchor-section {
         margin-left: 8px !important;
     }
-    /* 直播间用户名底部XX人点赞 */
+    /* 直播间标题栏XX人点赞 */
     .header-info-ctnr .heat-index-scroll {
         display: none !important;
     }
@@ -575,8 +575,6 @@
     .chat-history-list {
         font-size: 14px !important;
     }
-    /* 弹幕字体颜色（注释掉，可根据需要启用） */
-    /* .danmaku-item {color: #0F0F0F !important;} */
     /* 设置弹幕ID字体大小 */
     .user-name {
         font-size: 14px !important;
@@ -584,7 +582,7 @@
     }
     /* 设置弹幕ID字体颜色 */
     .user-name {
-        color: #707070  !important;
+        color: #707070 !important;
     }
     /* 弹幕ID鼠标悬停字体颜色 */
     .chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {
@@ -795,9 +793,10 @@
     .chat-input {
         font-size: 14px !important;
     }
-    /* 弹幕表情选择面板右边距 */
+    /* 弹幕表情按钮边距 */
     .emoticons-panel {
         margin-right: 14px !important;
+        margin-top: 5px !important;
     }
     /* 弹幕发送按钮颜色 */
     .bl-button--primary {
@@ -841,45 +840,85 @@
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
 
-    //恢复标题显示
-    const titleSpan = document.createElement('span');
-    titleSpan.id = 'custom-title-display';
+    // 恢复标题显示
+    let titleSpan = null;
 
     const updateTitle = () => {
+        if (!titleSpan) return;
         const fullTitle = document.title;
         const match = fullTitle.split(' - ')[0];
-
         if (match && titleSpan.innerText !== match) {
             titleSpan.innerText = match;
         }
     };
 
     const injectElement = () => {
+        if (document.getElementById('custom-title-display')) return true;
+
         const targetContainer = document.querySelector('.left-anchor-section .content');
         const referenceEl = document.querySelector('.room-owner-username');
 
-        if (targetContainer && referenceEl && !document.getElementById('custom-title-display')) {
+        if (targetContainer && referenceEl) {
+            titleSpan = document.createElement('span');
+            titleSpan.id = 'custom-title-display';
+
             const refStyle = window.getComputedStyle(referenceEl);
-            titleSpan.style.fontSize = refStyle.fontSize;
-            titleSpan.style.fontWeight = refStyle.fontWeight;
-            titleSpan.style.fontFamily = refStyle.fontFamily;
-            titleSpan.style.lineHeight = refStyle.lineHeight;
-            titleSpan.style.color = refStyle.color;
-            titleSpan.style.marginLeft = '8px';
-            titleSpan.style.verticalAlign = 'middle';
-            titleSpan.style.display = 'inline-block';
+            Object.assign(titleSpan.style, {
+                fontSize: refStyle.fontSize,
+                fontWeight: refStyle.fontWeight,
+                fontFamily: refStyle.fontFamily,
+                lineHeight: refStyle.lineHeight,
+                color: refStyle.color,
+                marginLeft: '8px',
+                verticalAlign: 'middle',
+                display: 'inline-block'
+            });
 
             targetContainer.appendChild(titleSpan);
+            return true;
+        }
+        return false;
+    };
+
+    const observeTitle = () => {
+        const target = document.querySelector('title') || document.head;
+        const observer = new MutationObserver(() => updateTitle());
+
+        if (target) {
+            observer.observe(target, {
+                childList: true,
+                subtree: true,
+                characterData: true
+            });
         }
     };
 
-    const titleObserver = new MutationObserver(() => {
-        updateTitle();
-    });
-    titleObserver.observe(document.querySelector('title'), { childList: true });
+    const startApp = () => {
+        if (injectElement()) {
+            updateTitle();
+            observeTitle();
+            return;
+        }
 
-    const timer = setInterval(() => {
-        injectElement();
-        updateTitle();
-    }, 1000);
+        const mountObserver = new MutationObserver((mutations, obs) => {
+            if (injectElement()) {
+                updateTitle();
+                observeTitle();
+                obs.disconnect();
+            }
+        });
+
+        mountObserver.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        setTimeout(() => mountObserver.disconnect(), 15000);
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startApp);
+    } else {
+        startApp();
+    }
 })();
