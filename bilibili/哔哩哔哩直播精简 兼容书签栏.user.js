@@ -796,7 +796,7 @@
     /* 弹幕表情按钮边距 */
     .emoticons-panel {
         margin-right: 14px !important;
-        margin-top: 5px !important;
+        margin-top: 3px !important;
     }
     /* 弹幕发送按钮颜色 */
     .bl-button--primary {
