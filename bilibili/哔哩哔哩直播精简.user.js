@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.6
+// @version         3.1.7
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -286,7 +286,7 @@
         color: #FB7299 !important;
     }
     /* 直播间主播名称鼠标悬停字体颜色 */
-    .header-info-ctnr .rows-ctnr .upper-row .room-owner-username:hover {
+    .header-info-ctnr .left-anchor-section .room-owner-username:hover {
         color: #FB7299 !important;
     }
     /* 直播间主播名称字符高度 */
@@ -332,6 +332,12 @@
     .closedown-left {
         display: flex !important;
         flex-direction: row-reverse !important;
+        align-items: center !important;
+    }
+    /* 设置标题栏主播ID与标题水平排列 */
+    .header-info-ctnr .left-anchor-section .content {
+        display: flex !important;
+        flex-direction: row !important;
         align-items: center !important;
     }
     /* 删除“发起者:”文本标签 */
@@ -832,4 +838,46 @@
         clean();
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
+
+    //恢复标题显示
+    const titleSpan = document.createElement('span');
+    titleSpan.id = 'custom-title-display';
+
+    const updateTitle = () => {
+        const fullTitle = document.title;
+        const match = fullTitle.split(' - ')[0];
+
+        if (match && titleSpan.innerText !== match) {
+            titleSpan.innerText = match;
+        }
+    };
+
+    const injectElement = () => {
+        const targetContainer = document.querySelector('.left-anchor-section .content');
+        const referenceEl = document.querySelector('.room-owner-username');
+
+        if (targetContainer && referenceEl && !document.getElementById('custom-title-display')) {
+            const refStyle = window.getComputedStyle(referenceEl);
+            titleSpan.style.fontSize = refStyle.fontSize;
+            titleSpan.style.fontWeight = refStyle.fontWeight;
+            titleSpan.style.fontFamily = refStyle.fontFamily;
+            titleSpan.style.lineHeight = refStyle.lineHeight;
+            titleSpan.style.color = refStyle.color;
+            titleSpan.style.marginLeft = '8px';
+            titleSpan.style.verticalAlign = 'middle';
+            titleSpan.style.display = 'inline-block';
+
+            targetContainer.appendChild(titleSpan);
+        }
+    };
+
+    const titleObserver = new MutationObserver(() => {
+        updateTitle();
+    });
+    titleObserver.observe(document.querySelector('title'), { childList: true });
+
+    const timer = setInterval(() => {
+        injectElement();
+        updateTitle();
+    }, 1000);
 })();
