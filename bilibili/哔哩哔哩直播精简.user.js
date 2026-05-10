@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.5
+// @version         3.1.6
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -203,7 +203,7 @@
     }
     /* 设置播放区域宽度 */
     .live-room-app .app-content .app-body {
-        width: 91.5% !important;
+        width: 92.5% !important;
         max-width: 2000px !important;
     }
     /* 调整播放区顶部距离 */
@@ -212,11 +212,11 @@
     }
     /* 调整播放区与弹幕区间隔距离 */
     .live-room-app .app-content .app-body .player-and-aside-area .left-container {
-        width: calc(100% - 300px - 10px) !important;
+        width: calc(100% - 320px - 10px) !important;
     }
     /* 调整动态区与公告间隔距离 */
     .live-room-app .app-content .app-body .section-block .left-container {
-        width: calc(100% - 300px - 10px) !important;
+        width: calc(100% - 320px - 10px) !important;
     }
     /* 调整播放区与动态区间隔距离 */
     .live-room-app .app-content .app-body .player-and-aside-area {
@@ -243,6 +243,12 @@
         display: none !important;
     }
 
+    /* 右侧弹幕栏与公告栏宽度 */
+    body:not(.pure_room_root) .live-room-app .app-content .app-body .section-block .right-container,
+    body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area {
+        width: 320px !important;
+    }
+
     /* 直播间标题栏 */
     /* 直播间标题栏圆角 */
     .live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {
@@ -259,12 +265,12 @@
     .p-relative.follow-ctnr {
         display: none !important;
     }
-    /* 隐藏标题栏第二行广告 */
-    .lower-row > .right-ctnr {
+    /* 隐藏标题热门榜与上舰活动 */
+    .right-dynamic-modules {
         display: none !important;
     }
-    /* 隐藏标题栏节目单 */
-    .play-bill .p-relative {
+    /* 隐藏标题更多设置 */
+    .right-fixed-modules {
         display: none !important;
     }
     /* 解除直播间标题字符长度限制 */
@@ -287,10 +293,6 @@
     .header-info-ctnr .rows-ctnr .upper-row .room-owner-username {
         line-height: 20px !important;
     }
-    /* 隐藏标题栏分享/举报按钮 */
-    .upper-row > .right-ctnr {
-        display: none !important;
-    }
     /* 隐藏主播所在城市（默认） */
     .anchor-location.default {
         display: none !important;
@@ -307,8 +309,6 @@
     .uni-live-entry {
         display: none !important;
     }
-
-    /* 直播间标题栏修改样式 */
     /* 标题栏字体大小 */
     .header-info-ctnr .rows-ctnr .upper-row .room-owner-username,.header-info-ctnr .nowrap {
         font-size: 14px !important;
@@ -354,13 +354,13 @@
     .left-upper-row {
         margin-left: 17px !important;
     }
-    /* 调整标题栏主播ID与标题的上边距 */
-    .lower-row {
-        margin-top: 0px !important;
+    /* 调整直播间用户名左边距 */
+    .left-anchor-section {
+        margin-left: 8px !important;
     }
-    /* 调整标题栏主播ID与标题的间距 */
-    .lower-row {
-        margin-left: 16px !important;
+    /* 直播间用户名底部XX人点赞 */
+    .header-info-ctnr .heat-index-scroll {
+        display: none !important;
     }
     /* 隐藏头像右下认证图标和头像挂件 */
     .blive-avatar-icons, .blive-avatar-pendant {
@@ -659,10 +659,6 @@
     .chat-history-panel .chat-history-list .chat-item.danmaku-item .emoticon.bulge img {
         height: 45px !important;
     }
-    /* 弹幕区边框圆角 */
-    .live-room-app .app-content .app-body .player-and-aside-area .aside-area {
-        border-radius: 4px !important;
-    }
     /* 弹幕区滚动条触碰时透明效果 */
     .ps:hover > .ps__scrollbar-y-rail:hover {
         background-color: #eeeeee00 !important;
@@ -768,8 +764,8 @@
 
     /* 直播间弹幕输入区 */
     /* 弹幕输入框布局边距 */
-    .control-panel-ctnr {
-        padding: 8px 8px 8px 8px !important;
+    #control-panel-ctnr-box {
+        padding: 8px 10px 10px 10px !important;
     }
     /* 隐藏醒目留言按钮 */
     .super-chat {
@@ -791,49 +787,9 @@
     .chat-input {
         font-size: 14px !important;
     }
-    /* 弹幕输入框内部高度 */
-    .chat-input {
-        height: 36px !important;
-    }
-    /* 弹幕输入框内部圆角 */
-    .chat-input-ctnr {
-        border-radius: 12px !important;
-        overflow: hidden !important;
-        box-sizing: border-box !important;
-    }
-    /* 弹幕输入框底部间隔 */
-    .bottom-actions {
-        margin-top: -2px !important;
-    }
-    /* 弹幕输入框底部高度 */
-    .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {
-        min-height: 86px !important;
-    }
-    /* 弹幕发送按钮样式 */
-    .bl-button--small {
-        min-width: 60px !important;
-        height: 22px !important;
-    }
-    /* 弹幕发送按钮位置高度 */
-    .right-action {
-        top: -68px !important
-    }
     /* 弹幕表情选择面板右边距 */
     .emoticons-panel {
-        margin-right: 70px !important;
-    }
-    /* 弹幕表情图标位置高度 */
-    .control-panel-icon-row .icon-right-part {
-        margin-top: 4px !important;
-    }
-    /* 弹幕输入框功能按钮位置高度 */
-    .control-panel-icon-row  {
-        margin-top: -5px !important;
-        margin-bottom: -3px !important;
-    }
-    /* 弹幕发送按钮圆角 */
-    .bl-button--primary {
-        border-radius: 24px !important;
+        margin-right: 14px !important;
     }
     /* 弹幕发送按钮颜色 */
     .bl-button--primary {
@@ -855,11 +811,6 @@
     /* 隐藏语音上麦按钮 */
     .voice-rtc {
         display: none !important;
-    }
-    /* 移除弹幕输入框换行 */
-    .chat-input.border-box.block-panel .block-hint {
-        display: inline !important;
-        white-space: nowrap !important;
     }
     /* 弹幕输入区背景颜色 */
     body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {
