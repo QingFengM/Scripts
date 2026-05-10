@@ -499,10 +499,6 @@
     }
 
     /* 直播间弹幕区 */
-    /* 弹幕区圆角 */
-    #aside-area-vm {
-        border-radius: 12px !important;
-    }
     /* 隐藏弹幕区礼物榜背景 */
     #rank-list-vm {
         display: none !important;
