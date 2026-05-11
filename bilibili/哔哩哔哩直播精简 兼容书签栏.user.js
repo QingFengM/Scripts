@@ -205,7 +205,7 @@
     }
     /* 设置播放区域宽度 */
     .live-room-app .app-content .app-body {
-        width: 89% !important;
+        width: 89.5% !important;
         max-width: 2000px !important;
     }
     /* 设置播放区域网页模式宽度 */
