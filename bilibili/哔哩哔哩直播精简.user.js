@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.2
+// @version         3.1.7.3
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -767,6 +767,10 @@
     }
 
     /* 直播间弹幕输入区 */
+    /* 直播间弹幕输入区内部圆角 */
+    .chat-input-ctnr {
+        border-radius: 12px !important;
+    }
     /* 弹幕输入框布局边距 */
     #control-panel-ctnr-box {
         padding: 8px 10px 10px 10px !important;
@@ -791,9 +795,10 @@
     .chat-input {
         font-size: 14px !important;
     }
-    /* 弹幕表情按钮边距 */
-    .emoticons-panel {
-        margin-right: 14px !important;
+    /* 弹幕表情按钮左移 */
+    .control-panel-icon-row .icon-right-part {
+        float: left !important;
+        margin-left: 10px !important;
         margin-top: 3px !important;
     }
     /* 弹幕发送按钮颜色 */
