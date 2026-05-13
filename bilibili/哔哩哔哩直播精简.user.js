@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.3
+// @version         3.1.7.4
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -291,6 +291,10 @@
     }
     /* 直播间主播名称鼠标悬停字体颜色 */
     .header-info-ctnr .left-anchor-section .room-owner-username:hover {
+        color: #FB7299 !important;
+    }
+    /* 分区悬浮变色效果 */
+    #custom-partition-display:hover {
         color: #FB7299 !important;
     }
     /* 直播间主播名称字符高度 */
@@ -843,85 +847,59 @@
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
 
-    // 恢复标题显示
-    let titleSpan = null;
+    // 恢复标题、分区显示
+    const MAX_TIME = 3000; // 等待时长
+    const startTime = performance.now(); // 记录开始时间，用于超时控制
 
-    const updateTitle = () => {
-        if (!titleSpan) return;
-        const fullTitle = document.title;
-        const match = fullTitle.split(' - ')[0];
-        if (match && titleSpan.innerText !== match) {
-            titleSpan.innerText = match;
-        }
-    };
+    function tryInject() {
+        const container = document.querySelector('.left-anchor-section .content');
+        const refEl = document.querySelector('.room-owner-username');
+        const vmEl = document.querySelector("#head-info-vm");
+        const vue = vmEl?.__vue__;
 
-    const injectElement = () => {
-        if (document.getElementById('custom-title-display')) return true;
-
-        const targetContainer = document.querySelector('.left-anchor-section .content');
-        const referenceEl = document.querySelector('.room-owner-username');
-
-        if (targetContainer && referenceEl) {
-            titleSpan = document.createElement('span');
-            titleSpan.id = 'custom-title-display';
-
-            const refStyle = window.getComputedStyle(referenceEl);
-            Object.assign(titleSpan.style, {
+        // 样式采用主播用户名
+        if (container && refEl && vue?.liveAreaName) {
+            const refStyle = getComputedStyle(refEl);
+            const baseStyle = {
                 fontSize: refStyle.fontSize,
-                fontWeight: refStyle.fontWeight,
-                fontFamily: refStyle.fontFamily,
-                lineHeight: refStyle.lineHeight,
                 color: refStyle.color,
-                marginLeft: '8px',
+                marginLeft: '16px',
                 verticalAlign: 'middle',
                 display: 'inline-block'
-            });
+            };
 
-            targetContainer.appendChild(titleSpan);
-            return true;
+            // 标题
+            const titleSpan = document.createElement('span');
+            titleSpan.id = 'custom-title-display';
+            Object.assign(titleSpan.style, baseStyle, { fontWeight: refStyle.fontWeight });
+            titleSpan.textContent = document.title.split(' - ')[0];
+            container.appendChild(titleSpan);
+
+            // 分区
+            const partLink = document.createElement('a');
+            partLink.id = 'custom-partition-display';
+            partLink.target = "_blank";
+            partLink.href = vue.childAreaUri || "";
+            partLink.textContent = vue.liveAreaName;
+            Object.assign(partLink.style, baseStyle, { textDecoration: 'none' });
+            container.appendChild(partLink);
+
+            return;// 成功，结束轮询
         }
-        return false;
-    };
 
-    const observeTitle = () => {
-        const target = document.querySelector('title') || document.head;
-        const observer = new MutationObserver(() => updateTitle());
-
-        if (target) {
-            observer.observe(target, {
-                childList: true,
-                subtree: true,
-                characterData: true
-            });
-        }
-    };
-
-    const startApp = () => {
-        if (injectElement()) {
-            updateTitle();
-            observeTitle();
+        // 超时放弃
+        if (performance.now() - startTime > MAX_TIME) {
             return;
         }
 
-        const mountObserver = new MutationObserver((mutations, obs) => {
-            if (injectElement()) {
-                updateTitle();
-                observeTitle();
-                obs.disconnect();
-            }
-        });
+        // 下一帧继续尝试
+        requestAnimationFrame(tryInject);
+    }
 
-        mountObserver.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-
-        setTimeout(() => mountObserver.disconnect(), 15000);
-    };
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startApp);
+    // 页面加载状态启动尝试
+    if (document.readyState === 'complete') {
+        tryInject();
     } else {
-        startApp();
+        window.addEventListener('load', tryInject);
     }
 })();
