@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.4
+// @version         3.1.7.5
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -849,8 +849,9 @@
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
 
-    // 恢复标题、分区显示
+    // 恢复标题分区
     const MAX_TIME = 3000; // 等待时长
+    const TITLE_DELAY = 300; // 标题获取延迟
     const startTime = performance.now(); // 记录开始时间，用于超时控制
 
     function tryInject() {
@@ -859,34 +860,41 @@
         const vmEl = document.querySelector("#head-info-vm");
         const vue = vmEl?.__vue__;
 
-        // 样式采用主播用户名
+        // 检查基础元素是否存在
         if (container && refEl && vue?.liveAreaName) {
-            const refStyle = getComputedStyle(refEl);
-            const baseStyle = {
-                fontSize: refStyle.fontSize,
-                color: refStyle.color,
-                marginLeft: '16px',
-                verticalAlign: 'middle',
-                display: 'inline-block'
-            };
+            // --- 核心修改：增加 300ms 延迟后再执行注入逻辑 ---
+            setTimeout(() => {
+                // 重新检查一下容器是否还在（防止切换页面导致的报错）
+                if (!container) return;
 
-            // 标题
-            const titleSpan = document.createElement('span');
-            titleSpan.id = 'custom-title-display';
-            Object.assign(titleSpan.style, baseStyle, { fontWeight: refStyle.fontWeight });
-            titleSpan.textContent = document.title.split(' - ')[0];
-            container.appendChild(titleSpan);
+                const refStyle = getComputedStyle(refEl);
+                const baseStyle = {
+                    fontSize: refStyle.fontSize,
+                    color: refStyle.color,
+                    marginLeft: '16px',
+                    verticalAlign: 'middle',
+                    display: 'inline-block'
+                };
 
-            // 分区
-            const partLink = document.createElement('a');
-            partLink.id = 'custom-partition-display';
-            partLink.target = "_blank";
-            partLink.href = vue.childAreaUri || "";
-            partLink.textContent = vue.liveAreaName;
-            Object.assign(partLink.style, baseStyle, { textDecoration: 'none' });
-            container.appendChild(partLink);
+                // 标题
+                const titleSpan = document.createElement('span');
+                titleSpan.id = 'custom-title-display';
+                Object.assign(titleSpan.style, baseStyle, { fontWeight: refStyle.fontWeight });
+                // 此时获取的 title 会比之前晚 300ms，更加准确
+                titleSpan.textContent = document.title.split(' - ')[0];
+                container.appendChild(titleSpan);
 
-            return;// 成功，结束轮询
+                // 分区
+                const partLink = document.createElement('a');
+                partLink.id = 'custom-partition-display';
+                partLink.target = "_blank";
+                partLink.href = vue.childAreaUri || "";
+                partLink.textContent = vue.liveAreaName;
+                Object.assign(partLink.style, baseStyle, { textDecoration: 'none' });
+                container.appendChild(partLink);
+            }, TITLE_DELAY);
+
+            return; // 成功进入延迟注入环节，结束轮询
         }
 
         // 超时放弃
