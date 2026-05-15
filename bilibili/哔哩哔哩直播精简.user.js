@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.5
+// @version         3.1.7.6
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -850,9 +850,20 @@
     // 恢复标题分区
     const MAX_TIME = 3000; // 等待时长
     const TITLE_DELAY = 300; // 标题获取延迟
-    const startTime = performance.now(); // 记录开始时间，用于超时控制
+    let startTime = null; // 延迟初始化，等到前台时再计时
 
     function tryInject() {
+        // --- 新增：检查网页是否处于后台 ---
+        if (document.hidden) {
+            // 如果网页在后台，重置开始时间，等待下一次 requestAnimationFrame
+            startTime = null;
+            requestAnimationFrame(tryInject);
+            return;
+        }
+
+        // --- 新增：初始化/更新开始时间 ---
+        if (!startTime) startTime = performance.now();
+
         const container = document.querySelector('.left-anchor-section .content');
         const refEl = document.querySelector('.room-owner-username');
         const vmEl = document.querySelector("#head-info-vm");
@@ -860,10 +871,8 @@
 
         // 检查基础元素是否存在
         if (container && refEl && vue?.liveAreaName) {
-            // --- 核心修改：增加 300ms 延迟后再执行注入逻辑 ---
             setTimeout(() => {
-                // 重新检查一下容器是否还在（防止切换页面导致的报错）
-                if (!container) return;
+                if (!document.querySelector('.left-anchor-section .content')) return;
 
                 const refStyle = getComputedStyle(refEl);
                 const baseStyle = {
@@ -878,7 +887,6 @@
                 const titleSpan = document.createElement('span');
                 titleSpan.id = 'custom-title-display';
                 Object.assign(titleSpan.style, baseStyle, { fontWeight: refStyle.fontWeight });
-                // 此时获取的 title 会比之前晚 300ms，更加准确
                 titleSpan.textContent = document.title.split(' - ')[0];
                 container.appendChild(titleSpan);
 
@@ -892,7 +900,7 @@
                 container.appendChild(partLink);
             }, TITLE_DELAY);
 
-            return; // 成功进入延迟注入环节，结束轮询
+            return; // 成功后结束
         }
 
         // 超时放弃
@@ -904,10 +912,24 @@
         requestAnimationFrame(tryInject);
     }
 
-    // 页面加载状态启动尝试
+    // 启动逻辑：如果当前是后台则监听切换，如果是前台则直接开始
+    function init() {
+        if (document.hidden) {
+            const handleVisibility = () => {
+                if (!document.hidden) {
+                    document.removeEventListener('visibilitychange', handleVisibility);
+                    tryInject();
+                }
+            };
+            document.addEventListener('visibilitychange', handleVisibility);
+        } else {
+            tryInject();
+        }
+    }
+
     if (document.readyState === 'complete') {
-        tryInject();
+        init();
     } else {
-        window.addEventListener('load', tryInject);
+        window.addEventListener('load', init);
     }
 })();
