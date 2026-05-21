@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.6
+// @version         3.1.7.7
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -36,17 +36,17 @@
     div.pointer.f-left.p-relative.h-100.shortcut-item:nth-of-type(4) {
         display: none !important;
     }
+    /* 调整顶栏头像右边距 */
+    .user-panel.dp-table.h-100.p-relative.v-top.f-clear.f-left {
+        margin-right: 60px !important;
+    }
     /* 调整顶栏右边距 */
     .shortcuts-ctnr .shortcut-item {
-        margin-right: 120px !important;
+        margin-right: 30px !important;
     }
     /* 调整顶栏左边距 */
     .link-navbar .flex-block {
         padding-left: 30px !important;
-    }
-    /* 调整顶栏搜索框宽度 */
-    .search-bar-ctnr {
-        max-width: 400px !important;
     }
     /* 隐藏顶栏热搜 */
     .trending {
@@ -60,6 +60,27 @@
     .history-fold-wrap:hover .fold-icon path {
         fill: #FB7299 !important;
     }
+    /* 互换头像与关注的位置 */
+    #right-part {
+        display: flex !important;
+    }
+    /* 让头像排到后面 */
+    .user-panel {
+        order: 2;
+    }
+    /* 让关注排到前面 */
+    .shortcuts-ctnr {
+        order: 1;
+    }
+    /* 顶栏关注 */
+    .follow-cntr {
+        left: -95px !important;
+    }
+    .follow-cntr .my-follow {
+        padding: 10px !important;
+        height: auto !important;
+        justify-content: flex-end !important;
+    }
     /* 顶栏更多关注悬浮变色文字 */
     .more-follows:hover span {
         color: #FB7299 !important;
@@ -68,13 +89,49 @@
     .more-follows:hover .blue-right-arrow {
         filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28) !important;
     }
-    /* 设置顶栏关注按钮最小宽度 */
-    div.pointer.f-left.p-relative.h-100.shortcut-item:nth-of-type(1) {
-        min-width: 60px;
+    /* 关注列表悬浮变色 */
+    .follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name p:hover {
+        color: #FB7299 !important;
     }
-    /* 设置顶栏头像区域宽度 */
-    .v-middle.dp-i-block.p-relative.user-panel-ctnr {
-        width: 60px;
+    /* 关注列表高度调整 */
+    .follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name {
+        height: 0px !important;
+    }
+    .follow-cntr .anchor-list,
+    .follow-cntr .anchor-list .three-anchor {
+        height: auto !important;
+    }
+    .follow-cntr .anchor-list {
+        height: auto !important;
+    }
+    .follow-cntr {
+        width: auto !important;
+    }
+    /* 移除文字“我的关注” */
+    .follow-cntr .my-follow .follow-text {
+        display: none !important;
+    }
+    .follow-cntr .my-follow .more-follows {
+        padding-right: 14px !important;
+    }
+    /* 移除顶栏字体抖动 */
+    .shortcuts-ctnr .shortcut-item .text-label:hover {
+        animation: none !important;
+        -webkit-animation: none !important;
+    }
+    .link-navbar .nav-item:hover {
+        animation: none !important;
+       -webkit-animation: none !important;
+    }
+    /* 调整顶栏头像 */
+    .user-panel-ctnr .user-avatar {
+        width: 44px !important;
+        height: 44px !important;
+        margin: 10px 0 !important;
+    }
+    .user-panel-ctnr .user-avatar.active {
+        transform: none !important;
+        border: none !important;
     }
     /* 隐藏顶栏头像下方的消费等级进度条 */
     .user-panel-ctnr .user-panel .header-node .progress {
@@ -83,10 +140,43 @@
     /* 调整顶栏头像下方菜单距离 */
     .user-panel-ctnr .user-panel .header-node {
         height: 85px !important;
+        padding-top: 10px !important;
+        display: none !important;
     }
-    /* 调整顶栏头像菜单内容器高度 */
+    /* 调整顶栏头像菜单 */
     .user-panel-ctnr .user-panel {
-        height: 375px !important;
+        height: 262px !important;
+        width: 200px !important;
+        margin-left: -100px !important;
+        top: 10px !important;
+        left: -120% !important;
+        border: none !important;
+        box-shadow: 0 4px 32px 0 rgb(0 0 0 / 20%) !important;
+    }
+    .user-panel-ctnr .user-panel .lens-ctnr {
+        min-height: 262px !important;
+    }
+    .user-panel-ctnr .user-panel .content-ctnr {
+        padding: 10px 24px 0 24px !important;
+    }
+    .user-panel-ctnr .user-panel .content-ctnr .control-block {
+        width: auto !important;
+    }
+    .user-panel-ctnr .user-panel .content-ctnr .cut-line[data-v-2051b66d] {
+        border: none !important;
+        margin-top: 0 !important;
+    }
+    .user-panel-ctnr .user-panel .content-ctnr .control-block[data-v-2051b66d]:last-child {
+        margin-bottom: 0 !important;
+    }
+    .user-panel-ctnr .user-panel .content-ctnr .logout-block[data-v-2051b66d] {
+         margin-top: 0 !important;
+    }
+    .a-move-in-left {
+        animation: none !important;
+    }
+    .a-move-in-top {
+        animation: none !important;
     }
     /* 隐藏电池相关区块 */
     .section-block.battery-block {
@@ -226,18 +316,6 @@
     .live-room-app .app-content .app-body .player-and-aside-area {
         margin-bottom: 8px !important;
     }
-    /* 关注列表悬浮变色 */
-    .follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name p:hover {
-        color: #FB7299 !important;
-    }
-    /* 关注列表高度调整 */
-    .follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name {
-        height: 0px !important;
-    }
-    /* 我的关注文字颜色 */
-    .follow-cntr .my-follow .follow-text {
-        color: #FB7299 !important;
-    }
     /* 动态标签颜色 */
     .bili-dyn-tag {
         color: #FB7299 !important;
@@ -327,8 +405,12 @@
         margin-left: 8px !important;
     }
     /* 直播间标题字体粗细 */
+    /*.live-title {*/
+    /*    font-weight: 400 !important;*/
+    /*}*/
+    /* 移除未开播直播间标题 */
     .live-title {
-        font-weight: 400 !important;
+        display: none !important;
     }
     /* 设置标题栏主播ID与标题为水平弹性布局 */
     .rows-content {
@@ -479,19 +561,19 @@
     }
 
     /* 直播间礼物栏 */
-    /* 隐藏礼物道具栏 */
+    /* 调整礼物栏布局底部高度 */
+    #fullscreen-container {
+        grid-template-rows: auto 0px !important;
+    }
+    /* 调整礼物栏布局底部高度 */
+    .fullscreen-container-paddingbox {
+        height: auto !important;
+    }
+    /* 移除礼物栏 */
     #gift-control-vm {
         display: none !important;
     }
-    /* 调整礼物栏布局底部高度为0 */
-    #fullscreen-container {
-        grid-template-rows: minmax(0,1fr) 0px !important;
-    }
-    /* 礼物栏布局底部高度为0 */
-    .fullscreen-container-paddingbox {
-        height: 0px !important;
-    }
-    /* 隐藏全屏礼物道具栏 */
+    /* 移除全屏礼物栏 */
     #web-player__bottom-bar__container {
         display: none !important;
     }
@@ -832,7 +914,7 @@
     }
     `);
 
-    // 搜索框热词清理
+    // ====== 搜索框热词清理 ======
     const clean = () => {
         const el = document.querySelector('input[name="keyword"]');
         if (el) {
@@ -847,21 +929,20 @@
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
 
-    // 恢复标题分区
+    // ====== 恢复标题分区 ======
     const MAX_TIME = 3000; // 等待时长
     const TITLE_DELAY = 300; // 标题获取延迟
     let startTime = null; // 延迟初始化，等到前台时再计时
 
     function tryInject() {
-        // --- 新增：检查网页是否处于后台 ---
+        // --- 检查网页是否处于后台 ---
         if (document.hidden) {
-            // 如果网页在后台，重置开始时间，等待下一次 requestAnimationFrame
             startTime = null;
             requestAnimationFrame(tryInject);
             return;
         }
 
-        // --- 新增：初始化/更新开始时间 ---
+        // --- 初始化/更新开始时间 ---
         if (!startTime) startTime = performance.now();
 
         const container = document.querySelector('.left-anchor-section .content');
@@ -872,7 +953,12 @@
         // 检查基础元素是否存在
         if (container && refEl && vue?.liveAreaName) {
             setTimeout(() => {
-                if (!document.querySelector('.left-anchor-section .content')) return;
+                // 实时获取最新的容器，避免闭包引用了已被 Vue 销毁的旧节点
+                const currentContainer = document.querySelector('.left-anchor-section .content');
+                if (!currentContainer) return;
+
+                // 防重复注入拦截
+                if (document.getElementById('custom-title-display')) return;
 
                 const refStyle = getComputedStyle(refEl);
                 const baseStyle = {
@@ -888,7 +974,7 @@
                 titleSpan.id = 'custom-title-display';
                 Object.assign(titleSpan.style, baseStyle, { fontWeight: refStyle.fontWeight });
                 titleSpan.textContent = document.title.split(' - ')[0];
-                container.appendChild(titleSpan);
+                currentContainer.appendChild(titleSpan);
 
                 // 分区
                 const partLink = document.createElement('a');
@@ -897,7 +983,7 @@
                 partLink.href = vue.childAreaUri || "";
                 partLink.textContent = vue.liveAreaName;
                 Object.assign(partLink.style, baseStyle, { textDecoration: 'none' });
-                container.appendChild(partLink);
+                currentContainer.appendChild(partLink);
             }, TITLE_DELAY);
 
             return; // 成功后结束
