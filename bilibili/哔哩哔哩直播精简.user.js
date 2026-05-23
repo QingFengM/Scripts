@@ -102,7 +102,7 @@
     }
     .shortcuts-ctnr .shortcut-item {
         min-width: 40px !important;
-        white-space: break-spaces;
+        white-space: break-spaces !important;
     }
     /* 顶栏更多关注悬浮变色文字 */
     .more-follows:hover span {
