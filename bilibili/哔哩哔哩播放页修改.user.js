@@ -100,6 +100,11 @@
         margin: auto !important;
     }
 
+    /* 隐藏顶部投稿 - 活动推广 */
+    .bili-header .upload-panel-popover .upload-huasheng-banner {
+        display: none !important;
+    }
+
     /* 顶栏右侧菜单 */
     .right-entry-icon {
         display: none !important;
@@ -300,7 +305,7 @@
 
     /* 弹幕栏 */
     .bpx-player-container .bpx-player-sending-bar,
-    #bilibili-player-placeholder #bilibili-player-placeholder-bottom {
+        #bilibili-player-placeholder #bilibili-player-placeholder-bottom {
         height: 44px !important;
     }
     .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar {
