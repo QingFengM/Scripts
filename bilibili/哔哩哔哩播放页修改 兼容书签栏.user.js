@@ -102,6 +102,11 @@
         margin: auto !important;
     }
 
+    /* 隐藏顶部投稿 - 活动推广 */
+    .bili-header .upload-panel-popover .upload-huasheng-banner {
+        display: none !important;
+    }
+
     /* 顶栏右侧菜单 */
     .right-entry-icon {
         display: none !important;
@@ -143,10 +148,10 @@
 
     /* 顶栏左右边距 */
     .bili-header .left-entry {
-        padding-left: 46px !important;
+        padding-left: 75px !important;
     }
     .bili-header .right-entry {
-        margin-right: 36px !important;
+        margin-right: 60px !important;
     }
 
     /* 顶部导航栏高度调整 */
@@ -607,11 +612,11 @@
 
     /* 默认模式 (data-screen="normal") */
     .left-container {
-        width: 1350px !important;
+        width: 1280px !important;
     }
     #bilibili-player {
-        width: 1350px !important;
-        height: 804px !important;
+        width: 1280px !important;
+        height: 764px !important;
     }
     .video-toolbar-container,
     .video-tag-container {
