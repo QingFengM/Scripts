@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.7
+// @version         3.1.7.8
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -48,7 +48,7 @@
     }
     /* 调整顶栏左边距 */
     .link-navbar .flex-block {
-        padding-left: 30px !important;
+        padding-left: 36px !important;
     }
     /* 隐藏顶栏热搜 */
     .trending {
@@ -295,7 +295,7 @@
     }
     /* 设置播放区域宽度 */
     .live-room-app .app-content .app-body {
-        width: 89.5% !important;
+        width: 90% !important;
         max-width: 2000px !important;
     }
     /* 设置播放区域网页模式宽度 */
@@ -326,7 +326,6 @@
     .link-footer {
         display: none !important;
     }
-
     /* 右侧弹幕栏与公告栏宽度 */
     body:not(.pure_room_root) .live-room-app .app-content .app-body .section-block .right-container,
     body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area {
@@ -336,7 +335,6 @@
     /* 直播间标题栏 */
     /* 直播间标题栏圆角 */
     .live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {
-        height: 56px !important;
         border-radius: 12px 12px 0 0 !important;
         border: 0px solid #e3e5e7 !important;
     }
@@ -889,6 +887,7 @@
         margin-left: 10px !important;
         margin-top: 3px !important;
     }
+
     /* 弹幕发送按钮颜色 */
     .bl-button--primary {
         background-color: #FB7299 !important;
