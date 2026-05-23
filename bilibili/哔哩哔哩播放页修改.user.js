@@ -146,10 +146,10 @@
 
     /* 顶栏左右边距 */
     .bili-header .left-entry {
-        padding-left: 46px !important;
+        padding-left: 40px !important;
     }
     .bili-header .right-entry {
-        margin-right: 36px !important;
+        margin-right: 20px !important;
     }
 
     /* 顶部导航栏高度调整 */
