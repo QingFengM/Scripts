@@ -596,17 +596,20 @@
     }
 
     /* 直播间礼物栏 */
+    /* 移除礼物栏 */
+    #gift-control-vm {
+        display: none !important;
+    }
     /* 调整礼物栏布局底部高度 */
     #fullscreen-container {
         grid-template-rows: auto 0px !important;
     }
-    /* 调整礼物栏布局底部高度 */
     .fullscreen-container-paddingbox {
         height: auto !important;
     }
-    /* 移除礼物栏 */
-    #gift-control-vm {
-        display: none !important;
+    /* 移除网页模式礼物栏 */
+    body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .left-container #fullscreen-container {
+        grid-template-rows: auto 0px !important;
     }
     /* 移除全屏礼物栏 */
     #web-player__bottom-bar__container {
