@@ -62,6 +62,20 @@
     .history-fold-wrap:hover .fold-icon path {
         fill: #FB7299 !important;
     }
+    /* 顶栏搜索边框颜色 */
+    #nav-searchform {
+        border: 1px solid #bababa !important;
+    }
+    /* 顶栏搜索框圆角 */
+    #nav-searchform,
+    .search-bar-ctnr.is-focus,
+    .search-bar-ctnr .search-bar,
+    .search-bar-ctnr .search-bar input,
+    .search-pannel,
+    .search-bar-ctnr .search-bar .search-btn,
+    .search-bar-ctnr .search-bar .search-btn:hover {
+        border-radius: 20px !important;
+    }
     /* 互换头像与关注的位置 */
     #right-part {
         display: flex !important;
@@ -330,6 +344,14 @@
     body:not(.pure_room_root) .live-room-app .app-content .app-body .section-block .right-container,
     body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area {
         width: 320px !important;
+    }
+    /* 顶栏背景颜色 */
+    .link-navbar,
+    .link-navbar-ctnr {
+        background-color: transparent !important;
+    }
+    .link-navbar.link-navbar.link-navbar {
+        box-shadow: none !important;
     }
 
     /* 直播间标题栏 */
