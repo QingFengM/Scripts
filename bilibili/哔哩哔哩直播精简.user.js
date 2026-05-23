@@ -96,6 +96,14 @@
         height: auto !important;
         justify-content: flex-end !important;
     }
+    .shortcuts-ctnr .shortcut-item:hover {
+        background-color: #e3e5e7 !important;
+        border-radius: 25px !important;
+    }
+    .shortcuts-ctnr .shortcut-item {
+        min-width: 40px !important;
+        white-space: break-spaces;
+    }
     /* 顶栏更多关注悬浮变色文字 */
     .more-follows:hover span {
         color: #FB7299 !important;
