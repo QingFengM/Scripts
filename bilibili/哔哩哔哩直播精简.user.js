@@ -60,9 +60,10 @@
     .history-fold-wrap:hover .fold-icon path {
         fill: #FB7299 !important;
     }
-    /* 顶栏搜索边框颜色 */
+    /* 顶栏搜索框颜色 */
     #nav-searchform {
-        border: 1px solid #bababa !important;
+        background-color: #ffffff !important;
+        border: 1px solid #e4e4e4 !important;
     }
     /* 顶栏搜索框圆角 */
     #nav-searchform,
