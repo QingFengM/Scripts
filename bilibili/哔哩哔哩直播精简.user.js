@@ -64,6 +64,11 @@
     #nav-searchform {
         background-color: #ffffff !important;
         border: 1px solid #e4e4e4 !important;
+        box-shadow: 0 0 12px #07070721 !important;
+    }
+    /* 顶栏搜索框宽度 */
+    .search-bar-ctnr {
+        max-width: 400px !important;
     }
     /* 顶栏搜索框圆角 */
     #nav-searchform,
@@ -151,6 +156,7 @@
         width: 44px !important;
         height: 44px !important;
         margin: 10px 0 !important;
+        box-shadow: 0 0 12px #070707b5 !important;
     }
     .user-panel-ctnr .user-avatar.active {
         transform: none !important;
@@ -916,10 +922,10 @@
         margin-left: 10px !important;
         margin-top: 3px !important;
     }
-
     /* 弹幕发送按钮颜色 */
     .bl-button--primary {
         background-color: #FB7299 !important;
+        box-shadow: 0 0 12px #0707075e !important;
     }
     /* 隐藏关闭礼物特效提醒 */
     .gift-block-toast {
