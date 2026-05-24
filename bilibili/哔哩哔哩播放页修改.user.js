@@ -306,7 +306,7 @@
     /* 弹幕栏 */
     .bpx-player-container .bpx-player-sending-bar,
         #bilibili-player-placeholder #bilibili-player-placeholder-bottom {
-        height: 44px !important;
+        height: 44.5px !important;
     }
     .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar {
         height: 30px !important;
