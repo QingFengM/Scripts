@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.8
+// @version         3.1.7.9
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -77,8 +77,16 @@
     .search-bar-ctnr .search-bar input,
     .search-pannel,
     .search-bar-ctnr .search-bar .search-btn,
-    .search-bar-ctnr .search-bar .search-btn:hover {
+    .search-bar-ctnr .search-bar .search-btn:hover,
+    .search-pannel .histories-wrap .histories .history-item {
         border-radius: 20px !important;
+    }
+    /* 顶栏搜索框面板边距 */
+    .search-pannel {
+        padding: 4px 0 0 !important;
+    }
+    .search-pannel .history-fold-wrap {
+        margin: 0 auto 10px !important;
     }
     /* 互换头像与关注的位置 */
     #right-part {
