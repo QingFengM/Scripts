@@ -55,10 +55,12 @@
     /* 顶栏搜索悬浮变色 */
     .history-item:hover, .clear:hover,.history-fold-wrap:hover .fold-text {
         color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 顶栏搜索悬浮变色图标 */
     .history-fold-wrap:hover .fold-icon path {
         fill: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 顶栏搜索框颜色 */
     #nav-searchform {
@@ -120,14 +122,17 @@
     /* 顶栏更多关注悬浮变色文字 */
     .more-follows:hover span {
         color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 顶栏更多关注悬浮变色箭头 */
     .more-follows:hover .blue-right-arrow {
         filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28) !important;
+        transition: color 0.2s ease;
     }
     /* 关注列表悬浮变色 */
     .follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name p:hover {
         color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 关注列表高度调整 */
     .follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name {
@@ -424,6 +429,7 @@
     /* 分区悬浮变色效果 */
     #custom-partition-display:hover {
         color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 直播间主播名称字符高度 */
     .header-info-ctnr .rows-ctnr .upper-row .room-owner-username {
