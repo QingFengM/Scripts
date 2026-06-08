@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.7.9
+// @version         3.1.8.0
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -407,12 +407,19 @@
         max-width: 256px !important;
     }
     /* 直播间分区鼠标悬停字体颜色 */
+    .bili-link:hover {
+        color: #FB7299 !important;
+        transition: color 0.2s ease;
+    }
+    /* 直播间分区鼠标悬停字体颜色 */
     .header-info-ctnr .rows-ctnr .lower-row .live-area .area-link:hover {
         color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 直播间主播名称鼠标悬停字体颜色 */
     .header-info-ctnr .left-anchor-section .room-owner-username:hover {
         color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 分区悬浮变色效果 */
     #custom-partition-display:hover {
@@ -717,10 +724,12 @@
     /* 弹幕ID鼠标悬停字体颜色 */
     .chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {
         color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 弹幕内容鼠标悬停字体颜色 */
     .chat-history-panel .chat-history-list .chat-item.danmaku-item .danmaku-item-right:hover {
         color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 弹幕换行行距 */
     .danmaku-item {
