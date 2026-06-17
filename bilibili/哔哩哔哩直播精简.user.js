@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.0
+// @version         3.1.8.1
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -85,7 +85,7 @@
     }
     /* 顶栏搜索框面板边距 */
     .search-pannel {
-        padding: 4px 0 0 !important;
+        padding: 0 !important;
     }
     .search-pannel .history-fold-wrap {
         margin: 0 auto 10px !important;
