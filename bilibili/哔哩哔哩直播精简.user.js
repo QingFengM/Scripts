@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.1
+// @version         3.1.8.2
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -17,11 +17,17 @@
 
     GM_addStyle(`
     /* 顶栏logo */
-    .entry_logo {
+    .entry_logo,
+    .tv-logo {
         display: none !important;
     }
-    /* 顶栏logo */
-    .tv-logo {
+    /* 顶栏精简 */
+    .dp-table-cell.v-middle a.聊天室,
+    .dp-table-cell.v-middle a.生活,
+    .dp-table-cell.v-middle a.购物,
+    .dp-table-cell.v-middle a.知识,
+    .dp-table-cell.v-middle a.帮我玩,
+    .dp-table-cell.v-middle a.互动玩法 {
         display: none !important;
     }
     /* 顶栏购买电池按钮 */
@@ -85,10 +91,22 @@
     }
     /* 顶栏搜索框面板边距 */
     .search-pannel {
+        overflow-y: hidden !important;
         padding: 0 !important;
     }
-    .search-pannel .history-fold-wrap {
-        margin: 0 auto 10px !important;
+    .search-pannel .suggestions {
+        margin-top: 4px !important;
+        margin-bottom: 4px !important;
+    }
+    /* 顶栏搜索框候选词背景 */
+    .search-pannel .suggest-item.active,
+    .search-pannel .suggest-item:hover,
+    .search-pannel .suggest-item:focus {
+        background: #ffffff !important;
+    }
+    /* 顶栏搜索框候选词取消斜体 */
+    em.suggest_high_light {
+        font-style: normal !important;
     }
     /* 互换头像与关注的位置 */
     #right-part {
@@ -104,7 +122,7 @@
     }
     /* 顶栏关注 */
     .follow-cntr {
-        left: -95px !important;
+        top: 67px !important;
     }
     .follow-cntr .my-follow {
         padding: 10px !important;
@@ -118,6 +136,9 @@
     .shortcuts-ctnr .shortcut-item {
         min-width: 40px !important;
         white-space: break-spaces !important;
+    }
+    .link-progress-tv {
+        display: none !important;
     }
     /* 顶栏更多关注悬浮变色文字 */
     .more-follows:hover span {
@@ -190,8 +211,6 @@
         height: 262px !important;
         width: 200px !important;
         margin-left: -100px !important;
-        top: 10px !important;
-        left: -120% !important;
         border: none !important;
         box-shadow: 0 4px 32px 0 rgb(0 0 0 / 20%) !important;
     }
@@ -391,25 +410,33 @@
         background-position: center !important;
         background-size: cover !important;
     }
-    /* 隐藏标题栏助力与上舰按钮 */
-    .p-relative.follow-ctnr {
+    /* 移除标题栏助力与上舰按钮 */
+    /* .p-relative.follow-ctnr  */
+    .follow-ctnr .followed .left-part,
+    .follow-ctnr .followed .right-part {
         display: none !important;
     }
-    /* 隐藏标题热门榜与上舰活动 */
+    /* 移除快捷键G关注主播 */
+    #popup-shortcut-box,
+    .follow-ctnr .not-yet-follow .follow-key-prompt {
+        display: none !important;
+    }
+    /* 标题栏关注 */
+    .follow-ctnr .not-yet-follow {
+        width: 58px !important;
+        background-color: #FB7299 !important;
+        box-shadow: 0 0 12px #0707075e !important;
+    }
+    .follow-ctnr.p-relative {
+        margin-left: 16px !important;
+    }
+    /* 移除标题热门榜与上舰活动 */
     .right-dynamic-modules {
         display: none !important;
     }
-    /* 隐藏标题更多设置 */
+    /* 移除标题更多设置 */
     .right-fixed-modules {
         display: none !important;
-    }
-    /* 解除直播间标题字符长度限制 */
-    .live-title .title-length-limit {
-        max-width: 512px !important;
-    }
-    /* 解除直播间分区字符长度限制 */
-    .header-info-ctnr .rows-ctnr .lower-row .live-area .area-link {
-        max-width: 256px !important;
     }
     /* 直播间分区鼠标悬停字体颜色 */
     .bili-link:hover {
@@ -945,7 +972,7 @@
     /* 弹幕表情按钮左移 */
     .control-panel-icon-row .icon-right-part {
         float: left !important;
-        margin-left: 10px !important;
+        margin-left: 4px !important;
         margin-top: 3px !important;
     }
     /* 弹幕发送按钮颜色 */
