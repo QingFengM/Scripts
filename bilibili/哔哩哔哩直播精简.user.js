@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.2
+// @version         3.1.8.3
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -78,6 +78,24 @@
     .search-bar-ctnr {
         max-width: 400px !important;
     }
+    /* 顶栏搜索框高度 */
+    .search-bar-ctnr .search-bar {
+        height: 36px !important;
+    }
+    /* 顶栏搜索框搜索图标大小 */
+    .search-bar-ctnr .search-bar .search-btn {
+        top: 0px !important;
+        width: 31px !important;
+        height: 31px !important;
+    }
+    .search-bar-ctnr .search-bar .search-btn .search-icon {
+        height: 16px !important;
+        width: 16px !important;
+    }
+    /* 顶栏搜索框内部搜索 */
+    .search-bar-ctnr .search-bar {
+        padding: 0px 30px 0px 0px !important;
+    }
     /* 顶栏搜索框圆角 */
     #nav-searchform,
     .search-bar-ctnr.is-focus,
@@ -108,6 +126,13 @@
     em.suggest_high_light {
         font-style: normal !important;
     }
+    /* 顶栏搜索框搜索历史调整 */
+    .search-pannel .header {
+        padding: 4px 16px 0 16px !important;
+    }
+    .search-pannel .header .title {
+        font-size: 14px !important;
+    }
     /* 互换头像与关注的位置 */
     #right-part {
         display: flex !important;
@@ -122,16 +147,12 @@
     }
     /* 顶栏关注 */
     .follow-cntr {
-        top: 67px !important;
+        top: 64px !important;
     }
     .follow-cntr .my-follow {
         padding: 10px !important;
         height: auto !important;
         justify-content: flex-end !important;
-    }
-    .shortcuts-ctnr .shortcut-item:hover {
-        background-color: #e3e5e7 !important;
-        border-radius: 25px !important;
     }
     .shortcuts-ctnr .shortcut-item {
         min-width: 40px !important;
@@ -140,12 +161,16 @@
     .link-progress-tv {
         display: none !important;
     }
-    /* 顶栏更多关注悬浮变色文字 */
+    /* 顶栏关注悬浮变色 */
+    .shortcuts-ctnr .shortcut-item:hover {
+        background-color: #e3e5e7 !important;
+        border-radius: 25px !important;
+    }
+    /* 顶栏关注列表“更多关注”悬浮变色*/
     .more-follows:hover span {
         color: #FB7299 !important;
         transition: color 0.2s ease;
     }
-    /* 顶栏更多关注悬浮变色箭头 */
     .more-follows:hover .blue-right-arrow {
         filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28) !important;
         transition: color 0.2s ease;
@@ -176,6 +201,10 @@
     .follow-cntr .my-follow .more-follows {
         padding-right: 14px !important;
     }
+    /* 隐藏顶栏关注列表中的“暂未开播” */
+    .follow-cntr .anchor-list .live-status {
+        display: none !important;
+    }
     /* 移除顶栏字体抖动 */
     .shortcuts-ctnr .shortcut-item .text-label:hover {
         animation: none !important;
@@ -189,12 +218,16 @@
     .user-panel-ctnr .user-avatar {
         width: 44px !important;
         height: 44px !important;
-        margin: 10px 0 !important;
+        margin: 8px 0 !important;
         box-shadow: 0 0 12px #070707b5 !important;
     }
     .user-panel-ctnr .user-avatar.active {
         transform: none !important;
         border: none !important;
+    }
+    .user-panel-ctnr.p-relative.dp-i-block.v-middle {
+        width: 44px !important;
+        margin: 0 !important;
     }
     /* 隐藏顶栏头像下方的消费等级进度条 */
     .user-panel-ctnr .user-panel .header-node .progress {
@@ -243,10 +276,6 @@
     .section-block.battery-block {
         display: none !important;
     }
-    /* 隐藏顶栏关注列表中的“暂未开播”状态 */
-    .follow-cntr .anchor-list .live-status {
-        display: none !important;
-    }
     /* 隐藏顶栏更多中的下拉箭头符号 */
     .down-arrow-icon-block {
         display: none !important;
@@ -262,10 +291,6 @@
     /* 隐藏网页底部版权信息 */
     #link-footer-vm {
         display: none !important;
-    }
-    /* 移除顶栏分割线阴影 */
-    .link-navbar-ctnr {
-        box-shadow: inset 0 -1px #fff0 !important;
     }
     /* 隐藏视频区下方动态标题栏 */
     .none-select.list-none.dp-i-block.new-tabs {
@@ -354,7 +379,7 @@
     }
     /* 设置播放区域宽度 */
     .live-room-app .app-content .app-body {
-        width: 93% !important;
+        width: 94% !important;
         max-width: 2000px !important;
     }
     /* 设置播放区域网页模式宽度 */
@@ -395,8 +420,26 @@
     .link-navbar-ctnr {
         background-color: transparent !important;
     }
+    /* 顶栏与视频区分割线 */
     .link-navbar.link-navbar.link-navbar {
         box-shadow: none !important;
+    }
+    /* 移除顶栏分割线阴影 */
+    .link-navbar-ctnr {
+        box-shadow: inset 0 -1px #fff0 !important;
+    }
+    /* 顶栏高度 */
+    .link-navbar-ctnr {
+        min-height: 60px !important;
+    }
+    .link-navbar-wrap,
+    .link-navbar,
+    .user-panel-ctnr.p-relative.dp-i-block.v-middle {
+        height: 60px !important;
+    }
+    /* 顶栏与视频区间距 */
+    .live-room-app .app-content .app-body {
+        top: -10px !important;
     }
 
     /* 直播间标题栏 */
