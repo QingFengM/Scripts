@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.3
+// @version         3.1.8.4
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -28,6 +28,9 @@
     .dp-table-cell.v-middle a.知识,
     .dp-table-cell.v-middle a.帮我玩,
     .dp-table-cell.v-middle a.互动玩法 {
+        display: none !important;
+    }
+    .slot-ctnr.p-relative {
         display: none !important;
     }
     /* 顶栏购买电池按钮 */
@@ -150,7 +153,7 @@
         top: 64px !important;
     }
     .follow-cntr .my-follow {
-        padding: 10px !important;
+        padding: 12px 12px 0 0 !important;
         height: auto !important;
         justify-content: flex-end !important;
     }
@@ -194,12 +197,12 @@
     .follow-cntr {
         width: auto !important;
     }
+    .follow-cntr .anchor-list {
+        margin: 0 !important;
+    }
     /* 移除文字“我的关注” */
     .follow-cntr .my-follow .follow-text {
         display: none !important;
-    }
-    .follow-cntr .my-follow .more-follows {
-        padding-right: 14px !important;
     }
     /* 隐藏顶栏关注列表中的“暂未开播” */
     .follow-cntr .anchor-list .live-status {
@@ -242,7 +245,7 @@
     /* 调整顶栏头像菜单 */
     .user-panel-ctnr .user-panel {
         height: 262px !important;
-        width: 200px !important;
+        width: 180px !important;
         margin-left: -100px !important;
         border: none !important;
         box-shadow: 0 4px 32px 0 rgb(0 0 0 / 20%) !important;
@@ -251,7 +254,7 @@
         min-height: 262px !important;
     }
     .user-panel-ctnr .user-panel .content-ctnr {
-        padding: 10px 24px 0 24px !important;
+        padding: 10px !important;
     }
     .user-panel-ctnr .user-panel .content-ctnr .control-block {
         width: auto !important;
@@ -712,6 +715,10 @@
     }
 
     /* 直播间弹幕区 */
+    /* 弹幕区边距 */
+    body:not(.pure_room_root) .chat-history-panel .chat-history-list {
+        padding: 5px 0px 5px 10px;
+    }
     /* 隐藏弹幕区礼物榜背景 */
     #rank-list-vm {
         display: none !important;
@@ -791,10 +798,13 @@
     /* 设置弹幕ID字体大小 */
     .user-name {
         font-size: 14px !important;
-        margin-right: 4px !important;
+        margin-right: 2px !important;
     }
     /* 设置弹幕ID字体颜色 */
     .user-name {
+        color: #707070 !important;
+    }
+    body .common-nickname-wrapper > :nth-child(2) {
         color: #707070 !important;
     }
     /* 弹幕ID鼠标悬停字体颜色 */
@@ -813,10 +823,13 @@
     }
     /* 弹幕之间行距 */
     body:not(.pure_room_root) .chat-history-panel .chat-history-list .chat-item {
-        padding: 3px !important;
+        padding: 4px !important;
     }
     /* 隐藏弹幕ID前活动头衔徽章 */
     .title-label {
+        display: none !important;
+    }
+    .common-nickname-wrapper .common-nickname-medal {
         display: none !important;
     }
     /* 隐藏弹幕ID前榜X图标 */
@@ -988,6 +1001,10 @@
     .chat-input-ctnr {
         border-radius: 12px !important;
     }
+    /* 直播间弹幕输入区内部边距 */
+    .chat-input-ctnr {
+        padding: 0 8px 0 0 !important;
+    }
     /* 弹幕输入框布局边距 */
     #control-panel-ctnr-box {
         padding: 8px 10px 10px 10px !important;
@@ -1008,9 +1025,9 @@
     .medal-section {
         display: none !important;
     }
-    /* 弹幕输入框字体大小 */
-    .chat-input {
-        font-size: 14px !important;
+    /* 弹幕按钮栏边距 */
+    .control-panel-icon-row {
+        margin: 0px !important;
     }
     /* 弹幕表情按钮左移 */
     .control-panel-icon-row .icon-right-part {
@@ -1043,6 +1060,21 @@
     /* 弹幕输入区背景颜色 */
     body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {
         background-color: #19485D !important;
+    }
+    /* 弹幕输入区字体大小 */
+    .chat-input {
+        font-size: 14px !important;
+    }
+    /* 弹幕输入区字数提示背景颜色位置 */
+    .link-toast.info {
+        background-color: #FB7299 !important;
+        Left: 1610px !important;
+        top: 780px !important;
+    }
+    .link-toast {
+        padding: 12px !important;
+        font-size: 14px !important;
+        border-radius: 12px !important;
     }
     `);
 
