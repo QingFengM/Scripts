@@ -4,8 +4,9 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.4
+// @version         3.1.8.5
 // @match           *://live.bilibili.com/*
+// @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
 // @run-at          document-start
@@ -28,9 +29,6 @@
     .dp-table-cell.v-middle a.知识,
     .dp-table-cell.v-middle a.帮我玩,
     .dp-table-cell.v-middle a.互动玩法 {
-        display: none !important;
-    }
-    .slot-ctnr.p-relative {
         display: none !important;
     }
     /* 顶栏购买电池按钮 */
@@ -153,7 +151,7 @@
         top: 64px !important;
     }
     .follow-cntr .my-follow {
-        padding: 12px 12px 0 0 !important;
+        padding: 12px !important;
         height: auto !important;
         justify-content: flex-end !important;
     }
@@ -185,20 +183,17 @@
     }
     /* 关注列表高度调整 */
     .follow-cntr .anchor-list .three-anchor .one-anchor .anchor-name {
-        height: 0px !important;
-    }
-    .follow-cntr .anchor-list,
-    .follow-cntr .anchor-list .three-anchor {
         height: auto !important;
     }
     .follow-cntr .anchor-list {
+        height: auto !important;
+        margin: auto !important;
+    }
+    .follow-cntr .anchor-list .three-anchor {
         height: auto !important;
     }
     .follow-cntr {
         width: auto !important;
-    }
-    .follow-cntr .anchor-list {
-        margin: 0 !important;
     }
     /* 移除文字“我的关注” */
     .follow-cntr .my-follow .follow-text {
@@ -389,10 +384,6 @@
     body.player-full-win #fullscreen-container {
         right: 320px !important;
     }
-    /* 调整播放区顶部距离 */
-    .live-room-app .app-content {
-        padding-top: 70px !important;
-    }
     /* 调整播放区与弹幕区间隔距离 */
     .live-room-app .app-content .app-body .player-and-aside-area .left-container {
         width: calc(100% - 320px - 10px) !important;
@@ -404,6 +395,10 @@
     /* 调整播放区与动态区间隔距离 */
     .live-room-app .app-content .app-body .player-and-aside-area {
         margin-bottom: 8px !important;
+    }
+    /* 网页顶部与播放区域的间距 */
+    .live-room-app .app-content {
+        padding-top: 60px !important;
     }
     /* 动态标签颜色 */
     .bili-dyn-tag {
@@ -439,10 +434,6 @@
     .link-navbar,
     .user-panel-ctnr.p-relative.dp-i-block.v-middle {
         height: 60px !important;
-    }
-    /* 顶栏与视频区间距 */
-    .live-room-app .app-content .app-body {
-        top: -10px !important;
     }
 
     /* 直播间标题栏 */
@@ -574,10 +565,6 @@
     /* 调整直播间标题内容左下侧行元素上边距 */
     .left-lower-row {
         margin-top: 0px !important;
-    }
-    /* 调整直播间标题内容左下侧行元素左边距 */
-    .left-upper-row {
-        margin-left: 17px !important;
     }
     /* 调整直播间用户名左边距 */
     .left-anchor-section {
