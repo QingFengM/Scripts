@@ -704,7 +704,7 @@
     /* 直播间弹幕区 */
     /* 弹幕区边距 */
     body:not(.pure_room_root) .chat-history-panel .chat-history-list {
-        padding: 5px 0px 5px 10px;
+        padding: 5px 10px 5px 10px !important;
     }
     /* 隐藏弹幕区礼物榜背景 */
     #rank-list-vm {
@@ -875,6 +875,10 @@
     /* 醒目留言图片角标圆角 */
     .chat-history-panel .chat-history-list .chat-item.superChat-card-detail .card-item-middle-bottom .bottom-background {
         border-radius: 6px !important;
+    }
+    /* 醒目留言头像 */
+    .card-item-middle-top-left {
+        display: none !important;
     }
     /* 弹幕区主播表情图片大小 */
     .chat-history-panel .chat-history-list .chat-item.danmaku-item .emoticon.bulge img {
