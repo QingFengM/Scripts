@@ -880,6 +880,15 @@
     .card-item-middle-top-left {
         display: none !important;
     }
+    /* 醒目留言价格 */
+    card-item-middle-top-right .content-bottom {
+        display: none !important;
+    }
+    /* 醒目留言用户名 */
+    body:not(.pure_room_root) .chat-history-panel .chat-history-list .chat-item.superChat-card-detail .card-item-middle-top .card-item-middle-top-right .card-item-name {
+        height: 34px !important;
+        line-height: 34px !important;
+    }
     /* 弹幕区主播表情图片大小 */
     .chat-history-panel .chat-history-list .chat-item.danmaku-item .emoticon.bulge img {
         height: 45px !important;
@@ -985,6 +994,10 @@
     /* 移除弹幕点赞动画 */
     div[id*="like-animation"] {
         display: none !important;
+    }
+    /* 新弹幕消息提醒高度 */
+    body:not(.pure_room_root) .chat-history-panel .danmaku-at-prompt {
+        top: 90% !important;
     }
 
     /* 直播间弹幕输入区 */
