@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.5
+// @version         3.1.8.6
 // @match           *://live.bilibili.com/*
 // @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
@@ -413,6 +413,10 @@
     body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area {
         width: 320px !important;
     }
+    /* 网页全屏状态右侧弹幕栏与公告栏宽度 */
+    html:not(.pc-app) body.player-full-win:not(.hide-aside-area) .aside-area {
+        left: max(calc(100vw - 320px),668px) !important;
+    }
     /* 顶栏背景颜色 */
     .link-navbar,
     .link-navbar-ctnr {
@@ -622,6 +626,10 @@
     .web-player-icon-feedback {
         display: none !important;
     }
+    /* 隐藏视频区高帧率图标 */
+    .selectedQnBadge.svelte-770q4t {
+        display: none !important;
+    }
     /* 隐藏恭喜主播获得超人气推荐奖励提示 */
     .content.border-box {
         display: none !important;
@@ -667,10 +675,6 @@
     .PyF4K7mjqm4rpICeBFJA .wzMWH0YAfabG6H8wvpQO .XhJAZxh51Lj7dEy0AcpQ .TzW8pOv1omXIeb5MHnoh {
         background: #FB7299 !important;
     }
-    /* 播放器容器背景透明 */
-    body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .left-container #fullscreen-container {
-        background: #0000 !important;
-    }
     /* 开通大会员继续观看 */
     .universal-countdown-card {
         display: none !important;
@@ -694,6 +698,10 @@
     }
     /* 移除全屏礼物栏 */
     #web-player__bottom-bar__container {
+        display: none !important;
+    }
+    /* 移除播放器礼物按钮 */
+    .live-web-player-controller .control-area .right-area > :last-child {
         display: none !important;
     }
     /* 隐藏天选时刻弹窗 */
@@ -1082,7 +1090,7 @@
     }
     `);
 
-    // ====== 搜索框热词清理 ======
+// ====== 搜索框热词清理 ======
     const clean = () => {
         const el = document.querySelector('input[name="keyword"]');
         if (el) {
@@ -1097,7 +1105,7 @@
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
 
-    // ====== 恢复标题分区 ======
+// ====== 恢复标题分区 ======
     const MAX_TIME = 3000; // 等待时长
     const TITLE_DELAY = 300; // 标题获取延迟
     let startTime = null; // 延迟初始化，等到前台时再计时
@@ -1186,4 +1194,35 @@
     } else {
         window.addEventListener('load', init);
     }
+
+// ====== 禁止轮播 ======
+    if (/https:\/\/live\.bilibili\.com\/(blanc\/)?\d+/.test(location.href)) {
+        if (unsafeWindow.fetch) {
+            unsafeWindow['__origFetch__'] = unsafeWindow.fetch;
+
+            unsafeWindow.fetch = async function () {
+                if (((arguments[0] instanceof Request) ? arguments[0].url : String(arguments[0])).includes('api.live.bilibili.com/live/getRoundPlayVideo')) {
+                    return new Response(JSON.stringify({ code: 0, data: { cid: -3 } }), {
+                        status: 200,
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                }
+                return unsafeWindow['__origFetch__'].apply(this, arguments);
+            };
+        }
+    }
+
+// ====== 默认最高画质 ======
+    if (window.livePlayer || window.top?.livePlayer) {
+        if (((window.livePlayer || window.top?.livePlayer)?.getPlayerInfo()?.qualityCandidates?.length || 0) > 1) {
+            (window.livePlayer || window.top?.livePlayer).switchQuality(
+                (window.livePlayer || window.top?.livePlayer).getPlayerInfo().qualityCandidates[0].qn
+            );
+        }
+    }
 })();
+
+// ====== 活动页面恢复为原本的直播间 ======
+    if (/(https:\/\/live\.bilibili\.com)\/(\d+)/.test(document.location.href)) {
+        document.location.href = document.location.href.replace(/(https:\/\/live\.bilibili\.com)\/(\d+)/, '$1/blanc/$2');
+    }
