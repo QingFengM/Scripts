@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.6
+// @version         3.1.8.7
 // @match           *://live.bilibili.com/*
 // @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
@@ -675,6 +675,10 @@
     .PyF4K7mjqm4rpICeBFJA .wzMWH0YAfabG6H8wvpQO .XhJAZxh51Lj7dEy0AcpQ .TzW8pOv1omXIeb5MHnoh {
         background: #FB7299 !important;
     }
+    /* 播放器背景透明 */
+    body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .left-container #fullscreen-container {
+        background: #0000 !important;
+    }
     /* 开通大会员继续观看 */
     .universal-countdown-card {
         display: none !important;
@@ -1220,6 +1224,7 @@
             );
         }
     }
+
 })();
 
 // ====== 活动页面恢复为原本的直播间 ======
