@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.8
+// @version         3.1.8.9
 // @match           *://live.bilibili.com/*
 // @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
@@ -870,12 +870,12 @@
     }
     /* 醒目留言展开后背景透明度 */
     .pay-note-panel .detail-info .mask {
-        background-color: #fff0 !important;
+        background: #fff0 !important;
         border-radius: 4px !important;
     }
     /* 醒目留言背景颜色 */
     .pay-note-panel {
-        background-color: #0000001a !important;
+        background-color: #0000 !important
     }
     /* 醒目留言展开后图片圆角 */
     .card-detail .card-item-middle-bottom {
