@@ -4,11 +4,12 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.7
+// @version         3.1.8.8
 // @match           *://live.bilibili.com/*
 // @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
+// @grant           unsafeWindow
 // @run-at          document-start
 // @license         MIT
 // ==/UserScript==
@@ -1217,13 +1218,13 @@
     }
 
 // ====== 默认最高画质 ======
-    if (window.livePlayer || window.top?.livePlayer) {
-        if (((window.livePlayer || window.top?.livePlayer)?.getPlayerInfo()?.qualityCandidates?.length || 0) > 1) {
-            (window.livePlayer || window.top?.livePlayer).switchQuality(
-                (window.livePlayer || window.top?.livePlayer).getPlayerInfo().qualityCandidates[0].qn
-            );
+    const qualityTimer = setInterval(() => {
+        const player = unsafeWindow.livePlayer || unsafeWindow.top?.livePlayer;
+        if (player?.getPlayerInfo()?.qualityCandidates?.length > 1) {
+            player.switchQuality(player.getPlayerInfo().qualityCandidates[0].qn);
+            clearInterval(qualityTimer);
         }
-    }
+    }, 300);
 
 })();
 
