@@ -379,9 +379,8 @@
         right: 60px !important;
     }
     /* 设置播放区域宽度 */
-    .live-room-app .app-content .app-body {
-        width: 93.6% !important;
-        max-width: 2000px !important;
+    body:not(.pure_room_root):not(.player-full-win) .live-room-app .app-content .app-body {
+        width: clamp(980px, 93vw, 3420px) !important;
     }
     /* 设置播放区域网页模式宽度 */
     body.player-full-win #fullscreen-container {
