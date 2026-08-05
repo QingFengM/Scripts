@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.8.9
+// @version         3.1.9
 // @match           *://live.bilibili.com/*
 // @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
@@ -54,7 +54,7 @@
     }
     /* 调整顶栏左边距 */
     .link-navbar .flex-block {
-        padding-left: 20px !important;
+        padding-left: 22px !important;
     }
     /* 隐藏顶栏热搜 */
     .trending {
@@ -82,7 +82,10 @@
     }
     /* 顶栏搜索框高度 */
     .search-bar-ctnr .search-bar {
-        height: 36px !important;
+        height: 38px !important;
+    }
+    .link-navbar .search-block {
+        top: 16px !important;
     }
     /* 顶栏搜索框搜索图标大小 */
     .search-bar-ctnr .search-bar .search-btn {
@@ -149,7 +152,7 @@
     }
     /* 顶栏关注 */
     .follow-cntr {
-        top: 64px !important;
+        top: 70px !important;
     }
     .follow-cntr .my-follow {
         padding: 12px !important;
@@ -217,8 +220,7 @@
     .user-panel-ctnr .user-avatar {
         width: 44px !important;
         height: 44px !important;
-        margin: 8px 0 !important;
-        box-shadow: 0 0 12px #070707b5 !important;
+        margin: 12px 0 !important;
     }
     .user-panel-ctnr .user-avatar.active {
         transform: none !important;
@@ -378,7 +380,7 @@
     }
     /* 设置播放区域宽度 */
     .live-room-app .app-content .app-body {
-        width: 94% !important;
+        width: 93.6% !important;
         max-width: 2000px !important;
     }
     /* 设置播放区域网页模式宽度 */
@@ -399,7 +401,7 @@
     }
     /* 网页顶部与播放区域的间距 */
     .live-room-app .app-content {
-        padding-top: 60px !important;
+        padding-top: 70px !important;
     }
     /* 动态标签颜色 */
     .bili-dyn-tag {
@@ -433,12 +435,12 @@
     }
     /* 顶栏高度 */
     .link-navbar-ctnr {
-        min-height: 60px !important;
+        min-height: 70px !important;
     }
     .link-navbar-wrap,
     .link-navbar,
     .user-panel-ctnr.p-relative.dp-i-block.v-middle {
-        height: 60px !important;
+        height: 70px !important;
     }
 
     /* 直播间标题栏 */
@@ -737,6 +739,10 @@
     }
     /* 隐藏弹幕区投喂礼物条目 */
     .gift-item {
+        display: none !important;
+    }
+    /* 隐藏弹幕区投喂礼物 */
+    #relocated-slot-gift-popup-guide {
         display: none !important;
     }
     /* 隐藏弹幕区底部投喂礼物信息 */
