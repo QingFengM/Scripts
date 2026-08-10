@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 适配16：10 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.3.4.5
+// @version      0.3.4.6
 // @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -686,17 +686,14 @@
         margin-left: auto !important;
     }
 
-/* 默认模式 (data-screen="normal") */
+    /* 默认模式 (data-screen="normal") */
     .left-container {
         width: clamp(980px, 76vw, 1395px) !important;
         max-width: 100% !important;
         margin: 0 auto !important;
     }
-
     #bilibili-player,
-    #playerWrap,
-    .bpx-player-container,
-    .bpx-player-video-area {
+    #playerWrap {
         width: 100% !important;
         max-width: 1395px !important;
         max-height: clamp(550px, 78.5vh, 784.6px) !important;
@@ -704,7 +701,6 @@
         height: auto !important;
         margin: 0 auto !important;
     }
-
     .video-toolbar-container,
     .video-tag-container {
         border-bottom: none !important;
@@ -721,7 +717,6 @@
         margin: 0 auto !important;
         display: block !important;
     }
-
     body:has(.bpx-player-container[data-screen="wide"]) #bilibili-player,
     body:has(.bpx-player-container[data-screen="wide"]) #playerWrap,
     body:has(.bpx-player-container[data-screen="wide"]) .bpx-player-container,
@@ -734,7 +729,6 @@
         margin: 0 auto !important;
         display: block !important;
     }
-
     body:has(.bpx-player-container[data-screen="wide"]) .video-info-container,
     body:has(.bpx-player-container[data-screen="wide"]) .up-info-container,
     body:has(.bpx-player-container[data-screen="wide"]) .video-toolbar-container,
@@ -746,7 +740,6 @@
         margin-right: auto !important;
         box-sizing: border-box !important;
     }
-
     body:has(.bpx-player-container[data-screen="wide"]) .video-toolbar-container {
         padding-top: 20px !important;
         border-bottom: none !important;
@@ -757,7 +750,6 @@
     body:has(.bpx-player-container[data-screen="wide"]) .right-container {
         display: none !important;
     }
-
     body:has(.bpx-player-container[data-screen="wide"]) #playerWrap {
         margin-top: -8px !important;
     }
@@ -830,6 +822,9 @@
         border-radius: 12px !important;
     }
     .bpx-player-mini-progress {
+        display: none !important;
+    }
+    .bpx-player-mini-warp {
         display: none !important;
     }
 
