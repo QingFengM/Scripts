@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 适配16：10 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.3.4.6
+// @version      0.3.4.7
 // @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -688,9 +688,9 @@
 
     /* 默认模式 (data-screen="normal") */
     .left-container {
-        width: clamp(980px, 76vw, 1395px) !important;
+        width: clamp(980px, 76vw, 1320px) !important;
         max-width: 100% !important;
-        margin: 0 auto !important;
+        margin: 0 30px !important;
     }
     #bilibili-player,
     #playerWrap {
