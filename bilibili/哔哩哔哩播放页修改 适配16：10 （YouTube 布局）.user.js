@@ -340,6 +340,11 @@
         color: #FB7299 !important;
     }
 
+    /* 播放器阴影 */
+    .bpx-player-container {
+        box-shadow: 0 0 8px #CFCFCF !important;
+    }
+
     /* 播放器圆角 */
     .bpx-player-video-area,
     .bpx-player-container {
