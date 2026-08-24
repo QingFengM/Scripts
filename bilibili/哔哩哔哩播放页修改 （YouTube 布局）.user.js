@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.3.4.6
+// @version      0.3.4.7
 // @description  播放页主题色修改为#FB7299；扩展播放器宽高尺寸，优化适配页面布局；隐藏导航栏冗余入口、广告横幅、弹幕投票等干扰元素，提升观看体验与视觉整洁度。
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -348,7 +348,7 @@
     /* 播放器圆角 */
     .bpx-player-video-area,
     .bpx-player-container {
-        border-radius: 20px !important;
+        border-radius: 12px !important;
         transform: translateZ(0) !important;
         overflow: hidden !important;
     }
@@ -598,6 +598,21 @@
         margin-left: 0px !important;
     }
 
+    /* 播放列表-接下来播放 */
+    .recommend-list-v1 .rec-title .title-txt[data-v-17ce950e] {
+        position: relative !important;
+        color: transparent !important;
+        user-select: none !important;
+    }
+    .recommend-list-v1 .rec-title .title-txt::before {
+        content: "为你推荐" !important;
+        font-size: 14px !important;
+        line-height: normal !important;
+    }
+    .recommend-list-v1 .rec-list {
+        margin-top: 8px !important;
+    }
+
     /* 自动连播 */
     .switch-btn.on {
         background: #FB7299 !important;
@@ -645,14 +660,12 @@
     .video-page-card-small {
         margin-bottom: 8px !important;
     }
-    .recommend-list-v1 .rec-list {
-        margin-top: 8px !important;
-    }
+    .video-page-operator-card-small .card-box .pic-box,
     .video-page-card-small .card-box .pic-box .framepreview-box .video-awesome-img,
     .video-page-card-small .card-box .pic-box .bpx-docker-major,
     .video-page-card-small .card-box .pic-box {
-        width: 168px !important;
-        height: 94.5px !important;
+        width: 240px !important;
+        height: 135px !important;
     }
     .video-page-card-small .card-box .info .title {
         font-size: 14px !important;
@@ -669,7 +682,7 @@
         display: none !important;
     }
     .recommend-list-v1 .rec-title {
-        margin-bottom: 4px !important;
+        margin-bottom: 8px !important;
     }
     .video-page-card-small .card-box .pic-box .pic .duration {
         font-size: 12px !important;
@@ -772,7 +785,7 @@
         margin-bottom: 12px !important;
     }
     .video-container-v1 .right-container .danmaku-box {
-        margin-bottom: 8px !important;
+        margin-bottom: 12px !important;
     }
 
     /* 右侧视频列表 顶部外边距微调 */
