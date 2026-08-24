@@ -348,7 +348,7 @@
     /* 播放器圆角 */
     .bpx-player-video-area,
     .bpx-player-container {
-        border-radius: 20px !important;
+        border-radius: 12px !important;
         transform: translateZ(0) !important;
         overflow: hidden !important;
     }
@@ -490,13 +490,6 @@
         background: transparent;
         color: #FB7299 !important;
     }
-
-
-
-
-
-
-
 
     /* 简介 */
     .video-desc-container .basic-desc-info a[data-v-4c8ea99d] {
@@ -647,7 +640,7 @@
     .video-page-card-small .card-box .pic-box .framepreview-box .video-awesome-img,
     .video-page-card-small .card-box .pic-box,
     .video-page-card-small .card-box .pic-box .pic {
-        border-radius: 8px !important;
+        border-radius: 12px !important;
     }
     .video-page-card-small {
         margin-bottom: 8px !important;
@@ -660,6 +653,14 @@
     .video-page-card-small .card-box .pic-box {
         width: 168px !important;
         height: 94.5px !important;
+    }
+    @media (min-width: 1681px) {
+        .video-page-card-small .card-box .pic-box .framepreview-box .video-awesome-img,
+        .video-page-card-small .card-box .pic-box .bpx-docker-major,
+        .video-page-card-small .card-box .pic-box {
+            width: 240px !important;
+            height: 135px !important;
+        }
     }
     .video-page-card-small .card-box .info .title {
         font-size: 14px !important;
@@ -691,11 +692,12 @@
         margin-left: auto !important;
     }
 
+
     /* 默认模式 (data-screen="normal") */
     .left-container {
         width: clamp(980px, 76vw, 1320px) !important;
         max-width: 100% !important;
-        margin: 0 30px !important;
+        margin-right: 30px !important;
     }
     #bilibili-player,
     #playerWrap {
