@@ -655,7 +655,7 @@
     .video-page-card-small .card-box .pic-box .framepreview-box .video-awesome-img,
     .video-page-card-small .card-box .pic-box,
     .video-page-card-small .card-box .pic-box .pic {
-        border-radius: 8px !important;
+        border-radius: 12px !important;
     }
     .video-page-card-small {
         margin-bottom: 8px !important;
