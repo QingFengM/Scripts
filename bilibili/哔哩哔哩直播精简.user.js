@@ -860,9 +860,6 @@
     #combo-card {
         display: none !important;
     }
-    #relocated-cards-area {
-          height: 0px !important;
-    }
     /* 隐藏弹幕连击组件 */
     #combo-danmaku-vm {
         display: none !important;
