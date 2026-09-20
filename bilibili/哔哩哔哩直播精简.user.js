@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.1.9
+// @version         3.2
 // @match           *://live.bilibili.com/*
 // @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
@@ -89,7 +89,6 @@
     }
     /* 顶栏搜索框搜索图标大小 */
     .search-bar-ctnr .search-bar .search-btn {
-        top: 0px !important;
         width: 31px !important;
         height: 31px !important;
     }
@@ -165,11 +164,6 @@
     }
     .link-progress-tv {
         display: none !important;
-    }
-    /* 顶栏关注悬浮变色 */
-    .shortcuts-ctnr .shortcut-item:hover {
-        background-color: #e3e5e7 !important;
-        border-radius: 25px !important;
     }
     /* 顶栏关注列表“更多关注”悬浮变色*/
     .more-follows:hover span {
@@ -680,6 +674,7 @@
     /* 播放器背景透明 */
     body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .left-container #fullscreen-container {
         background: #0000 !important;
+        -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
     }
     /* 开通大会员继续观看 */
     .universal-countdown-card {
@@ -864,6 +859,9 @@
     /* 隐藏弹幕连击卡片 */
     #combo-card {
         display: none !important;
+    }
+    #relocated-cards-area {
+          height: 0px !important;
     }
     /* 隐藏弹幕连击组件 */
     #combo-danmaku-vm {
