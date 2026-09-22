@@ -864,6 +864,9 @@
     #combo-danmaku-vm {
         display: none !important;
     }
+    .over-hidden.p-relative.w-100.relocated-cards-area {
+        display: none !important;
+    }
     /* 隐藏主播今日心愿 */
     .gift-wish-card-root {
         display: none !important;
