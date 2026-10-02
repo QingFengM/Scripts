@@ -16,51 +16,6 @@
     // ==================== 播放页修改 ====================
     GM_addStyle(`
 
-
-    /* logo */
-    .mini-header__logo {
-        filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28) !important;
-        width: 54px !important;
-    }
-
-    /* 隐藏顶部导航栏 - 首页下拉箭头 */
-    .mini-header__arrow {
-        display: none !important;
-    }
-    .bili-header .left-entry__title .mini-header__title > span {
-        margin-right: 0px !important;
-    }
-
-    /* 隐藏顶部导航栏 - 下载客户端 */
-    li.v-popover-wrap a.download-client-trigger {
-        display: none !important;
-    }
-
-    /* 隐藏顶部导航 - 游戏中心 */
-    .left-entry li.v-popover-wrap a[href*="game.bilibili.com"] {
-        display: none !important;
-    }
-
-    /* 隐藏顶部导航 - 会员购 */
-    .left-entry li.v-popover-wrap a[href*="show.bilibili.com"] {
-        display: none !important;
-    }
-
-    /* 隐藏顶部导航 - 漫画 */
-    .left-entry li.v-popover-wrap a[href*="manga.bilibili.com"] {
-        display: none !important;
-    }
-
-    /* 隐藏顶部导航 - 大会员 */
-    .vip-wrap {
-        display: none !important;
-    }
-
-    /* 隐藏顶部导航 - 活动推广 */
-    .v-popover-wrap a.loc-moveclip {
-        display: none !important;
-    }
-
     /* 隐藏顶部导航 -搜索框热搜 */
     .trending {
         display: none !important;
@@ -71,109 +26,9 @@
         visibility: visible !important;
     }
 
-    /* 顶部导航 -搜索框 */
-    .bili-header .center-search-container .center-search__bar {
-        max-width: 400px !important;
-        top: 6px !important;
-    }
-    .bili-header .center-search-container .center-search__bar #nav-searchform {
-        height: 38px !important;
-    }
-    .bili-header .center-search-container .center-search__bar #nav-searchform,
-    .bili-header .search-panel {
-        border: none !important;
-    }
-    .bili-header .mini-header .center-search-container .center-search__bar #nav-searchform:hover {
-        background: #E5E5E5 !important;
-    }
-    .bili-header .mini-header .center-search-container .center-search__bar #nav-searchform.is-focus:hover {
-        background: var(--bg1) !important;
-    }
-    .bili-header .histories .history-item:hover,
-    .bili-header .header .clear:hover,
-    .bili-header .history-fold-wrap:hover .fold-text {
-        color: #FB7299 !important;
-    }
-    .bili-header .history-fold-wrap:hover .fold-icon path {
-        fill: #FB7299 !important;
-    }
-    .bili-header .history-fold-wrap {
-        margin: auto !important;
-    }
-    .bili-header .center-search-container .center-search__bar #nav-searchform {
-        padding: 0 40px 0 4px !important;
-    }
-    /* 顶部导航 -搜索框圆角 */
-    form#nav-searchform,
-    .bili-header .center-search-container .center-search__bar.is-focus,
-    .bili-header .center-search-container .center-search__bar .nav-search-content,
-    .bili-header .histories .history-item {
-        border-radius: 20px !important;
-    }
-    .bili-header .search-panel {
-        border-radius: 0 0 20px 20px !important;
-    }
-    .launch-bar,
-    .launch-bar .launch-bar-suggest-list {
-        border-radius: 20px !important;
-    }
-    .launch-bar .launch-bar-suggest-list {
-        margin-top: 4px !important;
-    }
-    /* 隐藏顶部投稿 - 活动推广 */
-    .bili-header .upload-panel-popover .upload-huasheng-banner {
-        display: none !important;
-    }
-
-    /* 顶栏右侧菜单 */
-    .right-entry-icon {
-        display: none !important;
-    }
-    .bili-header .right-entry .right-entry-item .right-entry-text {
-        margin-left: 8px !important;
-    }
-    .bili-header .header-upload-entry__icon {
-        color: var(--text1) !important;
-    }
-    .bili-header .header-upload-entry {
-        margin-left: 0px !important;
-        background: none !important;
-        color: var(--text1) !important;
-        font-size: 16px !important;
-    }
-    .bili-header .right-entry__outside {
-        font-size: 14px !important;
-        justify-content: center !important;
-        height: 30px !important;
-    }
-    .bili-header .mini-header .right-entry .right-entry__outside .right-entry-text {
-        color: var(--text1) !important;
-    }
-    .bili-header .red-num--message,
-    .bili-header .red-num--dynamic {
-        padding: 0 8px !important;
-        top: -8px !important;
-        transform: translateX(-50%) !important;
-        line-height: 14px !important;
-        background-color: #FB7299 !important;
-        border-radius: 8px !important;
-    }
-    .custom-navbar-item .notify-count {
-        border-radius: 8px !important;
-        color: #ffffff !important;
-        top: 2px !important;
-    }
     /* 顶栏阴影 */
-    .bili-header .mini-header {
+    .bili-header.bili-header--mini .bili-header__bar {
         box-shadow: none !important;
-    }
-
-    /* 顶栏左右边距 */
-    .bili-header .left-entry {
-        padding-left: 15px !important;
-    }
-    .bili-header .right-entry {
-        margin-right: 0px !important;
     }
 
     /* 顶部导航栏高度调整 */
@@ -185,15 +40,6 @@
     #biliMainHeader,
     .bili-header {
         min-height: 50px !important;
-    }
-
-    /* 禁止顶部导航栏固定显示 */
-    .bili-header.fixed-header .bili-header__bar {
-        position: static !important;
-    }
-    #biliMainHeader {
-        position: relative !important;
-        z-index: 1000 !important;
     }
 
     /* 播放器与标题互换位置 */
@@ -379,25 +225,6 @@
     /* 弹幕栏 */
     .bpx-player-sending-area {
         display: none !important;
-    }
-    .bpx-player-container .bpx-player-sending-bar,
-        #bilibili-player-placeholder #bilibili-player-placeholder-bottom {
-        height: 44.5px !important;
-    }
-    .bpx-player-container .bpx-player-sending-bar .bpx-player-video-inputbar {
-        height: 30px !important;
-    }
-    /* 调整弹幕栏右对齐 */
-    .bpx-player-dm-root {
-        display: flex !important;
-        justify-content: flex-end !important;
-        align-items: center !important;
-    }
-    /* 调整弹幕栏输入框的宽度 */
-    .bpx-player-video-inputbar {
-        /* max-width: 50% !important; */
-        margin-left: 0 !important;
-        margin-right: 0 !important;
     }
     /* 弹幕开关 */
     .bui-danmaku-switch:not(.bui-disabled):hover {
