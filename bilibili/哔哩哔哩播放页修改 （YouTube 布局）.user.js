@@ -465,6 +465,12 @@
     .bui-switch .bui-switch-input:checked + .bui-switch-label .bui-switch-body {
         background: #FB7299 !important;
     }
+    /* 移除偏移的文字 */
+    .bpx-player-tooltip-item[data-name="ctrl:pip"],
+    .bpx-player-tooltip-item[data-name="ctrl:fullscreen"],
+    .bpx-player-tooltip-item[data-name="ctrl:widescreen"] {
+        display: none !important;
+    }
 
     /* 弹幕发送 */
     .bui-button-blue {
