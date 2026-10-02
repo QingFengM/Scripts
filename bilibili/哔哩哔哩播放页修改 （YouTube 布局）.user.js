@@ -400,11 +400,17 @@
         margin-right: 0 !important;
     }
     /* 弹幕开关 */
-    .bui-danmaku-switch .bui-danmaku-switch-label .bui-danmaku-switch-on svg path:last-child {
-        fill: #FB7299 !important;
-    }
     .bui-danmaku-switch:not(.bui-disabled):hover {
         fill: #FB7299 !important;
+    }
+    .bui-danmaku-switch.bui-danmaku-switch-new [data-danmu-color=accent],
+    .bui-danmaku-switch:not(.bui-danmaku-switch-new) .bui-danmaku-switch-on svg [data-danmu-status],
+    .bui-danmaku-switch:not(.bui-danmaku-switch-new) .bui-danmaku-switch-on svg:not([data-danmu-intl]) path:last-child,
+    .bui-danmaku-switch:not(.bui-danmaku-switch-new):not(.bui-disabled):hover {
+        fill: #FB7299 !important;
+    }
+    .bui-danmaku-switch.bui-danmaku-switch-new:not(.bui-disabled):hover [data-danmu-color=stroke] {
+        stroke: #FB7299 !important;
     }
     /* 弹幕设置 */
     .bpx-player-sending-bar .bpx-player-dm-root .bpx-player-dm-setting:hover {
