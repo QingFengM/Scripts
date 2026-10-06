@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.2
+// @version         3.2.1
 // @match           *://live.bilibili.com/*
 // @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
@@ -306,6 +306,7 @@
     /* 调整视频区右下方主播公告内容高度 */
     .room-info-cntr .content-wrapper {
         height: 210px !important;
+        overflow-y: auto !important;
     }
     /* 隐藏主播简介里的tag标签 */
     .room-introduction-tags {
