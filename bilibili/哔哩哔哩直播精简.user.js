@@ -4,13 +4,12 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.2.1
+// @version         3.2.4
 // @match           *://live.bilibili.com/*
-// @exclude         *://live.bilibili.com/blackboard/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
 // @grant           unsafeWindow
-// @run-at          document-start
+// @run-at          document-end
 // @license         MIT
 // ==/UserScript==
 
@@ -443,15 +442,24 @@
         border-radius: 12px 12px 0 0 !important;
         border: 0px solid #e3e5e7 !important;
     }
-    /* 标题栏背景图片位置 */
-    .live-room-app .app-content .app-body .player-and-aside-area .left-container .head-info-section {
-        background-position: center !important;
-        background-size: cover !important;
-    }
     /* 移除标题栏助力与上舰按钮 */
     /* .p-relative.follow-ctnr  */
     .follow-ctnr .followed .left-part,
     .follow-ctnr .followed .right-part {
+        display: none !important;
+    }
+    /* 移除标题栏推广 */
+    .header-center {
+        display: none !important;
+    }
+    /* 更多设置 */
+    .header-right {
+        margin-left: auto !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+    }
+    .more-text {
         display: none !important;
     }
     /* 移除快捷键G关注主播 */
@@ -468,56 +476,19 @@
     .follow-ctnr.p-relative {
         margin-left: 16px !important;
     }
-    /* 移除标题热门榜与上舰活动 */
-    .right-dynamic-modules {
-        display: none !important;
-    }
-    /* 移除标题更多设置 */
-    .right-fixed-modules {
-        display: none !important;
-    }
-    /* 直播间分区鼠标悬停字体颜色 */
-    .bili-link:hover {
-        color: #FB7299 !important;
-        transition: color 0.2s ease;
-    }
-    /* 直播间分区鼠标悬停字体颜色 */
-    .header-info-ctnr .rows-ctnr .lower-row .live-area .area-link:hover {
-        color: #FB7299 !important;
-        transition: color 0.2s ease;
-    }
-    /* 直播间主播名称鼠标悬停字体颜色 */
-    .header-info-ctnr .left-anchor-section .room-owner-username:hover {
-        color: #FB7299 !important;
-        transition: color 0.2s ease;
-    }
-    /* 分区悬浮变色效果 */
-    #custom-partition-display:hover {
-        color: #FB7299 !important;
-        transition: color 0.2s ease;
-    }
     /* 直播间主播名称字符高度 */
     .header-info-ctnr .rows-ctnr .upper-row .room-owner-username {
         line-height: 20px !important;
-    }
-    /* 隐藏主播所在城市（默认） */
-    .anchor-location.default {
-        display: none !important;
-    }
-    /* 隐藏主播所在城市（带皮肤） */
-    .anchor-location.with-skin {
-        display: none !important;
     }
     /* 隐藏标题栏与视频区分割线 */
     .header-info-ctnr .blur-edges-ctnr {
         display: none !important;
     }
-    /* 隐藏标题栏直播小队入口 */
-    .uni-live-entry {
-        display: none !important;
-    }
     /* 标题栏字体大小 */
     .header-info-ctnr .rows-ctnr .upper-row .room-owner-username,.header-info-ctnr .nowrap {
+        font-size: 14px !important;
+    }
+    .initiator .initiator-name {
         font-size: 14px !important;
     }
     /* 标题栏字体大小（备选） */
@@ -525,13 +496,15 @@
         font-size: 14px !important;
         margin-left: 8px !important;
     }
-    /* 直播间标题字体粗细 */
-    /*.live-title {*/
-    /*    font-weight: 400 !important;*/
-    /*}*/
     /* 移除未开播直播间标题 */
     .live-title {
         display: none !important;
+    }
+    /* 直播间主播名称鼠标悬停字体颜色 */
+    html body .live-skin-coloration-area .live-skin-normal-a-text:hover,
+    html body .live-skin-coloration-area .live-skin-normal-a-text:active {
+        color: #FB7299 !important;
+        transition: color 0.2s ease;
     }
     /* 设置标题栏主播ID与标题为水平弹性布局 */
     .rows-content {
@@ -545,11 +518,37 @@
         flex-direction: row-reverse !important;
         align-items: center !important;
     }
-    /* 设置标题栏主播ID与标题水平排列 */
-    .header-info-ctnr .left-anchor-section .content {
+    /* 恢复标题分区：未开播标题栏水平排列 */
+    .header-info-ctnr .closedown-profile {
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
+    }
+    /* 恢复标题分区：标题与分区容器 */
+    #custom-title-area {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 16px !important;
+        margin-left: 16px !important;
+        min-width: 0;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+    /* 恢复标题分区：标题与分区文字 */
+    #custom-title-display,
+    #custom-partition-display {
+        display: inline-block !important;
+        max-width: 40vw !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: 14px !important;
+        vertical-align: middle !important;
+    }
+    #custom-partition-display {
+        text-decoration: none !important;
+    }
+    #custom-partition-display:hover {
+        color: #FB7299 !important;
     }
     /* 删除“发起者:”文本标签 */
     .initiator-label.live-skin-normal-a-text {
@@ -568,7 +567,7 @@
         margin-top: 0px !important;
     }
     /* 调整直播间用户名左边距 */
-    .left-anchor-section {
+    .profile-text {
         margin-left: 8px !important;
     }
     /* 直播间标题栏XX人点赞 */
@@ -712,6 +711,13 @@
     }
 
     /* 直播间弹幕区 */
+    /* 弹幕区圆角 */
+    html:not(.pc-app) body:not(.pure_room_root):not(.player-full-win):not(.fullscreen-fix):not(.lite-room) .live-room-app .aside-area>.chat-history-panel {
+        border-radius: 12px 12px 0 0 !important;
+    }
+    body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {
+        border-radius: 0 0 12px 12px !important;
+    }
     /* 弹幕区边距 */
     body:not(.pure_room_root) .chat-history-panel .chat-history-list {
         padding: 5px 10px 5px 10px !important;
@@ -786,6 +792,9 @@
     }
     /* 隐藏系统提示弹幕 */
     .convention-msg {
+        display: none !important;
+    }
+    .room-entry-intro {
         display: none !important;
     }
     /* 设置弹幕@用户ID字体大小 */
@@ -1022,14 +1031,6 @@
     .chat-input-ctnr {
         border-radius: 12px !important;
     }
-    /* 直播间弹幕输入区内部边距 */
-    .chat-input-ctnr {
-        padding: 0 8px 0 0 !important;
-    }
-    /* 弹幕输入框布局边距 */
-    #control-panel-ctnr-box {
-        padding: 8px 10px 10px 10px !important;
-    }
     /* 隐藏醒目留言按钮 */
     .super-chat {
         display: none !important;
@@ -1038,64 +1039,20 @@
     .like-btn {
         display: none !important;
     }
-    /* 隐藏一起玩按钮 */
-    .p-relative.play-together-panel {
+    /* 隐藏弹幕颜色按钮 */
+    .danmaku-preference-btn {
         display: none !important;
     }
-    /* 隐藏粉丝徽章选择 */
-    .medal-section {
-        display: none !important;
-    }
-    /* 弹幕按钮栏边距 */
-    .control-panel-icon-row {
-        margin: 0px !important;
-    }
-    /* 弹幕表情按钮左移 */
-    .control-panel-icon-row .icon-right-part {
-        float: left !important;
-        margin-left: 4px !important;
-        margin-top: 3px !important;
-    }
-    /* 弹幕发送按钮颜色 */
-    .bl-button--primary {
-        background-color: #FB7299 !important;
-        box-shadow: 0 0 12px #0707075e !important;
-    }
-    /* 隐藏关闭礼物特效提醒 */
-    .gift-block-toast {
+    .input-divider {
         display: none !important;
     }
     /* 弹幕输入框聚焦时边框颜色 */
     .chat-input-ctnr.chat-input-focus {
         border: 1px solid #E3E5E7 !important;
     }
-    /* 弹幕输入框背景图片位置 */
-    #chat-control-panel-vm {
-        background-position: center !important;
-        background-size: cover !important;
-    }
-    /* 隐藏语音上麦按钮 */
-    .voice-rtc {
-        display: none !important;
-    }
-    /* 弹幕输入区背景颜色 */
-    body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .aside-area .chat-control-panel {
-        background-color: #19485D !important;
-    }
     /* 弹幕输入区字体大小 */
     .chat-input {
         font-size: 14px !important;
-    }
-    /* 弹幕输入区字数提示背景颜色位置 */
-    .link-toast.info {
-        background-color: #FB7299 !important;
-        Left: 1610px !important;
-        top: 780px !important;
-    }
-    .link-toast {
-        padding: 12px !important;
-        font-size: 14px !important;
-        border-radius: 12px !important;
     }
     `);
 
@@ -1114,95 +1071,181 @@
         new MutationObserver(() => clean()).observe(document.body, { childList: true, subtree: true });
     })();
 
+
 // ====== 恢复标题分区 ======
-    const MAX_TIME = 3000; // 等待时长
-    const TITLE_DELAY = 300; // 标题获取延迟
-    let startTime = null; // 延迟初始化，等到前台时再计时
+    (function () {
+        'use strict';
 
-    function tryInject() {
-        // --- 检查网页是否处于后台 ---
-        if (document.hidden) {
-            startTime = null;
-            requestAnimationFrame(tryInject);
-            return;
+        const CONTAINER_ID = 'custom-title-area';
+        const TITLE_ID = 'custom-title-display';
+        const PARTITION_ID = 'custom-partition-display';
+        const AREA_PAGE = 'https://live.bilibili.com/p/eden/area-tags';
+
+        const norm = (s) => (s || '').replace(/\s+/g, ' ').trim();
+
+        // 主播ID元素：开播时 .anchor-username，未开播时 .initiator .initiator-name
+        function getNameEl() {
+            return document.querySelector('.live-profile .anchor-username')
+                || document.querySelector('.closedown-profile .initiator .initiator-name')
+                || document.querySelector('.anchor-username')
+                || document.querySelector('.initiator .initiator-name');
         }
 
-        // --- 初始化/更新开始时间 ---
-        if (!startTime) startTime = performance.now();
-
-        const container = document.querySelector('.left-anchor-section .content');
-        const refEl = document.querySelector('.room-owner-username');
-        const vmEl = document.querySelector("#head-info-vm");
-        const vue = vmEl?.__vue__;
-
-        // 检查基础元素是否存在
-        if (container && refEl && vue?.liveAreaName) {
-            setTimeout(() => {
-                // 实时获取最新的容器，避免闭包引用了已被 Vue 销毁的旧节点
-                const currentContainer = document.querySelector('.left-anchor-section .content');
-                if (!currentContainer) return;
-
-                // 防重复注入拦截
-                if (document.getElementById('custom-title-display')) return;
-
-                const refStyle = getComputedStyle(refEl);
-                const baseStyle = {
-                    fontSize: refStyle.fontSize,
-                    color: refStyle.color,
-                    marginLeft: '16px',
-                    verticalAlign: 'middle',
-                    display: 'inline-block'
-                };
-
-                // 标题
-                const titleSpan = document.createElement('span');
-                titleSpan.id = 'custom-title-display';
-                Object.assign(titleSpan.style, baseStyle, { fontWeight: refStyle.fontWeight });
-                titleSpan.textContent = document.title.split(' - ')[0];
-                currentContainer.appendChild(titleSpan);
-
-                // 分区
-                const partLink = document.createElement('a');
-                partLink.id = 'custom-partition-display';
-                partLink.target = "_blank";
-                partLink.href = vue.childAreaUri || "";
-                partLink.textContent = vue.liveAreaName;
-                Object.assign(partLink.style, baseStyle, { textDecoration: 'none' });
-                currentContainer.appendChild(partLink);
-            }, TITLE_DELAY);
-
-            return; // 成功后结束
+        // 找到标题栏中与主播ID同行的容器
+        function resolveHost(nameEl) {
+            const liveProfile = nameEl.closest('.live-profile');
+            if (liveProfile) {
+                return { host: liveProfile, anchor: nameEl.closest('.profile-text') || nameEl };
+            }
+            const initiator = nameEl.closest('.initiator');
+            if (initiator) {
+                return { host: initiator.closest('.closedown-profile') || initiator.parentElement, anchor: initiator };
+            }
+            return null;
         }
 
-        // 超时放弃
-        if (performance.now() - startTime > MAX_TIME) {
-            return;
+        function getRoomId() {
+            const m = location.pathname.match(/(?:blanc\/)?(\d{3,})/);
+            return m ? m[1] : '';
         }
 
-        // 下一帧继续尝试
-        requestAnimationFrame(tryInject);
-    }
+        // 标题：优先弹幕区的房间卡片，其次未开播标题，最后网页标题
+        function readTitle() {
+            const card = document.querySelector('.room-entry-card-title');
+            if (card && norm(card.textContent)) return norm(card.textContent);
+            const nativeTitle = document.querySelector('.live-title .title-text');
+            if (nativeTitle && norm(nativeTitle.textContent)) return norm(nativeTitle.textContent);
+            return norm(document.title.split(' - ')[0]);
+        }
 
-    // 启动逻辑：如果当前是后台则监听切换，如果是前台则直接开始
-    function init() {
-        if (document.hidden) {
-            const handleVisibility = () => {
-                if (!document.hidden) {
-                    document.removeEventListener('visibilitychange', handleVisibility);
-                    tryInject();
+        // 分区：弹幕区的房间卡片（形如“单机游戏 · 新游推荐”）
+        function readArea() {
+            const card = document.querySelector('.room-entry-card-area');
+            return card ? norm(card.textContent) : '';
+        }
+
+        // 分区链接：用接口拿到 parentAreaId / areaId，缓存避免重复请求
+        const areaHrefCache = new Map();
+        const areaHrefPending = new Map();
+
+        function applyAreaHref(link, roomId) {
+            if (!roomId) return;
+            const cached = areaHrefCache.get(roomId);
+            if (cached) {
+                link.href = cached;
+                return;
+            }
+            let pending = areaHrefPending.get(roomId);
+            if (!pending) {
+                pending = fetch('https://api.live.bilibili.com/room/v1/Room/get_info?room_id=' + encodeURIComponent(roomId), { credentials: 'include' })
+                    .then((res) => res.json())
+                    .then((json) => {
+                        const data = json && json.code === 0 && json.data;
+                        if (!data || !data.area_id) return '';
+                        const href = AREA_PAGE + '?parentAreaId=' + data.parent_area_id + '&areaId=' + data.area_id;
+                        areaHrefCache.set(roomId, href);
+                        return href;
+                    })
+                    .catch(() => '')
+                    .finally(() => areaHrefPending.delete(roomId));
+                areaHrefPending.set(roomId, pending);
+            }
+            pending.then((href) => {
+                if (href && link.getAttribute('data-room') === roomId) link.href = href;
+            });
+        }
+
+        let box = null;
+        // 主播ID悬停时会变粉色，这里只缓存未悬停时的基准色，避免把悬停色带到标题/分区
+        let cachedTextColor = '';
+
+        function ensure() {
+            const nameEl = getNameEl();
+            if (!nameEl) return;
+            const target = resolveHost(nameEl);
+            if (!target) return;
+
+            if (!box) {
+                box = document.createElement('span');
+                box.id = CONTAINER_ID;
+
+                const titleEl = document.createElement('span');
+                titleEl.id = TITLE_ID;
+                box.appendChild(titleEl);
+
+                const partEl = document.createElement('a');
+                partEl.id = PARTITION_ID;
+                partEl.target = '_blank';
+                partEl.rel = 'noopener noreferrer';
+                box.appendChild(partEl);
+            }
+
+            // Vue 重建标题栏后重新挂载
+            if (box.parentElement !== target.host || box.previousElementSibling !== target.anchor) {
+                target.anchor.insertAdjacentElement('afterend', box);
+            }
+
+            // 跟随主播ID的字体样式（悬停变色时不要把粉色当成基准色）
+            const nameStyle = getComputedStyle(nameEl);
+            if (!nameEl.matches(':hover')) {
+                cachedTextColor = nameStyle.color;
+            } else if (!cachedTextColor) {
+                // 页面加载时就悬停在主播ID上：用隐藏副本取一次未悬停的基准色
+                const probe = nameEl.cloneNode(true);
+                probe.removeAttribute('id');
+                probe.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden;pointer-events:none;';
+                nameEl.parentElement.appendChild(probe);
+                cachedTextColor = getComputedStyle(probe).color;
+                probe.remove();
+            }
+            const textColor = cachedTextColor || nameStyle.color;
+
+            box.style.color = textColor;
+            box.style.fontSize = nameStyle.fontSize;
+            box.style.fontWeight = nameStyle.fontWeight;
+
+            const titleEl = box.querySelector('#' + TITLE_ID);
+            const partEl = box.querySelector('#' + PARTITION_ID);
+            titleEl.style.color = textColor;
+            partEl.style.color = textColor;
+
+            const title = readTitle();
+            if (title && titleEl.textContent !== title) titleEl.textContent = title;
+
+            const area = readArea();
+            if (area) {
+                if (partEl.textContent !== area) partEl.textContent = area;
+                if (partEl.style.display !== '') partEl.style.display = '';
+                const roomId = getRoomId();
+                if (partEl.getAttribute('data-room') !== roomId) {
+                    partEl.setAttribute('data-room', roomId);
+                    partEl.removeAttribute('href');
+                    applyAreaHref(partEl, roomId);
                 }
-            };
-            document.addEventListener('visibilitychange', handleVisibility);
-        } else {
-            tryInject();
+            } else if (partEl.style.display !== 'none') {
+                partEl.style.display = 'none';
+            }
         }
-    }
 
-    if (document.readyState === 'complete') {
-        init();
-    } else {
-        window.addEventListener('load', init);
-    }
+        let timer = null;
+
+        function tick() {
+            if (document.hidden) return;
+            ensure();
+        }
+
+        function start() {
+            ensure();
+            if (!timer) timer = setInterval(tick, 1000);
+            document.addEventListener('visibilitychange', tick);
+        }
+
+        if (document.readyState === 'complete') {
+            start();
+        } else {
+            window.addEventListener('load', start);
+        }
+    })();
 
 // ====== 禁止轮播 ======
     if (/https:\/\/live\.bilibili\.com\/(blanc\/)?\d+/.test(location.href)) {
