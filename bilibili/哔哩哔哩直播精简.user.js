@@ -466,7 +466,7 @@
         display: none !important;
     }
     .more-setting-panel.non-anchor {
-        width: 200px !important;
+        width: 180px !important;
     }
     .more-entry {
         width: 30px !important;
