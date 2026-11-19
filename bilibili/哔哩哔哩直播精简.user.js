@@ -504,7 +504,7 @@
     /* 标题栏字体大小（备选） */
     .header-info-ctnr .closedown-left .initiator-ctnr .initiator-name {
         font-size: 14px !important;
-        margin-left: 8px !important;
+        margin-left: 16px !important;
     }
     /* 移除未开播直播间标题 */
     .live-title {
@@ -578,7 +578,7 @@
     }
     /* 调整直播间用户名左边距 */
     .profile-text {
-        margin-left: 8px !important;
+        margin-left: 16px !important;
     }
     /* 直播间标题栏XX人点赞 */
     .header-info-ctnr .heat-index-scroll {
