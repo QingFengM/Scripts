@@ -462,6 +462,12 @@
     .more-text {
         display: none !important;
     }
+    .panel-head-title {
+        display: none !important;
+    }
+    .more-setting-panel.non-anchor {
+        width: 200px !important;
+    }
     /* 移除快捷键G关注主播 */
     #popup-shortcut-box,
     .follow-ctnr .not-yet-follow .follow-key-prompt {
