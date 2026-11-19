@@ -468,6 +468,10 @@
     .more-setting-panel.non-anchor {
         width: 200px !important;
     }
+    .more-entry {
+        width: 30px !important;
+        height: 30px !important;
+    }
     /* 移除快捷键G关注主播 */
     #popup-shortcut-box,
     .follow-ctnr .not-yet-follow .follow-key-prompt {
