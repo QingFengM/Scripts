@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.2.4
+// @version         3.2.6
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -887,6 +887,14 @@
     .over-hidden.p-relative.w-100.relocated-cards-area {
         display: none !important;
     }
+    /* 移除弹幕区弹幕列表底部空白 */
+    .chat-history-panel,
+    .chat-history-list {
+        --relocated-cards-height: 0px !important;
+    }
+    body:not(.pure_room_root) .chat-history-panel .chat-history-list.with-relocated-cards {
+        height: calc(100% - 0px) !important;
+    }
     /* 隐藏主播今日心愿 */
     .gift-wish-card-root {
         display: none !important;
@@ -1034,6 +1042,11 @@
     /* 新弹幕消息提醒高度 */
     body:not(.pure_room_root) .chat-history-panel .danmaku-at-prompt {
         top: 90% !important;
+    }
+    /* 移除弹幕区弹幕列表底部上飘的表情气泡 */
+    .emoji-animation-area,
+    .float-item {
+        display: none !important;
     }
 
     /* 直播间弹幕输入区 */
