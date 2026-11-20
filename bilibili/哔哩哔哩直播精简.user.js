@@ -471,6 +471,7 @@
     .more-entry {
         width: 30px !important;
         height: 30px !important;
+        box-shadow: 0 0 6px #0003 !important;
     }
     /* 移除快捷键G关注主播 */
     #popup-shortcut-box,
@@ -1050,9 +1051,13 @@
     }
 
     /* 直播间弹幕输入区 */
-    /* 直播间弹幕输入区内部圆角 */
+    /* 直播间弹幕输入区圆角 */
     .chat-input-ctnr {
         border-radius: 12px !important;
+    }
+    /* 直播间弹幕输入区阴影 */
+    .chat-input-ctnr {
+        box-shadow: 0 0 6px #0003 !important;
     }
     /* 隐藏醒目留言按钮 */
     .super-chat {
