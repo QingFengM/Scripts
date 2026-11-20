@@ -4,12 +4,12 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.2.6
+// @version         3.2.7
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
 // @grant           unsafeWindow
-// @run-at          document-end
+// @run-at          document-start
 // @license         MIT
 // ==/UserScript==
 
