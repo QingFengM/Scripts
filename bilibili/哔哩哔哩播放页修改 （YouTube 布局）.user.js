@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.28
-// @description  大肥鱼使用了298,847,704 tok
+// @version      0.6.33
+// @description  大肥鱼使用了 298,847,704 tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
 // @match        *://www.bilibili.com/video/*
@@ -968,17 +968,25 @@
         gap: 4px !important;
         height: auto !important;
     }
-    .yt-desc-box .item {
+    .yt-desc-box .item:not(.honor) {
         height: 20px !important;
         font-size: 14px !important;
         line-height: 20px !important;
         color: #0f0f0f !important;
     }
-    .yt-desc-box .video-info-detail-list .item[data-v-038b5956] {
+    .yt-desc-box .video-info-detail-list .item[data-v-038b5956]:not(.honor) {
         margin-right: 0 !important;
     }
-    .yt-desc-box .item svg {
+    /* 排行榜荣誉条目保持 B 站网页默认样式（粉色文字、图标和箭头） */
+    .yt-desc-box .item:not(.honor) svg {
         display: none !important;
+    }
+    /* 抵消简介框的 20px 行高继承，恢复荣誉条目默认 1.5 倍行高 */
+    .yt-desc-box .honor.item {
+        line-height: 1.5 !important;
+    }
+    .honor[data-v-43d2b585] {
+        border-radius: 8px;
     }
     .yt-desc-box .dm.item,
     .yt-desc-box .copyright.item {
@@ -1006,13 +1014,6 @@
         margin: 2px 0 0 !important;
         padding: 0 !important;
     }
-    .yt-desc-box .basic-desc-info {
-        height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
-        font-size: 14px !important;
-        line-height: 20px !important;
-    }
     .yt-desc-box .basic-desc-info a {
         color: #FB7299 !important;
     }
@@ -1024,6 +1025,11 @@
     }
 
     /* 标签：从简介框中拆出，使用 B 站胶囊样式放在简介下方 */
+    /* 标签移动/重排前也保持黑字，避免加载瞬间先闪成粉色 */
+    .video-tag-container .tag-link,
+    .video-tag-container .tag-link:hover {
+        color: #000 !important;
+    }
     .yt-tags {
         margin: 12px 0 0 !important;
     }
@@ -1097,6 +1103,11 @@
     }
     .yt-tags .tag-panel.yt-empty {
         display: none !important;
+    }
+
+    /* 视频争议/评分：中性状态使用黑色文字 */
+    .video-argue .video-argue-inner.neutral[data-v-5e0aab8c] {
+        color: #000;
     }
 
     /* ================= 评论区 ================= */
@@ -1243,8 +1254,6 @@
     .subscribe-btn,
     .subscribe-btn:hover,
     .subscribe-btn *,
-    .tag-link,
-    .tag-link:hover,
     .tag-link svg,
     .tag-link svg path,
     .video-pod .simple-base-item.active .title,
