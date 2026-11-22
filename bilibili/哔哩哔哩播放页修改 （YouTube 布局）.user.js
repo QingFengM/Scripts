@@ -793,7 +793,7 @@
         display: flex !important;
         flex: 0 0 auto !important;
         align-items: center !important;
-        gap: 6px !important;
+        gap: 10px !important;
         box-sizing: border-box !important;
         width: auto !important;
         height: 43px !important;
