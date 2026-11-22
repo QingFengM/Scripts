@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.34
+// @version      0.6.35
 // @description  大肥鱼使用了 298,847,704 tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -515,6 +515,13 @@
         line-height: 36px !important;
         color: #0f0f0f !important;
     }
+    .usercard-wrap {
+        left: 20px !important;
+        top: 600px !important;
+    }
+    .latest-archives {
+        display: none !important;
+    }
 
     /* 创作团队：多位投稿人时，头像 + 名字 + 粉丝数依次向右排列 */
     .yt-meta-row.yt-team-mode .up-info-container {
@@ -752,7 +759,7 @@
         display: flex !important;
         flex: 0 0 auto !important;
         align-items: center !important;
-        gap: 12px !important;
+        gap: 6px !important;
         box-sizing: border-box !important;
         width: auto !important;
         height: 43px !important;
@@ -791,7 +798,7 @@
         max-width: 100% !important;
         overflow: hidden !important;
         color: #0f0f0f !important;
-        font-size: 12px !important;
+        font-size: 14px !important;
         font-weight: 500 !important;
         line-height: 20px !important;
         text-decoration: none !important;
@@ -977,6 +984,9 @@
     .yt-desc-box .video-info-detail-list .item[data-v-038b5956]:not(.honor) {
         margin-right: 8px !important;
     }
+    .video-desc-container .basic-desc-info {
+        font-size: 14px!important;
+    }
     /* 抵消简介框的 20px 行高继承，恢复荣誉条目默认 1.5 倍行高 */
     .yt-desc-box .honor.item {
         line-height: 1.5 !important;
@@ -998,7 +1008,7 @@
     }
     .yt-desc-box .video-desc-container {
         display: block !important;
-        margin: 2px 0 0 !important;
+        margin: 4px 0 0 !important;
         padding: 0 !important;
     }
     .yt-desc-box .basic-desc-info a {
