@@ -1,22 +1,25 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.35
-// @description  大肥鱼使用了 298,847,704 tok
+// @version      0.6.38
+// @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
 // @match        *://www.bilibili.com/video/*
 // @grant        GM_addStyle
+// @grant        unsafeWindow
 // @run-at       document-start
 // ==/UserScript==
 
 (function () {
     'use strict';
 
+    const pageWindow = (typeof unsafeWindow !== 'undefined') ? unsafeWindow : window;
+
     // 尽早标记普通模式，避免播放器初始化时先出现一帧错误高度
     document.documentElement.classList.add('yt-normal');
-    // 布局重排完成前先隐藏投稿者，避免它先在右侧栏闪一下
-    document.documentElement.classList.add('yt-layout-pending');
+    // 常驻标记：任何回到 B 站原生位置的节点都保持隐藏，防止 Vue 重渲染时闪回原生样式
+    document.documentElement.classList.add('yt-hide-native');
 
     /* =====================================================================
      *  YouTube 播放页布局
@@ -99,6 +102,11 @@
         grid-row: auto !important;
         grid-column: 1 !important;
     }
+    /* 投稿者卡片已由脚本移到标题下方；右侧栏原始卡片容器会留下 108px 空白，直接隐藏，
+       否则右侧播放列表会先被顶下去，等容器塌缩后再往上跳一次 */
+    .video-container-v1 .right-container .up-panel-container {
+        display: none !important;
+    }
     /* 右侧推荐列表保持 B 站默认宽度与封面尺寸，不再缩放 */
     .video-container-v1 .right-container {
         position: static !important;
@@ -148,12 +156,29 @@
     html.yt-normal .bpx-player-video-area {
         height: 100% !important;
     }
-    /* 重排完成前隐藏投稿者/创作团队，避免右侧栏顶部闪现 */
-    html.yt-layout-pending .up-info-container {
+    /* 只要节点还在 B 站原生位置就保持隐藏，Vue 重渲染时也不会闪回原生样式 */
+    html.yt-hide-native .left-container > #arc_toolbar_report,
+    html.yt-hide-native .left-container > #v_desc,
+    html.yt-hide-native .left-container > .video-tag-container,
+    html.yt-hide-native .up-panel-container .up-info-container {
         visibility: hidden !important;
     }
-    html.yt-layout-pending .up-panel-container {
-        display: none !important;
+    /* 预览克隆只负责首帧外观，等 Vue 挂载后再换成真实可交互节点 */
+    .yt-meta-row [data-yt-preview],
+    .yt-desc-box [data-yt-preview],
+    .yt-tags [data-yt-preview] {
+        pointer-events: none !important;
+    }
+    .yt-tags [data-yt-preview] {
+        display: block !important;
+    }
+    .yt-preview-layer {
+        position: absolute;
+        z-index: 20;
+        box-sizing: border-box;
+        padding-bottom: 8px;
+        background: #fff;
+        pointer-events: none;
     }
     /* 全屏/画中画不保留圆角 */
     :fullscreen .bpx-player-container,
@@ -187,6 +212,10 @@
         padding: 0 !important;
         background: transparent !important;
     }
+    .bpx-player-sending-bar .bpx-player-video-inputbar .bpx-player-dm-wrap {
+        color: #c3c4c6 !important;
+    }
+
     /* 移除“XX人正在观看” */
     body.yt-bar .bpx-player-control-bottom-center .bpx-player-video-info {
         display: none !important;
@@ -463,6 +492,11 @@
         gap: 8px !important;
     }
     .yt-meta-row .upinfo-btn-panel .new-charge-btn {
+        display: none !important;
+    }
+    /* B 站先渲染一个空的关注按钮占位，等数据回来才填内容；隐藏它，关注胶囊就不会先出现一个半透明灰块 */
+    .yt-meta-row .upinfo-btn-panel .follow-btn:empty,
+    .yt-meta-row .upinfo-btn-panel .follow-btn:not(:has(.follow-btn-inner)) {
         display: none !important;
     }
     .yt-meta-row .upinfo-btn-panel .follow-btn {
@@ -861,7 +895,8 @@
     }
 
     /* 点赞/投币/收藏/分享：右侧 YouTube 胶囊按钮 */
-    .yt-meta-row #arc_toolbar_report {
+    .yt-meta-row #arc_toolbar_report,
+    .yt-meta-row .yt-toolbar-preview {
         display: flex !important;
         flex: 0 0 auto !important;
         align-items: center !important;
@@ -1390,7 +1425,7 @@
     }
 
     function stateFans(mid) {
-        const state = window.__INITIAL_STATE__;
+        const state = pageWindow.__INITIAL_STATE__;
         if (!state) return 0;
         const staff = state.staffData || (state.videoData && state.videoData.staff) || [];
         const hit = Array.from(staff).find((item) => String(item.mid) === String(mid));
@@ -1434,7 +1469,7 @@
         if (match) {
             text = match[1].replace(/\s+/g, '') + '粉丝';
         } else {
-            const state = window.__INITIAL_STATE__;
+            const state = pageWindow.__INITIAL_STATE__;
             const fans = state && state.upData && Number(state.upData.fans);
             if (fans) text = fansLabel(fans);
         }
@@ -1460,7 +1495,7 @@
     }
 
     function teamStaffList(upPanel) {
-        const state = window.__INITIAL_STATE__;
+        const state = pageWindow.__INITIAL_STATE__;
         const raw = (state && (state.staffData || (state.videoData && state.videoData.staff))) || [];
         if (raw.length) {
             return raw.map((item) => ({
@@ -1655,7 +1690,7 @@
             metaRow.after(descBox);
         }
 
-        const meta = q('.video-info-meta');
+        const meta = q('.video-info-meta:not([data-yt-preview])');
         if (meta && meta.parentElement !== descBox) {
             descBox.appendChild(meta);
         }
@@ -1663,14 +1698,11 @@
         const vDesc = q('#v_desc');
         const hasDesc = !!(vDesc && (vDesc.innerText || '').trim());
         if (vDesc) {
-            if (hasDesc) {
-                if (vDesc.parentElement !== descBox) {
-                    descBox.appendChild(vDesc);
-                }
-                vDesc.style.display = 'block';
-            } else {
-                vDesc.style.display = 'none';
+            // 空简介也先搬进最终容器：简介正文可能是异步填充的，提前归位可避免晚到的原生样式
+            if (vDesc.parentElement !== descBox) {
+                descBox.appendChild(vDesc);
             }
+            vDesc.style.display = hasDesc ? 'block' : 'none';
         }
 
         // 标签从简介框拆出，放在简介下方的独立容器中
@@ -1682,7 +1714,7 @@
         if (descBox.nextElementSibling !== tagsBox) {
             descBox.after(tagsBox);
         }
-        const tags = q('.video-tag-container');
+        const tags = q('.video-tag-container:not([data-yt-preview])');
         if (tags && tags.parentElement !== tagsBox) {
             tagsBox.appendChild(tags);
         }
@@ -1691,7 +1723,7 @@
     // 标签保持真实 <a>，可直接点击跳转搜索页；只负责清理样式和显隐
     function updateTags() {
         const tagsBox = q('.yt-tags');
-        const tagPanel = q('.video-tag-container .tag-panel');
+        const tagPanel = q('.video-tag-container:not([data-yt-preview]) .tag-panel');
         if (!tagPanel) {
             if (tagsBox) tagsBox.style.display = 'none';
             return;
@@ -1721,8 +1753,12 @@
         return !!(bar && bar.querySelector('.left-entry-main') && bar.querySelector('.right-entry'));
     }
 
+    function layoutVueReady() {
+        const viewbox = q('#viewbox_report');
+        return !!(viewbox && viewbox.__vue__);
+    }
+
     function safeEnsureLayout() {
-        if (!headerMounted()) return false;
         return ensureLayout();
     }
 
@@ -1745,6 +1781,13 @@
         const viewbox = q('#viewbox_report');
         if (!left || !playerWrap || !viewbox) return false;
 
+        // Vue 挂载前只构建预览克隆，不能搬动 B 站持有的真实节点
+        if (!viewbox.__vue__) {
+            buildEarlyPreview();
+            return false;
+        }
+        removeEarlyPreviews();
+
         // 播放器已由 CSS grid 放在第 1 行，不再移动 DOM，避免干扰 B 站顶栏挂载
         // （原实现会在 boot 时 prepend #playerWrap，可能和 bili-header 的挂载产生竞态）
 
@@ -1765,7 +1808,7 @@
             viewbox.after(metaRow);
         }
 
-        const upInfo = q('.up-info-container');
+        const upInfo = q('.up-info-container:not([data-yt-preview])');
         const upPanel = q('.up-panel-container');
         const hasTeam = !!(upPanel && upPanel.querySelector('.membersinfo-upcard'));
         const toolbar = q('#arc_toolbar_report');
@@ -1785,6 +1828,7 @@
                 }
                 bindSingleFollow(metaRow);
                 updateSingleFans(metaRow);
+                hydrateAvatar(metaRow);
             }
         }
 
@@ -1799,9 +1843,176 @@
         updatePubdate();
         updateTags();
         observePlayerScreen();
-        document.documentElement.classList.remove('yt-layout-pending');
 
         return true;
+    }
+
+    /* ================= 首帧预览 =================
+     * B 站的简介、投稿者、点赞栏由 Vue 直接持有。Vue 挂载前搬走它们会让
+     * B 站组件取不到节点（控制台报 appendChild/setAttribute 错误），所以
+     * 首帧先克隆一份外观完全相同的预览，等 Vue 挂载完成后再换成真实节点。
+     */
+    function ensurePreviewShell() {
+        const viewbox = q('#viewbox_report');
+        if (!viewbox) return null;
+
+        // 预览层挂在 body 上，绝不能往 Vue 托管的 .left-container 里塞节点，
+        // 否则 Vue 水合时会因为多出兄弟节点而报错。
+        let layer = q('#yt-preview-layer');
+        if (!layer) {
+            layer = document.createElement('div');
+            layer.id = 'yt-preview-layer';
+            layer.className = 'yt-preview-layer';
+            document.body.appendChild(layer);
+        }
+
+        let metaRow = layer.querySelector('.yt-meta-row');
+        if (!metaRow) {
+            metaRow = document.createElement('div');
+            metaRow.className = 'yt-meta-row';
+            layer.appendChild(metaRow);
+        }
+
+        let descBox = layer.querySelector('.yt-desc-box');
+        if (!descBox) {
+            descBox = document.createElement('div');
+            descBox.className = 'yt-desc-box';
+            layer.appendChild(descBox);
+        }
+
+        let tagsBox = layer.querySelector('.yt-tags');
+        if (!tagsBox) {
+            tagsBox = document.createElement('div');
+            tagsBox.className = 'yt-tags';
+            layer.appendChild(tagsBox);
+        }
+
+        const rect = viewbox.getBoundingClientRect();
+        layer.style.left = Math.round(rect.left) + 'px';
+        layer.style.top = Math.round(rect.bottom + window.scrollY) + 'px';
+        layer.style.width = Math.round(rect.width) + 'px';
+        return { viewbox, layer, metaRow, descBox, tagsBox };
+    }
+
+    function hydrateAvatar(root) {
+        if (!root) return;
+        root.querySelectorAll('.up-avatar img, .bili-avatar-img').forEach((img) => {
+            if (!img.getAttribute('src')) {
+                const src = img.getAttribute('data-src');
+                if (src) img.setAttribute('src', src);
+            }
+            img.removeAttribute('loading');
+        });
+    }
+
+    function ensurePreviewAvatar(preview) {
+        if (!preview) return;
+        const avatar = preview.querySelector('.up-avatar');
+        if (!avatar) return;
+        const state = pageWindow.__INITIAL_STATE__;
+        const face = state && (
+            (state.upData && state.upData.face)
+            || (state.videoData && state.videoData.owner && state.videoData.owner.face)
+        );
+        if (!face) return;
+        let wrap = avatar.querySelector('.bili-avatar');
+        if (!wrap) {
+            wrap = document.createElement('div');
+            wrap.className = 'bili-avatar';
+            wrap.style.width = '48px';
+            wrap.style.height = '48px';
+            avatar.appendChild(wrap);
+        }
+        if (!wrap.querySelector('img')) {
+            const img = document.createElement('img');
+            img.className = 'bili-avatar-img bili-avatar-face bili-avatar-img-radius';
+            img.src = face;
+            img.alt = '';
+            wrap.appendChild(img);
+        }
+    }
+
+    function makePreview(source, kind, target, extraClass) {
+        if (!source) return null;
+        const image = source.querySelector('img');
+        const signature = [
+            source.childElementCount,
+            (source.textContent || '').trim().length,
+            image ? image.getAttribute('src') || '' : '',
+        ].join('|');
+        let existing = target.querySelector(`[data-yt-preview="${kind}"]`);
+        if (existing && existing.dataset.sourceSignature === signature) {
+            if (kind === 'up') {
+                hydrateAvatar(existing);
+                ensurePreviewAvatar(existing);
+            }
+            return existing;
+        }
+        if (existing) existing.remove();
+        const clone = source.cloneNode(true);
+        clone.removeAttribute('id');
+        clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+        clone.querySelectorAll('[aria-describedby]').forEach((el) => el.removeAttribute('aria-describedby'));
+        clone.dataset.ytPreview = kind;
+        clone.dataset.sourceSignature = signature;
+        clone.classList.add('yt-preview');
+        if (extraClass) clone.classList.add(extraClass);
+        if (kind === 'up') {
+            hydrateAvatar(clone);
+            ensurePreviewAvatar(clone);
+        }
+        target.appendChild(clone);
+        return clone;
+    }
+
+    function buildEarlyPreview() {
+        if (layoutVueReady()) return finalizeLayout();
+        const shell = ensurePreviewShell();
+        if (!shell) return false;
+
+        const { metaRow, descBox, tagsBox } = shell;
+        const upSource = q('.up-info-container:not([data-yt-preview])');
+        const toolbarSource = q('#arc_toolbar_report');
+        const metaSource = q('.video-info-meta:not([data-yt-preview])');
+        const descSource = q('#v_desc');
+        const tagsSource = q('.video-tag-container:not([data-yt-preview])');
+
+        const upPreview = upSource ? makePreview(upSource, 'up', metaRow) : null;
+        const toolbarPreview = toolbarSource ? makePreview(toolbarSource, 'toolbar', metaRow, 'yt-toolbar-preview') : null;
+        if (upPreview && toolbarPreview && upPreview.nextElementSibling !== toolbarPreview) {
+            metaRow.insertBefore(upPreview, toolbarPreview);
+        }
+        // 预览也补上粉丝数，避免换成真实节点时名字下方突然多出一行
+        if (upPreview) updateSingleFans(metaRow);
+
+        const metaPreview = metaSource ? makePreview(metaSource, 'meta', descBox) : null;
+        const hasDesc = !!(descSource && (descSource.innerText || '').trim());
+        const descPreview = hasDesc ? makePreview(descSource, 'desc', descBox) : null;
+        if (descPreview) descPreview.style.display = 'block';
+        if (metaPreview && descPreview && metaPreview.nextElementSibling !== descPreview) {
+            descBox.insertBefore(metaPreview, descPreview);
+        }
+
+        if (tagsSource) {
+            const tagsPreview = makePreview(tagsSource, 'tags', tagsBox);
+            if (tagsPreview) {
+                tagsPreview.style.display = '';
+                tagsBox.style.display = '';
+            }
+        }
+        return true;
+    }
+
+    function removeEarlyPreviews() {
+        const layer = q('#yt-preview-layer');
+        if (layer) layer.remove();
+        document.querySelectorAll('[data-yt-preview]').forEach((el) => el.remove());
+    }
+
+    function finalizeLayout() {
+        if (!layoutVueReady()) return false;
+        removeEarlyPreviews();
+        return ensureLayout();
     }
 
     /* ================= 播放器高度（纯 16:9，弹幕条叠加在控制栏内） ================= */
@@ -1857,7 +2068,7 @@
         layoutPlayer();
         observePlayerScreen();
         whenHeaderReady(() => {
-            ensureLayout();
+            safeEnsureLayout();
             layoutPlayer();
         });
 
@@ -1867,7 +2078,10 @@
         setTimeout(() => { safeEnsureLayout(); layoutPlayer(); }, 2400);
 
         // 页面尺寸变化 / 进入退出全屏
-        window.addEventListener('resize', scheduleLayout, { passive: true });
+        window.addEventListener('resize', () => {
+            scheduleLayout();
+            if (q('#yt-preview-layer')) buildEarlyPreview();
+        }, { passive: true });
         document.addEventListener('fullscreenchange', () => setTimeout(layoutPlayer, 120));
 
         // 播放器宽度变化（例如侧栏、窗口）
@@ -1889,16 +2103,75 @@
         setInterval(() => {
             if (location.href !== lastHref) {
                 lastHref = location.href;
-                document.documentElement.classList.add('yt-layout-pending');
                 setTimeout(() => { safeEnsureLayout(); layoutPlayer(); }, 300);
             }
             safeEnsureLayout();
             layoutPlayer();
         }, 1200);
 
-        // 兜底：避免异常情况下投稿者一直处于隐藏状态
-        setTimeout(() => document.documentElement.classList.remove('yt-layout-pending'), 8000);
+        // 兜底：结构异常时恢复原生节点显示，避免内容一直不可见
+        setTimeout(() => {
+            if (!layoutVueReady() && q('#yt-preview-layer')) {
+                q('#yt-preview-layer').remove();
+                document.documentElement.classList.remove('yt-hide-native');
+                return;
+            }
+            const nativeLeft = [q('.left-container > #v_desc'), q('.left-container > #arc_toolbar_report')]
+                .some((el) => el && el.getBoundingClientRect().height > 0);
+            if (!q('.yt-meta-row') || nativeLeft) {
+                document.documentElement.classList.remove('yt-hide-native');
+            }
+        }, 5000);
     }
+
+    // 页面解析出关键节点时立即重排，不等 DOMContentLoaded，也不等 B 站顶栏挂载。
+    // 顶栏与播放页元数据互不影响，等待顶栏会让简介/投稿者/点赞栏先按原生样式绘制一秒以上。
+    function needsRehome() {
+        const desc = q('#v_desc');
+        const toolbar = q('#arc_toolbar_report');
+        const upInfo = q('.up-info-container:not([data-yt-preview])');
+        const metaRow = q('.yt-meta-row');
+        const viewbox = q('#viewbox_report');
+        const hasTeam = !!q('.up-panel-container .membersinfo-upcard');
+        if (desc && !desc.closest('.yt-desc-box')) return true;
+        if (toolbar && !toolbar.closest('.yt-meta-row')) return true;
+        if (upInfo && !upInfo.closest('.yt-meta-row') && !hasTeam) return true;
+        if (metaRow && viewbox && metaRow.previousElementSibling !== viewbox) return true;
+        return false;
+    }
+
+    let earlyLayoutBusy = false;
+    function earlyLayoutPass() {
+        if (earlyLayoutBusy) return;
+        earlyLayoutBusy = true;
+        try {
+            if (!layoutVueReady()) {
+                buildEarlyPreview();
+            } else if (needsRehome()) {
+                finalizeLayout();
+            }
+        } catch (error) {
+            // 页面结构尚未稳定时忽略，下一次 MutationObserver 会再试
+        } finally {
+            earlyLayoutBusy = false;
+        }
+    }
+    const earlyLayoutObserver = new MutationObserver(earlyLayoutPass);
+    earlyLayoutObserver.observe(document.documentElement, { childList: true, subtree: true });
+    earlyLayoutPass();
+
+    // Vue 挂载不会触发 DOM 变更，单独轮询，挂载后尽快用真实可交互节点替换预览
+    let vueWatchTries = 0;
+    const vueWatch = setInterval(() => {
+        vueWatchTries += 1;
+        if (layoutVueReady()) {
+            clearInterval(vueWatch);
+            finalizeLayout();
+            layoutPlayer();
+        } else if (vueWatchTries > 100) {
+            clearInterval(vueWatch);
+        }
+    }, 100);
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', boot, { once: true });
