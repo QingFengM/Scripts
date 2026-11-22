@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.33
+// @version      0.6.34
 // @description  大肥鱼使用了 298,847,704 tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -975,18 +975,15 @@
         color: #0f0f0f !important;
     }
     .yt-desc-box .video-info-detail-list .item[data-v-038b5956]:not(.honor) {
-        margin-right: 0 !important;
-    }
-    /* 排行榜荣誉条目保持 B 站网页默认样式（粉色文字、图标和箭头） */
-    .yt-desc-box .item:not(.honor) svg {
-        display: none !important;
+        margin-right: 8px !important;
     }
     /* 抵消简介框的 20px 行高继承，恢复荣誉条目默认 1.5 倍行高 */
     .yt-desc-box .honor.item {
         line-height: 1.5 !important;
     }
-    .honor[data-v-43d2b585] {
-        border-radius: 8px;
+    .honor,
+    .honor.honor-rank {
+        border-radius: 8px !important;
     }
     .yt-desc-box .dm.item,
     .yt-desc-box .copyright.item {
@@ -994,16 +991,6 @@
     }
     .yt-desc-box .view-text {
         font-weight: 500 !important;
-    }
-    .yt-desc-box .view-text::after {
-        content: "次观看";
-        font-weight: 400 !important;
-    }
-    .yt-desc-box .view.item::after {
-        content: "·";
-        margin: 0 6px !important;
-        color: #000 !important;
-        font-weight: 400 !important;
     }
     .yt-desc-box .pubdate-ip-text {
         color: #000 !important;
@@ -1106,8 +1093,11 @@
     }
 
     /* 视频争议/评分：中性状态使用黑色文字 */
-    .video-argue .video-argue-inner.neutral[data-v-5e0aab8c] {
-        color: #000;
+    .video-argue .video-argue-inner.neutral {
+        color: #000 !important;
+    }
+    .video-argue .video-argue-inner {
+        font-size: 14px !important;
     }
 
     /* ================= 评论区 ================= */
