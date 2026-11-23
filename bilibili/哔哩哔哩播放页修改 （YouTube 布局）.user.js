@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.38
+// @version      0.6.39
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -349,7 +349,7 @@
     .video-info-title-inner .video-title {
         font-size: 20px !important;
         line-height: 28px !important;
-        font-weight: 500 !important;
+        font-weight: 700 !important;
         color: #0f0f0f !important;
     }
     /* 观看数/日期移入简介框，原位置不再显示 */
@@ -490,6 +490,7 @@
         display: flex !important;
         align-items: center !important;
         gap: 8px !important;
+        margin-top: 0 !important;
     }
     .yt-meta-row .upinfo-btn-panel .new-charge-btn {
         display: none !important;
@@ -505,11 +506,12 @@
         justify-content: center !important;
         box-sizing: border-box !important;
         height: 36px !important;
-        width: 76px !important;
-        min-width: 76px !important;
+        width: 70px !important;
         padding: 0 16px !important;
-        border: none !important;
-        border-radius: 18px !important;
+        border-radius: 20px !important;
+    }
+    .yt-meta-row .upinfo-btn-panel .follow-btn.not-follow:hover {
+        background: #303030 !important;
     }
     .yt-meta-row .upinfo-btn-panel .follow-btn.not-follow {
         background: #0f0f0f !important;
@@ -533,20 +535,20 @@
         align-items: center !important;
         justify-content: center !important;
         font-size: 0 !important;
-        line-height: 36px !important;
+        line-height: 40px !important;
     }
     .yt-meta-row .upinfo-btn-panel .follow-btn.not-follow .follow-btn-inner::after {
         content: "关注";
         font-size: 14px !important;
         font-weight: 500 !important;
-        line-height: 36px !important;
+        line-height: 40px !important;
         color: #fff !important;
     }
     .yt-meta-row .upinfo-btn-panel .follow-btn:not(.not-follow) .follow-btn-inner::after {
         content: "已关注";
         font-size: 14px !important;
         font-weight: 500 !important;
-        line-height: 36px !important;
+        line-height: 40px !important;
         color: #0f0f0f !important;
     }
     .usercard-wrap {
@@ -2179,3 +2181,7 @@
         boot();
     }
 })();
+
+
+
+
