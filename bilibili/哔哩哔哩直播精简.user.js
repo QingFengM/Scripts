@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.2.8
+// @version         3.2.9
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -374,7 +374,7 @@
     }
     /* 设置播放区域宽度 */
     body:not(.pure_room_root):not(.player-full-win) .live-room-app .app-content .app-body {
-        width: clamp(980px, 93vw, 3420px) !important;
+        width: var(--blc-app-body-width, clamp(980px, 93vw, 3420px)) !important;
     }
     /* 设置播放区域网页模式宽度 */
     body.player-full-win #fullscreen-container {
@@ -831,15 +831,10 @@
     body .common-nickname-wrapper > :nth-child(2) {
         color: #707070 !important;
     }
-    /* 弹幕ID鼠标悬停字体颜色 */
-    .chat-history-panel .chat-history-list .chat-item.danmaku-item .user-name:hover {
+    /* 弹幕鼠标悬停字体颜色 */
+    .chat-history-panel .chat-history-list .chat-item.danmaku-item:hover .user-name,
+    .chat-history-panel .chat-history-list .chat-item.danmaku-item:hover .danmaku-item-right {
         color: #FB7299 !important;
-        transition: color 0.2s ease;
-    }
-    /* 弹幕内容鼠标悬停字体颜色 */
-    .chat-history-panel .chat-history-list .chat-item.danmaku-item .danmaku-item-right:hover {
-        color: #FB7299 !important;
-        transition: color 0.2s ease;
     }
     /* 弹幕换行行距 */
     .danmaku-item {
@@ -1086,6 +1081,40 @@
         font-size: 14px !important;
     }
     `);
+
+// ====== 播放区域宽度取整（消除播放器右侧 1px 黑线） ======
+// 93vw 在多数分辨率下会算出小数宽度，播放器右边缘就会落在半个物理像素上。
+// 视频层覆盖不到最后一个像素时，会露出播放器底层的黑色背景，看起来就是一根细黑线。
+// 把宽度取整、并让左右留白也是整数像素，视频边缘就能和物理像素对齐。
+    (function () {
+        const MIN_WIDTH = 980;
+        const MAX_WIDTH = 3420;
+        const VIEWPORT_RATIO = 0.93;
+        let timer = 0;
+
+        const apply = () => {
+            const viewportWidth = window.innerWidth;
+            if (!viewportWidth) return;
+            const clientWidth = document.documentElement.clientWidth || viewportWidth;
+            let width = Math.round(Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, viewportWidth * VIEWPORT_RATIO)));
+            // 宽度与可视宽度保持同奇偶，居中后的左右留白才是整数像素
+            if ((clientWidth - width) % 2 !== 0) width -= 1;
+            document.documentElement.style.setProperty('--blc-app-body-width', width + 'px');
+        };
+
+        const schedule = () => {
+            clearTimeout(timer);
+            timer = setTimeout(apply, 80);
+        };
+
+        apply();
+        window.addEventListener('resize', schedule, { passive: true });
+        window.addEventListener('load', schedule);
+        // 后台标签页里的 rAF/定时器会被节流，切回前台时再对齐一次
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) apply();
+        });
+    })();
 
 // ====== 搜索框热词清理 ======
     const clean = () => {
