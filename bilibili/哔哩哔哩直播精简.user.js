@@ -4,7 +4,7 @@
 // @homepage        https://github.com/QingFengM/Scripts/
 // @author          清风醉梦
 // @namespace       原作者：G-uang
-// @version         3.2.7
+// @version         3.2.8
 // @match           *://live.bilibili.com/*
 // @icon            https://www.bilibili.com/favicon.ico
 // @grant           GM_addStyle
@@ -677,6 +677,9 @@
     #player-ctnr {
         border-radius: 12px !important;
         overflow: hidden !important;
+    }
+    body:not(.pure_room_root) .live-room-app .app-content .app-body .player-and-aside-area .left-container .fullscreen-container-paddingbox {
+        border-radius: 0 0 12px 12px !important;
     }
     /* 播放器底部进度条颜色 */
     .PyF4K7mjqm4rpICeBFJA .wzMWH0YAfabG6H8wvpQO .XhJAZxh51Lj7dEy0AcpQ .TzW8pOv1omXIeb5MHnoh {
