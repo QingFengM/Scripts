@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.39
+// @version      0.6.40
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -20,6 +20,8 @@
     document.documentElement.classList.add('yt-normal');
     // 常驻标记：任何回到 B 站原生位置的节点都保持隐藏，防止 Vue 重渲染时闪回原生样式
     document.documentElement.classList.add('yt-hide-native');
+    // 加载期（简介/评论异步落地）先关掉滚动锚定，避免浏览器自动调整 scrollTop 造成内容“上移”
+    document.documentElement.classList.add('yt-booting');
 
     /* =====================================================================
      *  YouTube 播放页布局
@@ -31,6 +33,15 @@
 
     const CSS = `
     /* ================= 基础与隐藏干扰项 ================= */
+    /* 首帧就占住纵向滚动条：B 站页面内容较长，滚动条晚一帧出现会把整页（标题/播放器/弹幕条）
+       向左挤 7.5px，等它出现再“恢复”就是可见的左移；预留后 clientWidth 从首帧起恒定。 */
+    html {
+        overflow-y: scroll !important;
+    }
+    /* 简介、评论等异步内容落地时不要触发滚动锚定，避免页面被自动滚动导致上方内容看起来上移 */
+    html.yt-booting {
+        overflow-anchor: none !important;
+    }
     .trending,
     .activity-m-v1.act-end,
     .activity-m-v1.act-now,
@@ -98,7 +109,22 @@
         grid-row: 2 !important;
         grid-column: 1 !important;
     }
-    .left-container > :not(#viewbox_report):not(#playerWrap) {
+    /* 标题下方的几块由脚本创建，固定占 3/4/5 行：B 站/Vue/扩展如果晚一步往
+       .left-container 里插回原生节点（例如简介容器），这些节点只能排到后面的空行，
+       不会再把投稿者/点赞这一行往下挤。 */
+    .left-container > .yt-meta-row {
+        grid-row: 3 !important;
+        grid-column: 1 !important;
+    }
+    .left-container > .yt-desc-box {
+        grid-row: 4 !important;
+        grid-column: 1 !important;
+    }
+    .left-container > .yt-tags {
+        grid-row: 5 !important;
+        grid-column: 1 !important;
+    }
+    .left-container > :not(#viewbox_report):not(#playerWrap):not(.yt-meta-row):not(.yt-desc-box):not(.yt-tags) {
         grid-row: auto !important;
         grid-column: 1 !important;
     }
@@ -192,13 +218,31 @@
     .bpx-player-sending-area {
         display: none !important;
     }
+    /* 弹幕输入条必须相对「播放器」居中：控制栏是 左组 + 中间 flex:1 + 右组，
+       左组（播放/时间）比右组（画质/倍速/设置…）窄，中间区天然偏左；右侧按钮陆续渲染时
+       中间区还会越缩越靠左，输入条就会明显左移。把中间区改成绝对定位脱离 flex，
+       它就不再影响两侧按钮的宽度分配，输入条从出现的第一帧起就在播放器正中。 */
+    body.yt-bar .bpx-player-control-bottom {
+        position: relative !important;
+    }
     body.yt-bar .bpx-player-control-bottom-center {
         display: flex !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 50% !important;
+        box-sizing: border-box !important;
+        width: auto !important;
+        /* 由 JS 按两侧按钮实际宽度写入：播放器窄时收窄输入条，保证居中后不压住两侧按钮 */
+        max-width: var(--yt-bar-max, 560px) !important;
+        height: 35px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: translateX(-50%) !important;
         align-items: flex-start !important;
         justify-content: center !important;
-        height: 35px !important;
-        padding: 0 !important;
         overflow: visible !important;
+        /* 中间区现在是控制栏上的覆盖层：只在输入条自身区域接收鼠标 */
+        pointer-events: none !important;
     }
     body.yt-bar .bpx-player-control-bottom-center .bpx-player-sending-bar {
         display: flex !important;
@@ -211,11 +255,11 @@
         margin: -6px auto 0 !important;
         padding: 0 !important;
         background: transparent !important;
+        pointer-events: auto !important;
     }
     .bpx-player-sending-bar .bpx-player-video-inputbar .bpx-player-dm-wrap {
         color: #c3c4c6 !important;
     }
-
     /* 移除“XX人正在观看” */
     body.yt-bar .bpx-player-control-bottom-center .bpx-player-video-info {
         display: none !important;
@@ -363,7 +407,10 @@
         justify-content: space-between !important;
         gap: 16px !important;
         margin-top: 8px !important;
+        height: 43px !important;
         min-height: 43px !important;
+        /* 头像/关注按钮等都是异步填充的，行高写死，避免它们晚到把简介框往下推 */
+        overflow: visible !important;
     }
 
     /* UP 主：头像 40，名字 16，订阅按钮黑色胶囊 */
@@ -505,7 +552,7 @@
         align-items: center !important;
         justify-content: center !important;
         box-sizing: border-box !important;
-        height: 36px !important;
+        height: 40px !important;
         width: 70px !important;
         padding: 0 16px !important;
         border-radius: 20px !important;
@@ -1045,7 +1092,7 @@
     }
     .yt-desc-box .video-desc-container {
         display: block !important;
-        margin: 4px 0 0 !important;
+        margin: 0 !important;
         padding: 0 !important;
     }
     .yt-desc-box .basic-desc-info a {
@@ -1443,6 +1490,25 @@
         el.style.removeProperty('height');
     }
 
+    /* B 站用 #viewbox_report 上的 win/mac 类控制标题的“视觉对齐缩进”
+       （以《、～、“ 开头的标题会 text-indent 负半个字）。这个类要等 Vue 挂载后才补上，
+       晚补的那一下会让标题文字整体左移约 10px。这里在首帧就按平台补好，之后 B 站再加也是空操作。 */
+    function markPlatformClass(viewbox) {
+        const el = viewbox || q('#viewbox_report');
+        if (!el || !el.classList) return;
+        if (el.classList.contains('win') || el.classList.contains('mac')) return;
+        let isMac = false;
+        try {
+            const platform = (navigator.userAgentData && navigator.userAgentData.platform)
+                || navigator.platform
+                || '';
+            isMac = /mac/i.test(platform);
+        } catch (error) {
+            isMac = false;
+        }
+        el.classList.add(isMac ? 'mac' : 'win');
+    }
+
     /* ================= 结构重排 ================= */
     // 点击胶囊直接关注/取消关注（不再弹出“设置分组/取消关注”浮层）
     function bindSingleFollow(metaRow) {
@@ -1782,6 +1848,7 @@
         const playerWrap = q('#playerWrap');
         const viewbox = q('#viewbox_report');
         if (!left || !playerWrap || !viewbox) return false;
+        markPlatformClass(viewbox);
 
         // Vue 挂载前只构建预览克隆，不能搬动 B 站持有的真实节点
         if (!viewbox.__vue__) {
@@ -1799,6 +1866,8 @@
         if (controlCenter && sendBar && sendBar.parentElement !== controlCenter) {
             controlCenter.appendChild(sendBar);
         }
+        observeBarFit();
+        fitSendBar();
 
         // 标题下方：UP 主/创作团队 + 点赞操作
         let metaRow = q('.yt-meta-row');
@@ -1971,6 +2040,7 @@
         if (layoutVueReady()) return finalizeLayout();
         const shell = ensurePreviewShell();
         if (!shell) return false;
+        markPlatformClass(shell.viewbox);
 
         const { metaRow, descBox, tagsBox } = shell;
         const upSource = q('.up-info-container:not([data-yt-preview])');
@@ -2035,6 +2105,49 @@
         screenObserver.observe(container, { attributes: true, attributeFilter: ['data-screen'] });
     }
 
+    /* 弹幕输入条居中完全由 CSS 完成（中间区绝对定位，脱离 flex，不会再影响两侧按钮的宽度分配）。
+       这里只负责一件事：按控制栏两侧按钮的实际宽度限制输入条最大宽度，窄播放器下也不会压住按钮。 */
+    let barFitObserver = null;
+    let barFitGroups = null;
+
+    function fitSendBar() {
+        const bottom = q('.bpx-player-control-bottom');
+        const center = q('.bpx-player-control-bottom-center');
+        const leftGroup = q('.bpx-player-control-bottom-left');
+        const rightGroup = q('.bpx-player-control-bottom-right');
+        if (!bottom || !center || !leftGroup || !rightGroup) return;
+        if (!document.body || !document.body.classList.contains('yt-bar')) {
+            center.style.removeProperty('--yt-bar-max');
+            return;
+        }
+        const barWidth = bottom.getBoundingClientRect().width;
+        if (!barWidth) return;
+        const leftWidth = leftGroup.getBoundingClientRect().width;
+        const rightWidth = rightGroup.getBoundingClientRect().width;
+        // 左右各留出 (最宽一侧 + 12px 内边距 + 4px 间隙)，剩下的才是输入条可用宽度。
+        // 计算值过小时多半是控制栏还没渲染完的瞬时状态，先保持默认宽度，等下一次尺寸变化再算。
+        const room = barWidth - 2 * Math.max(leftWidth, rightWidth) - 32;
+        const max = room >= 360 ? Math.min(560, Math.round(room)) : 560;
+        if (center.dataset.ytBarMax === String(max)) return;
+        center.dataset.ytBarMax = String(max);
+        center.style.setProperty('--yt-bar-max', max + 'px');
+    }
+
+    function observeBarFit() {
+        const leftGroup = q('.bpx-player-control-bottom-left');
+        const rightGroup = q('.bpx-player-control-bottom-right');
+        if (!leftGroup || !rightGroup || typeof ResizeObserver === 'undefined') return;
+        if (barFitObserver && barFitGroups
+            && barFitGroups[0] === leftGroup && barFitGroups[1] === rightGroup) {
+            return;
+        }
+        if (barFitObserver) barFitObserver.disconnect();
+        barFitGroups = [leftGroup, rightGroup];
+        barFitObserver = new ResizeObserver(fitSendBar);
+        barFitObserver.observe(leftGroup);
+        barFitObserver.observe(rightGroup);
+    }
+
     function layoutPlayer() {
         const wrap = q('#playerWrap');
         const player = q('#bilibili-player');
@@ -2055,6 +2168,7 @@
         clearImportantHeight(container);
         clearImportantHeight(videoArea);
         clearImportantHeight(sendArea);
+        fitSendBar();
     }
 
     function scheduleLayout() {
@@ -2084,7 +2198,10 @@
             scheduleLayout();
             if (q('#yt-preview-layer')) buildEarlyPreview();
         }, { passive: true });
-        document.addEventListener('fullscreenchange', () => setTimeout(layoutPlayer, 120));
+        document.addEventListener('fullscreenchange', () => {
+            layoutPlayer();
+            window.setTimeout(layoutPlayer, 120);
+        });
 
         // 播放器宽度变化（例如侧栏、窗口）
         const wrap = q('#playerWrap');
@@ -2113,6 +2230,7 @@
 
         // 兜底：结构异常时恢复原生节点显示，避免内容一直不可见
         setTimeout(() => {
+            document.documentElement.classList.remove('yt-booting');
             if (!layoutVueReady() && q('#yt-preview-layer')) {
                 q('#yt-preview-layer').remove();
                 document.documentElement.classList.remove('yt-hide-native');
