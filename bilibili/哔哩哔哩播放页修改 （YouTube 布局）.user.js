@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.42
+// @version      0.6.43
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -192,6 +192,10 @@
     html.yt-hide-native .left-container > .video-tag-container,
     html.yt-hide-native .up-panel-container .up-info-container {
         visibility: hidden !important;
+    }
+    /* 单人 UP 主时整个 .up-panel-container 被搬进标题下方，容器内的 UP 主节点需要重新显示 */
+    html.yt-hide-native .yt-meta-row .up-panel-container .up-info-container {
+        visibility: visible !important;
     }
     /* 预览克隆只负责首帧外观，等 Vue 挂载后再换成真实可交互节点 */
     .yt-meta-row [data-yt-preview],
@@ -1366,6 +1370,10 @@
         background: #FB7299 !important;
         color: #FFFFFF !important;
     }
+    /* 订阅合集选中播放圆角 */
+    .simple-base-item {
+        border-radius: 8px !important;
+    }
 
     /* ================= 窄屏适配 ================= */
     @media (max-width: 1200px) {
@@ -1901,8 +1909,9 @@
             if (oldCarousel) oldCarousel.remove();
             if (upInfo) {
                 upInfo.style.display = '';
-                if (upInfo.parentElement !== metaRow) {
-                    metaRow.insertBefore(upInfo, toolbar && toolbar.parentElement === metaRow ? toolbar : null);
+                const upHost = upPanel || upInfo.parentElement;
+                if (upHost && upHost.parentElement !== metaRow) {
+                    metaRow.insertBefore(upHost, toolbar && toolbar.parentElement === metaRow ? toolbar : null);
                 }
                 bindSingleFollow(metaRow);
                 updateSingleFans(metaRow);
