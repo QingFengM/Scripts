@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.43
+// @version      0.6.44
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -20,6 +20,12 @@
     document.documentElement.classList.add('yt-normal');
     // 常驻标记：任何回到 B 站原生位置的节点都保持隐藏，防止 Vue 重渲染时闪回原生样式
     document.documentElement.classList.add('yt-hide-native');
+    // 窄屏隐藏自定义弹幕输入栏，避免输入条压住左右控制按钮
+    function syncSendBarBreakpoint() {
+        document.documentElement.classList.toggle('yt-hide-sendbar', window.innerWidth < 1585);
+    }
+    syncSendBarBreakpoint();
+    window.addEventListener('resize', syncSendBarBreakpoint, { passive: true });
     // 加载期（简介/评论异步落地）先关掉滚动锚定，避免浏览器自动调整 scrollTop 造成内容“上移”
     document.documentElement.classList.add('yt-booting');
 
@@ -264,6 +270,11 @@
         padding: 0 !important;
         background: transparent !important;
         pointer-events: auto !important;
+    }
+    /* 控制栏左右按钮挤占后剩余空间不足时，隐藏弹幕输入栏 */
+    html.yt-hide-sendbar body.yt-bar .bpx-player-control-bottom-center .bpx-player-sending-bar,
+    html.yt-sendbar-tight body.yt-bar .bpx-player-control-bottom-center .bpx-player-sending-bar {
+        display: none !important;
     }
     .bpx-player-sending-bar .bpx-player-video-inputbar .bpx-player-dm-wrap {
         color: #c3c4c6 !important;
@@ -2134,6 +2145,7 @@
         if (!bottom || !center || !leftGroup || !rightGroup) return;
         if (!document.body || !document.body.classList.contains('yt-bar')) {
             center.style.removeProperty('--yt-bar-max');
+            document.documentElement.classList.remove('yt-sendbar-tight');
             return;
         }
         const barWidth = bottom.getBoundingClientRect().width;
@@ -2141,9 +2153,16 @@
         const leftWidth = leftGroup.getBoundingClientRect().width;
         const rightWidth = rightGroup.getBoundingClientRect().width;
         // 左右各留出 (最宽一侧 + 12px 内边距 + 4px 间隙)，剩下的才是输入条可用宽度。
-        // 计算值过小时多半是控制栏还没渲染完的瞬时状态，先保持默认宽度，等下一次尺寸变化再算。
+        // 剩余空间不足 360px 时不再强行保持 560px，直接隐藏输入栏，避免压住左右控制按钮。
         const room = barWidth - 2 * Math.max(leftWidth, rightWidth) - 32;
-        const max = room >= 360 ? Math.min(560, Math.round(room)) : 560;
+        const tight = room < 360;
+        document.documentElement.classList.toggle('yt-sendbar-tight', tight);
+        if (tight) {
+            center.style.removeProperty('--yt-bar-max');
+            center.dataset.ytBarMax = '';
+            return;
+        }
+        const max = Math.min(560, Math.round(room));
         if (center.dataset.ytBarMax === String(max)) return;
         center.dataset.ytBarMax = String(max);
         center.style.setProperty('--yt-bar-max', max + 'px');
@@ -2315,6 +2334,7 @@
         boot();
     }
 })();
+
 
 
 
