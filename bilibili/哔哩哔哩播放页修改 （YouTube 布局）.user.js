@@ -128,6 +128,10 @@
         grid-row: auto !important;
         grid-column: 1 !important;
     }
+    /* 背景音乐tag */
+    #bgm-entry {
+        left: calc(76%) !important;
+    }
     /* 投稿者卡片已由脚本移到标题下方；右侧栏原始卡片容器会留下 108px 空白，直接隐藏，
        否则右侧播放列表会先被顶下去，等容器塌缩后再往上跳一次 */
     .video-container-v1 .right-container .up-panel-container {
