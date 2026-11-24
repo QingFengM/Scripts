@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.40
+// @version      0.6.41
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -552,7 +552,7 @@
         align-items: center !important;
         justify-content: center !important;
         box-sizing: border-box !important;
-        height: 40px !important;
+        height: 36px !important;
         width: 70px !important;
         padding: 0 16px !important;
         border-radius: 20px !important;
@@ -582,20 +582,20 @@
         align-items: center !important;
         justify-content: center !important;
         font-size: 0 !important;
-        line-height: 40px !important;
+        line-height: 36px !important;
     }
     .yt-meta-row .upinfo-btn-panel .follow-btn.not-follow .follow-btn-inner::after {
         content: "关注";
         font-size: 14px !important;
         font-weight: 500 !important;
-        line-height: 40px !important;
+        line-height: 36px !important;
         color: #fff !important;
     }
     .yt-meta-row .upinfo-btn-panel .follow-btn:not(.not-follow) .follow-btn-inner::after {
         content: "已关注";
         font-size: 14px !important;
         font-weight: 500 !important;
-        line-height: 40px !important;
+        line-height: 36px !important;
         color: #0f0f0f !important;
     }
     .usercard-wrap {
@@ -1051,7 +1051,7 @@
         display: block !important;
         height: auto !important;
         margin: 0 !important;
-        padding: 0 !important;
+        padding: 4px 0 4px 0 !important
     }
     .yt-desc-box .video-info-detail-list {
         display: flex !important;
