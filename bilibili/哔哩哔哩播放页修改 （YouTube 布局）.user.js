@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.41
+// @version      0.6.42
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -404,7 +404,6 @@
     .video-info-meta {
         display: none !important;
     }
-
     .yt-meta-row {
         display: flex !important;
         align-items: flex-start !important;
@@ -543,7 +542,11 @@
         gap: 8px !important;
         margin-top: 0 !important;
     }
-    .yt-meta-row .upinfo-btn-panel .new-charge-btn {
+    /* 投稿者行不显示充电；B 站有两种充电按钮（new/old），且会先渲染成空的灰色胶囊占位 */
+    .yt-meta-row .upinfo-btn-panel .new-charge-btn,
+    .yt-meta-row .upinfo-btn-panel .old-charge-btn,
+    .yt-meta-row .upinfo-btn-panel [class*="charge-btn"],
+    .yt-meta-row .upinfo-btn-panel > .default-btn:empty {
         display: none !important;
     }
     /* B 站先渲染一个空的关注按钮占位，等数据回来才填内容；隐藏它，关注胶囊就不会先出现一个半透明灰块 */
