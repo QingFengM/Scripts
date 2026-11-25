@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.49
+// @version      0.6.48
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -1275,7 +1275,6 @@
     /* ================= 右侧推荐列表 ================= */
     /* 弹幕、合集底部边距 */
     .video-container-v1 .right-container .danmaku-box,
-    .video-pod[data-v-f1afcdb0] {
     .video-container-v1 .right-container .video-pod {
         margin-bottom: 12px !important;
     }
@@ -1593,48 +1592,27 @@
     /* ================= 结构重排 ================= */
     let singleAutoMenuToken = 0;
     let singleAutoMenuObserver = null;
+    let singleAllowHover = false;
 
-    // .follow-btn-inner 就是 B 站原生 VanPopover 的根元素，直接用它控制显隐。
-    function singleFollowPopover(followBtn) {
-        const inner = followBtn.querySelector('.follow-btn-inner');
-        const vm = inner && inner.__vue__;
-        if (!vm || vm.$options.name !== 'VanPopover'
-            || typeof vm.doShow !== 'function' || typeof vm.doClose !== 'function') return null;
-        return vm;
-    }
-
-    function setSingleFollowMenu(followBtn, open) {
-        const popover = singleFollowPopover(followBtn);
-        if (!popover) return false;
-        if (open) popover.doShow();
-        else popover.doClose();
-        return true;
-    }
-
-    function toggleSingleFollowMenu(followBtn) {
-        const popover = singleFollowPopover(followBtn);
-        if (!popover) return false;
-        if (popover.showPopper) popover.doClose();
-        else popover.doShow();
-        return true;
-    }
-
-    // 单人投稿人：屏蔽 B 站 Popover 自带的“悬停/聚焦已关注就展开”行为。
-    // 菜单只由“关注成功”或“点击已关注”触发。
+    // 单人投稿人：屏蔽 B 站 Popover 自带的“悬停已关注就展开”行为。
+    // 用捕获阶段的 stopImmediatePropagation 拦住 reference 上的 mouseenter，
+    // 只放行我们关注成功后主动补发的那一次 mouseenter。
     function guardSingleFollowHover(followBtn) {
         const alreadyBtn = followBtn.querySelector('.already-btn');
         if (!alreadyBtn || alreadyBtn.dataset.ytHoverGuarded) return;
         alreadyBtn.dataset.ytHoverGuarded = '1';
         alreadyBtn.addEventListener('mouseenter', (event) => {
-            event.stopImmediatePropagation();
-        }, true);
-        alreadyBtn.addEventListener('focusin', (event) => {
+            if (singleAllowHover) {
+                singleAllowHover = false;
+                return;
+            }
             event.stopImmediatePropagation();
         }, true);
     }
 
     // 点击“关注”成功后，自动把 B 站原生的“设置分组/取消关注”浮层打开。
-    // 只监听按钮从 not-follow 变成 following；显示由 VanPopover 实例完成。
+    // 浮层仍由 B 站自己的 Popover 管理；这里只监听按钮从 not-follow 变成 following，
+    // 给新的 .already-btn 补一次 mouseenter，省去用户再悬停一次。
     function autoOpenSingleFollowMenu(followBtn) {
         const token = ++singleAutoMenuToken;
         if (singleAutoMenuObserver) {
@@ -1643,11 +1621,17 @@
         }
         const tryOpen = () => {
             if (token !== singleAutoMenuToken || !followBtn.isConnected) return false;
-            if (followBtn.classList.contains('not-follow')) return false;
-            guardSingleFollowHover(followBtn);
-            if (!setSingleFollowMenu(followBtn, true)) return false;
+            const alreadyBtn = followBtn.querySelector('.already-btn');
+            if (!alreadyBtn || followBtn.classList.contains('not-follow')) return false;
             if (singleAutoMenuObserver) singleAutoMenuObserver.disconnect();
             singleAutoMenuObserver = null;
+            guardSingleFollowHover(followBtn);
+            singleAllowHover = true;
+            alreadyBtn.dispatchEvent(new MouseEvent('mouseenter', {
+                bubbles: false,
+                cancelable: false,
+            }));
+            window.setTimeout(() => { singleAllowHover = false; }, 0);
             return true;
         };
         const observer = new MutationObserver(tryOpen);
@@ -1667,8 +1651,8 @@
     }
 
     // 关注胶囊交还给 B 站自己处理：
-    // 未关注时点击直接关注，成功后自动弹菜单；
-    // 已关注时点击胶囊只切换菜单的显示/隐藏，悬停不再触发。
+    // 未关注时点击直接关注；已关注时不再随鼠标悬停自动展开菜单。
+    // 这里只在点击后补一次粉丝数同步，不 preventDefault，也不阻断冒泡。
     function bindSingleFollow(metaRow) {
         const followBtn = metaRow.querySelector('.follow-btn:has(.follow-btn-inner)');
         if (!followBtn) return;
@@ -1676,19 +1660,8 @@
         if (followBtn.dataset.ytFollowBound) return;
         followBtn.dataset.ytFollowBound = '1';
         followBtn.addEventListener('click', (event) => {
-            const target = event.target;
-            const clickedMenu = !!(target && target.closest && target.closest('.follow_dropdown'));
-            const following = !followBtn.classList.contains('not-follow');
-            if (!clickedMenu && following) {
-                singleAutoMenuToken += 1;
-                if (singleAutoMenuObserver) {
-                    singleAutoMenuObserver.disconnect();
-                    singleAutoMenuObserver = null;
-                }
-                toggleSingleFollowMenu(followBtn);
-                return;
-            }
-            const autoOpen = !following && !clickedMenu;
+            const autoOpen = followBtn.classList.contains('not-follow')
+                && !(event.target && event.target.closest && event.target.closest('.follow_dropdown'));
             if (!autoOpen) {
                 singleAutoMenuToken += 1;
                 if (singleAutoMenuObserver) {
@@ -2680,7 +2653,6 @@
         boot();
     }
 })();
-
 
 
 
