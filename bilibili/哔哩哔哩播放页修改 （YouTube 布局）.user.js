@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.48
+// @version      0.6.51
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -645,7 +645,7 @@
         padding: 0px !important;
      }
      .van-popover {
-          left: 180px !important;
+          left: 160px !important;
      }
 
     /* 创作团队：多位投稿人时，头像 + 名字 + 粉丝数依次向右排列 */
@@ -1299,8 +1299,15 @@
     .split-line {
         display: none !important;
     }
+    .video-container-v1 .right-container .danmaku-box,
+    .video-container-v1 .right-container .video-pod {
+        margin-bottom: 12px !important;
+    }
     .video-page-card-small {
         margin-bottom: 8px !important;
+    }
+    .recommend-list-v1 .rec-list {
+        margin-top: 8px !important;
     }
     /* 右侧列表封面跟随容器宽度自适应（B 站自身的 16:9 尺寸），不再固定 192×108 */
     .video-page-card-small .card-box .pic-box {
@@ -1594,9 +1601,9 @@
     let singleAutoMenuObserver = null;
     let singleAllowHover = false;
 
-    // 单人投稿人：屏蔽 B 站 Popover 自带的“悬停已关注就展开”行为。
-    // 用捕获阶段的 stopImmediatePropagation 拦住 reference 上的 mouseenter，
-    // 只放行我们关注成功后主动补发的那一次 mouseenter。
+    // 单人投稿人：屏蔽 B 站 Popover 自带的“悬停/聚焦已关注就展开”行为。
+    // 用捕获阶段的 stopImmediatePropagation 拦住 reference 上的 mouseenter / focusin，
+    // 只放行我们主动补发的 mouseenter。
     function guardSingleFollowHover(followBtn) {
         const alreadyBtn = followBtn.querySelector('.already-btn');
         if (!alreadyBtn || alreadyBtn.dataset.ytHoverGuarded) return;
@@ -1608,6 +1615,28 @@
             }
             event.stopImmediatePropagation();
         }, true);
+        alreadyBtn.addEventListener('focusin', (event) => {
+            event.stopImmediatePropagation();
+        }, true);
+    }
+
+    // .follow-btn-inner 是 B 站原生 VanPopover 的根元素，直接控制 showPopper，
+    // 避免依赖 mouseenter/mouseleave 的悬停计时（点击关闭时更可靠）。
+    function singleFollowPopover(followBtn) {
+        const inner = followBtn.querySelector('.follow-btn-inner');
+        const vm = inner && inner.__vue__;
+        if (!vm || vm.$options.name !== 'VanPopover'
+            || typeof vm.doShow !== 'function' || typeof vm.doClose !== 'function') return null;
+        return vm;
+    }
+
+    // 已关注状态下点击胶囊：开/关 B 站原生菜单。
+    function toggleSingleFollowMenu(followBtn) {
+        const popover = singleFollowPopover(followBtn);
+        if (!popover) return false;
+        if (popover.showPopper) popover.doClose();
+        else popover.doShow();
+        return true;
     }
 
     // 点击“关注”成功后，自动把 B 站原生的“设置分组/取消关注”浮层打开。
@@ -1660,8 +1689,19 @@
         if (followBtn.dataset.ytFollowBound) return;
         followBtn.dataset.ytFollowBound = '1';
         followBtn.addEventListener('click', (event) => {
-            const autoOpen = followBtn.classList.contains('not-follow')
-                && !(event.target && event.target.closest && event.target.closest('.follow_dropdown'));
+            const target = event.target;
+            const clickedMenu = !!(target && target.closest && target.closest('.follow_dropdown'));
+            const following = !followBtn.classList.contains('not-follow');
+            if (!clickedMenu && following) {
+                singleAutoMenuToken += 1;
+                if (singleAutoMenuObserver) {
+                    singleAutoMenuObserver.disconnect();
+                    singleAutoMenuObserver = null;
+                }
+                toggleSingleFollowMenu(followBtn);
+                return;
+            }
+            const autoOpen = !following && !clickedMenu;
             if (!autoOpen) {
                 singleAutoMenuToken += 1;
                 if (singleAutoMenuObserver) {
@@ -2653,6 +2693,7 @@
         boot();
     }
 })();
+
 
 
 
