@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.51
+// @version      0.6.56
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -644,8 +644,33 @@
     .van-popover.van-followed {
         padding: 0px !important;
      }
-     .van-popover {
-          left: 160px !important;
+     /* “设置分组 / 取消关注”浮层的位置由脚本按关注胶囊实时计算（水平居中、贴在其正上方），
+        不再写死 left：不同 UP 主名字长度不同，固定距离必然错位。
+        浮层还没被脚本写入坐标前，先用 CSS 锚点直接摆到胶囊正上方，
+        避免 B 站原生定位先画到下方、脚本再改回上方造成闪烁。 */
+     .yt-meta-row .upinfo-btn-panel .follow-btn {
+         anchor-name: --yt-single-follow-btn;
+     }
+     .van-popover.van-followed:not(.yt-single-menu-positioned) {
+         position-anchor: --yt-single-follow-btn;
+         left: anchor(--yt-single-follow-btn center) !important;
+         top: anchor(--yt-single-follow-btn top) !important;
+         translate: -50% calc(-100% - 12px) !important;
+         margin-top: 0px !important;
+         margin-bottom: 0px !important;
+     }
+     /* 胶囊贴近视口顶部、上方放不下时，首帧就直接画在下方，避免先画上方再翻下来。 */
+     html.yt-single-menu-below .van-popover.van-followed:not(.yt-single-menu-positioned) {
+         top: anchor(--yt-single-follow-btn bottom) !important;
+         translate: -50% 12px !important;
+     }
+     /* 脚本写坐标后改用自定义属性，位置可随滚动/布局变化实时更新。 */
+     .van-popover.van-followed.yt-single-menu-positioned {
+         left: var(--yt-single-menu-left, auto) !important;
+         top: var(--yt-single-menu-top, auto) !important;
+         translate: none !important;
+         margin-top: 0px !important;
+         margin-bottom: 0px !important;
      }
 
     /* 创作团队：多位投稿人时，头像 + 名字 + 粉丝数依次向右排列 */
@@ -1634,15 +1659,136 @@
     function toggleSingleFollowMenu(followBtn) {
         const popover = singleFollowPopover(followBtn);
         if (!popover) return false;
+        hookSingleFollowMenuPosition(followBtn);
         if (popover.showPopper) popover.doClose();
         else popover.doShow();
         return true;
     }
 
+    /* ================= 单人投稿人：原生关注浮层定位 =================
+     * B 站的“设置分组 / 取消关注”浮层被 teleport 到 body 下，靠固定 left 定位。
+     * UP 主名字长度不同，关注胶囊的横向位置就不同，固定距离会越错越远。
+     * 这里在浮层每次打开时按胶囊实时计算：水平居中、贴在胶囊正上方；
+     * 上方空间不足时翻到下方；打开期间跟随滚动 / 窗口尺寸变化。
+     */
+    const SINGLE_MENU_GAP = 12;
+    let singleMenuPositionToken = 0;
+    let singleMenuLastHeight = 0;
+
+    function placeSingleFollowMenu() {
+        const pop = document.querySelector('.van-popover.van-followed');
+        const btn = document.querySelector('.yt-meta-row .upinfo-btn-panel .follow-btn:has(.follow-btn-inner)');
+        if (!pop || !btn || !btn.isConnected || !btn.getClientRects().length) return;
+        if (getComputedStyle(pop).display === 'none') return;
+        const btnRect = btn.getBoundingClientRect();
+        const popRect = pop.getBoundingClientRect();
+        if (!popRect.width || !popRect.height) return;
+        singleMenuLastHeight = popRect.height;
+
+        let left = btnRect.left + btnRect.width / 2 - popRect.width / 2;
+        left = Math.max(8, Math.min(left, window.innerWidth - popRect.width - 8));
+        let top = btnRect.top - popRect.height - SINGLE_MENU_GAP;
+        const below = top < 8;
+        if (below) top = btnRect.bottom + SINGLE_MENU_GAP;
+        top = Math.max(8, Math.min(top, window.innerHeight - popRect.height - 8));
+        document.documentElement.classList.toggle('yt-single-menu-below', below);
+
+        const docLeft = Math.round(left + window.scrollX);
+        const docTop = Math.round(top + window.scrollY);
+        const key = docLeft + ':' + docTop + ':' + Math.round(popRect.width) + ':' + Math.round(popRect.height);
+        if (pop.__ytMenuPlacementKey === key
+            && pop.classList.contains('yt-single-menu-positioned')) return;
+        pop.__ytMenuPlacementKey = key;
+        pop.style.setProperty('--yt-single-menu-left', docLeft + 'px');
+        pop.style.setProperty('--yt-single-menu-top', docTop + 'px');
+        if (!pop.classList.contains('yt-single-menu-positioned')) {
+            pop.classList.add('yt-single-menu-positioned');
+        }
+    }
+
+    // 打开前先判断菜单该在胶囊上方还是下方，让 CSS 锚点首帧就画在正确的一侧。
+    function syncSingleMenuSide() {
+        const btn = document.querySelector('.yt-meta-row .upinfo-btn-panel .follow-btn:has(.follow-btn-inner)');
+        if (!btn) return;
+        const rect = btn.getBoundingClientRect();
+        const height = singleMenuLastHeight || 82;
+        document.documentElement.classList.toggle(
+            'yt-single-menu-below',
+            rect.top - height - SINGLE_MENU_GAP < 8
+        );
+    }
+
+    // 关注成功后 B 站才会创建这个浮层，而且浮层打开后按钮还可能因粉丝数/布局变化而移动。
+    // 点击关注按钮后短时间轮询：浮层一出现就贴住胶囊，并持续跟随，直到它隐藏后自动停止。
+    let singleMenuTrackTimer = 0;
+    let singleMenuTrackUntil = 0;
+
+    function startSingleMenuTracking(ms = 10000) {
+        singleMenuTrackUntil = Math.max(singleMenuTrackUntil, Date.now() + ms);
+        if (singleMenuTrackTimer) return;
+        singleMenuTrackTimer = window.setInterval(() => {
+            const pop = document.querySelector('.van-popover.van-followed');
+            const visible = !!pop && getComputedStyle(pop).display !== 'none';
+            if (visible) {
+                placeSingleFollowMenu();
+                singleMenuTrackUntil = Math.max(singleMenuTrackUntil, Date.now() + 1500);
+                return;
+            }
+            if (Date.now() > singleMenuTrackUntil) {
+                window.clearInterval(singleMenuTrackTimer);
+                singleMenuTrackTimer = 0;
+            }
+        }, 50);
+    }
+
+    // B 站/popover 自己会在打开后补写 top/left，这里在打开后的前 0.8s 多补几次，
+    // 之后交给滚动 / 窗口尺寸监听，避免被原生定位覆盖回固定距离。
+    function scheduleSingleFollowMenuPlacement() {
+        syncSingleMenuSide();
+        startSingleMenuTracking();
+        const token = ++singleMenuPositionToken;
+        placeSingleFollowMenu();
+        [16, 60, 160, 400, 800].forEach((delay) => {
+            window.setTimeout(() => {
+                if (token === singleMenuPositionToken) placeSingleFollowMenu();
+            }, delay);
+        });
+        if (typeof requestAnimationFrame === 'function') {
+            requestAnimationFrame(() => {
+                if (token === singleMenuPositionToken) placeSingleFollowMenu();
+            });
+        }
+    }
+
+    function hookSingleFollowMenuPosition(followBtn) {
+        const popover = singleFollowPopover(followBtn);
+        if (!popover || popover.__ytMenuPositionHooked) return;
+        popover.__ytMenuPositionHooked = true;
+        const originalShow = popover.doShow;
+        const originalClose = popover.doClose;
+        popover.doShow = function () {
+            const result = originalShow.apply(this, arguments);
+            scheduleSingleFollowMenuPlacement();
+            return result;
+        };
+        popover.doClose = function () {
+            singleMenuPositionToken += 1;
+            const pop = document.querySelector('.van-popover.van-followed');
+            if (pop) pop.classList.remove('yt-single-menu-positioned');
+            return originalClose.apply(this, arguments);
+        };
+    }
+
+    // 浮层打开期间跟随页面滚动 / 窗口尺寸；关闭时 placeSingleFollowMenu 会直接返回。
+    window.addEventListener('scroll', placeSingleFollowMenu, { capture: true, passive: true });
+    window.addEventListener('resize', placeSingleFollowMenu, { passive: true });
+
     // 点击“关注”成功后，自动把 B 站原生的“设置分组/取消关注”浮层打开。
     // 浮层仍由 B 站自己的 Popover 管理；这里只监听按钮从 not-follow 变成 following，
     // 给新的 .already-btn 补一次 mouseenter，省去用户再悬停一次。
     function autoOpenSingleFollowMenu(followBtn) {
+        syncSingleMenuSide();
+        startSingleMenuTracking();
         const token = ++singleAutoMenuToken;
         if (singleAutoMenuObserver) {
             singleAutoMenuObserver.disconnect();
@@ -1655,6 +1801,7 @@
             if (singleAutoMenuObserver) singleAutoMenuObserver.disconnect();
             singleAutoMenuObserver = null;
             guardSingleFollowHover(followBtn);
+            hookSingleFollowMenuPosition(followBtn);
             singleAllowHover = true;
             alreadyBtn.dispatchEvent(new MouseEvent('mouseenter', {
                 bubbles: false,
@@ -1686,9 +1833,12 @@
         const followBtn = metaRow.querySelector('.follow-btn:has(.follow-btn-inner)');
         if (!followBtn) return;
         guardSingleFollowHover(followBtn);
+        hookSingleFollowMenuPosition(followBtn);
         if (followBtn.dataset.ytFollowBound) return;
         followBtn.dataset.ytFollowBound = '1';
         followBtn.addEventListener('click', (event) => {
+            syncSingleMenuSide();
+            startSingleMenuTracking();
             const target = event.target;
             const clickedMenu = !!(target && target.closest && target.closest('.follow_dropdown'));
             const following = !followBtn.classList.contains('not-follow');
