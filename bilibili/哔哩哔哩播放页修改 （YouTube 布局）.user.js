@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩播放页修改 （YouTube 布局）
 // @namespace    http://tampermonkey.net/
-// @version      0.6.44
+// @version      0.6.48
 // @description  大肥鱼吃掉了3亿tok
 // @author       deepseek
 // @icon         https://www.bilibili.com/favicon.ico
@@ -570,6 +570,7 @@
         display: none !important;
     }
     .yt-meta-row .upinfo-btn-panel .follow-btn {
+        position: relative !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -596,15 +597,28 @@
     .yt-meta-row .upinfo-btn-panel .follow-btn .follow-btn-icon {
         display: none !important;
     }
-    .yt-meta-row .upinfo-btn-panel .follow-btn .van-followed {
-        display: none !important;
-    }
+    /* 恢复 B 站默认的“已关注”悬浮菜单（设置分组 / 取消关注）。
+       浮层由 B 站自己的 Popover 渲染在按钮内部，不能再隐藏 .van-followed；
+       同时把引用区域铺满整个胶囊，否则 font-size: 0 会让悬停触发元素宽度变成 0。 */
     .yt-meta-row .upinfo-btn-panel .follow-btn .follow-btn-inner {
+        position: absolute !important;
+        inset: 0 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        width: 100% !important;
+        height: 100% !important;
         font-size: 0 !important;
         line-height: 36px !important;
+    }
+    .yt-meta-row .upinfo-btn-panel .follow-btn .already-btn {
+        position: absolute !important;
+        inset: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 100% !important;
     }
     .yt-meta-row .upinfo-btn-panel .follow-btn.not-follow .follow-btn-inner::after {
         content: "关注";
@@ -627,6 +641,12 @@
     .latest-archives {
         display: none !important;
     }
+    .van-popover.van-followed {
+        padding: 0px !important;
+     }
+     .van-popover {
+          left: 180px !important;
+     }
 
     /* 创作团队：多位投稿人时，头像 + 名字 + 粉丝数依次向右排列 */
     .yt-meta-row.yt-team-mode .up-info-container {
@@ -815,6 +835,37 @@
     }
     .yt-follow-pill.following:hover {
         background: rgba(0, 0, 0, .1) !important;
+    }
+    /* 多位投稿人：已关注胶囊的“设置分组 / 取消关注”菜单，样式对齐单 UP 主原生浮层 */
+    .yt-team-follow-menu {
+        position: fixed;
+        z-index: 10010;
+        box-sizing: border-box;
+        min-width: 98px;
+        padding: 0;
+        border: 1px solid #f1f2f3;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 0 30px rgba(0, 0, 0, .1);
+        color: #606266;
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: center;
+    }
+    .yt-team-follow-menu .follow_dropdown {
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+    }
+    .yt-team-follow-menu .follow_dropdown li {
+        padding: 0 20px !important;
+        line-height: 40px !important;
+        white-space: nowrap !important;
+        cursor: pointer !important;
+    }
+    .yt-team-follow-menu .follow_dropdown li:hover {
+        background: #f4f5f7 !important;
+        color: #FB7299 !important;
     }
 
     /* 创作团队：最多显示 5 位，超过 5 位时左右翻页 */
@@ -1222,16 +1273,19 @@
     }
 
     /* ================= 右侧推荐列表 ================= */
-    /* 合集面板：8px 圆角 */
-    .video-pod[data-v-f1afcdb0] {
+    /* 弹幕、合集底部边距 */
+    .video-container-v1 .right-container .danmaku-box,
+    .video-container-v1 .right-container .video-pod {
+        margin-bottom: 12px !important;
+    }
+    /* 弹幕、合集面板圆角 */
+    .danmaku-box,
+    .video-pod {
         border-radius: 8px !important;
     }
     /* 合集当前集播放指示条由蓝色改为粉色 */
     .simple-base-item .title .playing-gif {
         filter: sepia(0.42) hue-rotate(-202deg) saturate(2.55) brightness(1.28) !important;
-    }
-    .danmaku-box {
-        display: none !important;
     }
     .recommend-list-v1 {
         margin-top: -4px !important;
@@ -1536,21 +1590,89 @@
     }
 
     /* ================= 结构重排 ================= */
-    // 点击胶囊直接关注/取消关注（不再弹出“设置分组/取消关注”浮层）
+    let singleAutoMenuToken = 0;
+    let singleAutoMenuObserver = null;
+    let singleAllowHover = false;
+
+    // 单人投稿人：屏蔽 B 站 Popover 自带的“悬停已关注就展开”行为。
+    // 用捕获阶段的 stopImmediatePropagation 拦住 reference 上的 mouseenter，
+    // 只放行我们关注成功后主动补发的那一次 mouseenter。
+    function guardSingleFollowHover(followBtn) {
+        const alreadyBtn = followBtn.querySelector('.already-btn');
+        if (!alreadyBtn || alreadyBtn.dataset.ytHoverGuarded) return;
+        alreadyBtn.dataset.ytHoverGuarded = '1';
+        alreadyBtn.addEventListener('mouseenter', (event) => {
+            if (singleAllowHover) {
+                singleAllowHover = false;
+                return;
+            }
+            event.stopImmediatePropagation();
+        }, true);
+    }
+
+    // 点击“关注”成功后，自动把 B 站原生的“设置分组/取消关注”浮层打开。
+    // 浮层仍由 B 站自己的 Popover 管理；这里只监听按钮从 not-follow 变成 following，
+    // 给新的 .already-btn 补一次 mouseenter，省去用户再悬停一次。
+    function autoOpenSingleFollowMenu(followBtn) {
+        const token = ++singleAutoMenuToken;
+        if (singleAutoMenuObserver) {
+            singleAutoMenuObserver.disconnect();
+            singleAutoMenuObserver = null;
+        }
+        const tryOpen = () => {
+            if (token !== singleAutoMenuToken || !followBtn.isConnected) return false;
+            const alreadyBtn = followBtn.querySelector('.already-btn');
+            if (!alreadyBtn || followBtn.classList.contains('not-follow')) return false;
+            if (singleAutoMenuObserver) singleAutoMenuObserver.disconnect();
+            singleAutoMenuObserver = null;
+            guardSingleFollowHover(followBtn);
+            singleAllowHover = true;
+            alreadyBtn.dispatchEvent(new MouseEvent('mouseenter', {
+                bubbles: false,
+                cancelable: false,
+            }));
+            window.setTimeout(() => { singleAllowHover = false; }, 0);
+            return true;
+        };
+        const observer = new MutationObserver(tryOpen);
+        singleAutoMenuObserver = observer;
+        observer.observe(followBtn, {
+            attributes: true,
+            attributeFilter: ['class'],
+            childList: true,
+            subtree: true,
+        });
+        window.setTimeout(() => {
+            if (token === singleAutoMenuToken && singleAutoMenuObserver === observer) {
+                observer.disconnect();
+                singleAutoMenuObserver = null;
+            }
+        }, 5000);
+    }
+
+    // 关注胶囊交还给 B 站自己处理：
+    // 未关注时点击直接关注；已关注时不再随鼠标悬停自动展开菜单。
+    // 这里只在点击后补一次粉丝数同步，不 preventDefault，也不阻断冒泡。
     function bindSingleFollow(metaRow) {
-        const followBtn = metaRow.querySelector('.follow-btn');
-        if (!followBtn || followBtn.dataset.ytFollowBound) return;
+        const followBtn = metaRow.querySelector('.follow-btn:has(.follow-btn-inner)');
+        if (!followBtn) return;
+        guardSingleFollowHover(followBtn);
+        if (followBtn.dataset.ytFollowBound) return;
         followBtn.dataset.ytFollowBound = '1';
         followBtn.addEventListener('click', (event) => {
-            const panel = followBtn.closest('.upinfo-btn-panel');
-            const vm = panel && panel.__vue__;
-            if (!vm || typeof vm.follow !== 'function') return;
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            vm.follow();
+            const autoOpen = followBtn.classList.contains('not-follow')
+                && !(event.target && event.target.closest && event.target.closest('.follow_dropdown'));
+            if (!autoOpen) {
+                singleAutoMenuToken += 1;
+                if (singleAutoMenuObserver) {
+                    singleAutoMenuObserver.disconnect();
+                    singleAutoMenuObserver = null;
+                }
+            }
             window.setTimeout(() => updateSingleFans(metaRow), 300);
             window.setTimeout(() => updateSingleFans(metaRow), 1000);
-        }, true);
+            if (autoOpen) autoOpenSingleFollowMenu(followBtn);
+        });
     }
 
     // 单人 UP 主：粉丝数从原关注按钮的“关注/已关注 15.2万”中提取
@@ -1583,9 +1705,13 @@
     // 创作团队：每位成员显示头像、名字、粉丝数和独立关注按钮
     function teamFollowing(card) {
         const vm = card && card.__vue__;
-        const attr = Number(vm && vm.relation && vm.relation.attribute) || 0;
+        if (!vm) return false;
+        if (vm.isRelationsLoaded && typeof vm.canAddFollow === 'boolean') {
+            return !vm.canAddFollow;
+        }
+        const attr = Number(vm.relation && vm.relation.attribute) || 0;
         if (attr) return attr !== 128;
-        return !card.querySelector('.add-follow-btn');
+        return false;
     }
 
     function teamStaffList(upPanel) {
@@ -1633,6 +1759,190 @@
             const label = following ? '已关注' : '关注';
             if (pill.textContent !== label) pill.textContent = label;
             pill.classList.toggle('following', following);
+        });
+    }
+
+    /* ================= 多位投稿人的关注菜单 =================
+     * 创作团队的原生成员卡只有“关注”加号，没有单 UP 主的“设置分组/取消关注”浮层。
+     * 这里给自定义胶囊补一个同样外观和行为的菜单：
+     *   - 未关注：点击仍直接关注；
+     *   - 已关注：点击弹出“设置分组/取消关注”；
+     *   - 设置分组复用 B 站原生 FollowedDialog，先把 UpPanel 的 upInfo 临时指向该成员；
+     *   - 取消关注调用成员卡自己的 follow()，与原生成员卡走同一套接口。
+     */
+    let teamFollowMenu = null;
+    let teamFollowMenuOwner = null;
+    let teamGroupDialogUnwatch = null;
+    let teamAutoMenuToken = 0;
+
+    function findComponentParent(vm, name) {
+        let cur = vm;
+        while (cur) {
+            if (cur.$options && (cur.$options.name === name || cur.$options._componentTag === name)) return cur;
+            cur = cur.$parent;
+        }
+        return null;
+    }
+
+    function closeTeamFollowMenu() {
+        if (!teamFollowMenu) return;
+        document.removeEventListener('click', onTeamFollowMenuOutside, true);
+        document.removeEventListener('keydown', onTeamFollowMenuKey);
+        window.removeEventListener('scroll', positionTeamFollowMenu, true);
+        window.removeEventListener('resize', positionTeamFollowMenu);
+        if (teamFollowMenuOwner) {
+            teamFollowMenuOwner.removeAttribute('aria-expanded');
+            teamFollowMenuOwner = null;
+        }
+        teamFollowMenu.remove();
+        teamFollowMenu = null;
+    }
+
+    function onTeamFollowMenuOutside(event) {
+        if (!teamFollowMenu) return;
+        if (teamFollowMenu.contains(event.target)) return;
+        if (teamFollowMenuOwner && teamFollowMenuOwner.contains(event.target)) return;
+        closeTeamFollowMenu();
+    }
+
+    function onTeamFollowMenuKey(event) {
+        if (event.key === 'Escape') closeTeamFollowMenu();
+    }
+
+    function positionTeamFollowMenu() {
+        if (!teamFollowMenu || !teamFollowMenuOwner) return;
+        const rect = teamFollowMenuOwner.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight || rect.right < 0 || rect.left > window.innerWidth) {
+            closeTeamFollowMenu();
+            return;
+        }
+        const menuRect = teamFollowMenu.getBoundingClientRect();
+        let left = rect.left + rect.width / 2 - menuRect.width / 2;
+        left = Math.max(8, Math.min(left, window.innerWidth - menuRect.width - 8));
+        let top = rect.bottom + 8;
+        if (top + menuRect.height > window.innerHeight - 8) {
+            top = rect.top - menuRect.height - 8;
+        }
+        teamFollowMenu.style.left = Math.round(left) + 'px';
+        teamFollowMenu.style.top = Math.round(top) + 'px';
+    }
+
+    function openTeamFollowMenu(pill, component) {
+        if (teamFollowMenu && teamFollowMenuOwner === pill) {
+            closeTeamFollowMenu();
+            return;
+        }
+        closeTeamFollowMenu();
+
+        const menu = document.createElement('div');
+        menu.className = 'yt-team-follow-menu';
+        menu.setAttribute('role', 'menu');
+        const list = document.createElement('ul');
+        list.className = 'follow_dropdown';
+
+        const groupItem = document.createElement('li');
+        groupItem.setAttribute('role', 'menuitem');
+        groupItem.textContent = '设置分组';
+        groupItem.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            closeTeamFollowMenu();
+            openTeamGroupDialog(component);
+        });
+
+        const unfollowItem = document.createElement('li');
+        unfollowItem.setAttribute('role', 'menuitem');
+        unfollowItem.textContent = '取消关注';
+        unfollowItem.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            closeTeamFollowMenu();
+            teamAutoMenuToken += 1;
+            if (!component || typeof component.follow !== 'function') return;
+            component.follow();
+            const panel = q('.up-panel-container');
+            window.setTimeout(() => syncTeamPills(q('.yt-meta-row'), panel), 250);
+            window.setTimeout(() => syncTeamPills(q('.yt-meta-row'), panel), 1000);
+            window.setTimeout(() => syncTeamPills(q('.yt-meta-row'), panel), 2200);
+        });
+
+        list.appendChild(groupItem);
+        list.appendChild(unfollowItem);
+        menu.appendChild(list);
+        document.body.appendChild(menu);
+
+        teamFollowMenu = menu;
+        teamFollowMenuOwner = pill;
+        pill.setAttribute('aria-expanded', 'true');
+        positionTeamFollowMenu();
+        window.setTimeout(() => {
+            if (!teamFollowMenu) return;
+            document.addEventListener('click', onTeamFollowMenuOutside, true);
+            document.addEventListener('keydown', onTeamFollowMenuKey);
+            window.addEventListener('scroll', positionTeamFollowMenu, true);
+            window.addEventListener('resize', positionTeamFollowMenu);
+        }, 0);
+    }
+
+    // 点击“关注”且关注成功后，自动打开同一个菜单，省去再点一次“已关注”。
+    function autoOpenTeamFollowMenu(pill, card, component, followResult) {
+        const token = ++teamAutoMenuToken;
+        const tryOpen = () => {
+            if (token !== teamAutoMenuToken || !pill.isConnected) return false;
+            if (!teamFollowing(card)) return false;
+            openTeamFollowMenu(pill, component);
+            return true;
+        };
+        if (followResult && typeof followResult.then === 'function') {
+            followResult.then(() => {
+                if (token !== teamAutoMenuToken) return;
+                if (!tryOpen()) {
+                    window.setTimeout(() => {
+                        if (token === teamAutoMenuToken) tryOpen();
+                    }, 150);
+                }
+            }, () => {});
+            return;
+        }
+        const started = Date.now();
+        const timer = window.setInterval(() => {
+            if (token !== teamAutoMenuToken || !pill.isConnected) {
+                window.clearInterval(timer);
+                return;
+            }
+            if (tryOpen()) {
+                window.clearInterval(timer);
+            } else if (Date.now() - started > 5000) {
+                window.clearInterval(timer);
+            }
+        }, 100);
+    }
+
+    function openTeamGroupDialog(component) {
+        const upPanel = findComponentParent(component, 'UpPanel')
+            || (q('.up-panel-container') && q('.up-panel-container').__vue__);
+        if (!upPanel || typeof upPanel.toggleDialog !== 'function' || !component || !component.info) return;
+        const original = upPanel.upInfo;
+        upPanel.upInfo = component.info;
+        upPanel.$forceUpdate();
+        upPanel.toggleDialog('followedGroup');
+        if (!upPanel.dialogVisible) {
+            upPanel.upInfo = original;
+            upPanel.$forceUpdate();
+            return;
+        }
+        if (teamGroupDialogUnwatch) {
+            teamGroupDialogUnwatch();
+            teamGroupDialogUnwatch = null;
+        }
+        teamGroupDialogUnwatch = upPanel.$watch('dialogVisible', (visible) => {
+            if (visible) return;
+            if (teamGroupDialogUnwatch) {
+                teamGroupDialogUnwatch();
+                teamGroupDialogUnwatch = null;
+            }
+            upPanel.upInfo = original;
+            upPanel.$forceUpdate();
         });
     }
 
@@ -1710,6 +2020,7 @@
         const viewport = carousel.querySelector('.yt-team-viewport');
         const signature = staff.map((item) => `${item.mid}:${item.name}:${item.follower}`).join('|');
         if (carousel.dataset.signature !== signature) {
+            closeTeamFollowMenu();
             viewport.innerHTML = '';
             staff.forEach((member) => {
                 const item = document.createElement('div');
@@ -1752,8 +2063,15 @@
                     const panel = q('.up-panel-container');
                     const card = findTeamCard(panel, member.mid);
                     const component = card && card.__vue__;
-                    if (!component || typeof component.follow !== 'function') return;
-                    component.follow();
+                    if (!component) return;
+                    if (teamFollowing(card)) {
+                        teamAutoMenuToken += 1;
+                        openTeamFollowMenu(pill, component);
+                        return;
+                    }
+                    if (typeof component.follow !== 'function') return;
+                    const followResult = component.follow();
+                    autoOpenTeamFollowMenu(pill, card, component, followResult);
                     window.setTimeout(() => syncTeamPills(metaRow, panel), 250);
                     window.setTimeout(() => syncTeamPills(metaRow, panel), 1000);
                     window.setTimeout(() => syncTeamPills(metaRow, panel), 2200);
@@ -2257,6 +2575,7 @@
         setInterval(() => {
             if (location.href !== lastHref) {
                 lastHref = location.href;
+                closeTeamFollowMenu();
                 setTimeout(() => { safeEnsureLayout(); layoutPlayer(); }, 300);
             }
             safeEnsureLayout();
